@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UsersRolesController;
+use App\Http\Controllers\Admin\UsersPermissionsController;
+use App\Http\Controllers\HomeController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::name('admin.')->middleware(['auth'])->group(function () {
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
+
+    Route::middleware('role:Admin')
+    ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
+    ->name('users.roles.update');
+
+    Route::put('users/{user}/permissions', [UsersPermissionsController::class, 'update'])
+    ->name('users.permissions.update');
+    
+    // Datatables
+    Route::get('api/users', [UserController::class, 'datatables']);
+    Route::get('api/roles', [RoleController::class, 'datatables']);
+    Route::get('api/categories', [CategoryController::class, 'datatables']);
+    Route::get('api/products', [ProductController::class, 'datatables']);
+});
