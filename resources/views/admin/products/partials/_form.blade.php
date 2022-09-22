@@ -1,27 +1,45 @@
 @csrf
+<div class="row">
+    <div class="form-group col">
+        <label>Nombre</label>
+        <input type="text" class="form-control" name="name" value="{{ old('name', $product->name) }}">
+    </div>
 
-<div class="form-group">
-    <label>Nombre</label>
-    <input type="text" class="form-control" name="name" value="{{ old('name', $product->name) }}">
+    <div class="form-group col">
+        <label>Precio</label>
+        <input type="text" class="form-control" name="price" value="{{ old('price', $product->price) }}">
+    </div>
 </div>
+<div class="row">
+    <div class="form-group col">
+        <label>Stock</label>
+        <input type="text" class="form-control" name="stock" value="{{ old('stock', $product->stock) }}">
+    </div>
 
-<div class="form-group">
-    <label>Precio</label>
-    <input type="text" class="form-control" name="price" value="{{ old('price', $product->price) }}">
-</div>
-
-<div class="form-group">
-    <label>Stock</label>
-    <input type="text" class="form-control" name="stock" value="{{ old('stock', $product->stock) }}">
-</div>
-
-<div class="form-group">
-    <label>Categoria</label>
-    <select name="category_id" class="form-control">
-        @foreach ($categories as $id => $name)
+    <div class="form-group col">
+        <label>Categoria</label>
+        <select name="category_id" class="form-control">
+            @foreach ($categories as $id => $name)
             <option value="{{ $id }}">{{ $name }}</option>
-        @endforeach
-    </select>
+            @endforeach
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col">
+        <label>Imagen</label>
+        <div class="custom-file">
+            <input type="file" name="image" class="custom-file-input" id="customFileLang" lang="es">
+            <label class="custom-file-label" for="customFileLang">Select file</label>
+        </div>
+        <div class="text-muted"><i>Dejar en blanco para mantener la imagen</i></div>
+    </div>
+
+    <div class="col text-center">
+       @if($product->image)
+       <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" width="140px" height="140px" style="padding:15px ;border:3px solid #F6F7FC;border-radius:7%">
+       @endif
+   </div>
 </div>
 
 <div class="form-group btn-group">

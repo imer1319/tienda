@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="text-center">Vista producto</h5>
+                    <h3 class="text-center">Datos del producto</h3>
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -29,18 +29,9 @@
                                 <td>{{ $product->category->name }}</td>
                             </tr>
                             <tr>
-                                <th>Imagenes</th>
+                                <th>Imagen</th>
                                 <td>
-                                    {{-- <div class="row">
-                                        @forelse ($product->images as $image)
-                                            <div class="col-md-4">
-                                                <img src="{{ Storage::url($image->image) }}" class="img-fluid"
-                                                    alt="imagen-{{ $loop->iteration }}">
-                                            </div>
-                                        @empty
-                                            <span>No hay imagenes</span>
-                                        @endforelse
-                                    </div> --}}
+                                    <img src="{{ Storage::url($product->image) }}" width="120px" alt="{{ $product->name }}">
                                 </td>
                             </tr>
                         </tbody>

@@ -18,29 +18,53 @@
             </a>
           </li>
           <li class="nav-item">
+            @can('users_index')
             <a class="nav-link" href="{{ route('admin.users.index') }} ">
               <i class="ni ni-single-02 text-orange"></i>
               <span class="nav-link-text">Usuarios</span>
             </a>
           </li>
+          @endcan
+          @can('roles_index')
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.roles.index') }} ">
               <i class="ni ni-single-copy-04 text-info"></i>
               <span class="nav-link-text">Roles</span>
             </a>
           </li>
+          @endcan
+          @can('providers_index')
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.providers.index') }} ">
+              <i class="ni ni-single-copy-04 text-info"></i>
+              <span class="nav-link-text">Proveedores</span>
+            </a>
+          </li>
+          @endcan
+          @can('clients_index')
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.clients.index') }} ">
+              <i class="ni ni-single-copy-04 text-info"></i>
+              <span class="nav-link-text">Clientes</span>
+            </a>
+          </li>
+          @endcan
+          @can('categories_index')
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.categories.index') }} ">
               <i class="ni ni-ungroup text-danger"></i>
               <span class="nav-link-text">Categorias</span>
             </a>
           </li>
+          @endcan
+          @can('products_index')
           <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.products.index') }} ">
               <i class="ni ni-box-2 text-success"></i>
               <span class="nav-link-text">Productos</span>
             </a>
           </li>
+          @endcan
         </ul>
       </div>
     </div>

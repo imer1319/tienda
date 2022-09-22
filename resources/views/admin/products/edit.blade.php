@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     @include('admin.partials.flash-error')
-                    <form action="{{ route('admin.products.update', $product) }}" method="POST">
+                    <form action="{{ route('admin.products.update', $product) }}" enctype="multipart/form-data" method="POST">
                         @method('PUT')
                         @include('admin.products.partials._form', ['text' => 'Actualizar producto'])
                     </form>

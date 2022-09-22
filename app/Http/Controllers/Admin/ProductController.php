@@ -23,12 +23,12 @@ class ProductController extends Controller
     public function datatables()
     {
         return DataTables::of(Product::select('id', 'name', 'slug', 'price', 'stock', 'category_id'))
-            ->addColumn('category', function (Product $product) {
-                return $product->category->name;
-            })
-            ->addColumn('btn', 'admin.products.partials.btn')
-            ->rawColumns(['btn', 'category'])
-            ->toJson();
+        ->addColumn('category', function (Product $product) {
+            return $product->category->name;
+        })
+        ->addColumn('btn', 'admin.products.partials.btn')
+        ->rawColumns(['btn', 'category'])
+        ->toJson();
     }
 
     public function index()
@@ -46,7 +46,12 @@ class ProductController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $product = Product::create($request->validated());
+        $product = (new Product)->fill($request->validated());
+
+        $product->image = $request->file('image')->store('public/images');
+
+        $product->save();
+
         return redirect()->route('admin.products.index')->with('flash', 'Producto creado corretamente');
     }
 
@@ -67,7 +72,13 @@ class ProductController extends Controller
 
     public function update(UpdateRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        if ($request->hasFile('image'))
+        {
+            $product->image = $request->file('image')->store('public/images');
+        }
+
+        $product->update($request->except('image'));
+
         return redirect()->route('admin.products.index')->with('flash', 'Producto actualizado corretamente');
     }
 

@@ -88,6 +88,7 @@ class PermissionsSeeder extends Seeder
             'display_name' => 'Eliminar categorias'
         ]);
 
+
         $viewProductsPermission = Permission::create([
             'name' => 'products_index',
             'display_name' => 'Listar productos'
@@ -107,6 +108,50 @@ class PermissionsSeeder extends Seeder
         $deleteProductsPermission = Permission::create([
             'name' => 'products_destroy',
             'display_name' => 'Eliminar productos'
+        ]);
+
+
+        $viewProvidersPermission = Permission::create([
+            'name' => 'providers_index',
+            'display_name' => 'Listar proveedores'
+        ]);
+        $showProvidersPermission = Permission::create([
+            'name' => 'providers_show',
+            'display_name' => 'Ver proveedor'
+        ]);
+        $createProvidersPermission = Permission::create([
+            'name' => 'providers_create',
+            'display_name' => 'Crear proveedores'
+        ]);
+        $updateProvidersPermission = Permission::create([
+            'name' => 'providers_edit',
+            'display_name' => 'Actualizar proveedores'
+        ]);
+        $deleteProvidersPermission = Permission::create([
+            'name' => 'providers_destroy',
+            'display_name' => 'Eliminar proveedores'
+        ]);
+
+
+        $viewClientsPermission = Permission::create([
+            'name' => 'clients_index',
+            'display_name' => 'Listar clientes'
+        ]);
+        $showClientsPermission = Permission::create([
+            'name' => 'clients_show',
+            'display_name' => 'Ver cliente'
+        ]);
+        $createClientsPermission = Permission::create([
+            'name' => 'clients_create',
+            'display_name' => 'Crear clientes'
+        ]);
+        $updateClientsPermission = Permission::create([
+            'name' => 'clients_edit',
+            'display_name' => 'Actualizar clientes'
+        ]);
+        $deleteClientsPermission = Permission::create([
+            'name' => 'clients_destroy',
+            'display_name' => 'Eliminar clientes'
         ]);
 
         // Asignar todos los permisos al admin
