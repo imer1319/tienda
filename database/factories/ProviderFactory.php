@@ -14,7 +14,11 @@ class ProviderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'phone' => $this->faker->phoneNumber,
+            'document_type' => $this->faker->randomElement($array = array ('NIT','CI','OTRO')),
+            'document' => $this->faker->randomNumber($nbDigits = 9, $strict = false),
+            'comment' => $this->faker->sentence()
         ];
     }
 }

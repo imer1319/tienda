@@ -98,7 +98,7 @@ blockquote {
   background: #000;
 }
 
-input[type=email], input[type=password], input[type=text], input[type=tel] {
+input[type=email], input[type=password], input[type=text], input[type=tel] select{
   border-radius: 0;
   box-shadow: none;
   height: 45px;
@@ -114,7 +114,9 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 .form-control {
   box-shadow: none;
   border-radius: 0;
+  height: 45px;
 }
+
 .form-control:focus {
   box-shadow: none;
   border: 1px solid #000;
@@ -674,7 +676,6 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 .cart-dropdown .media {
   position: relative;
   border-bottom: 1px solid #dedede;
-  padding-bottom: 15px;
 }
 .cart-dropdown .media .pull-left {
   padding-right: 15px;
@@ -1034,6 +1035,14 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   height: 100%;
   vertical-align: middle;
   margin-right: -4px;
+}
+@media (max-width: 480px){
+  .product-modal:before {
+    display: inline;
+  }
+  .product-modal .modal-content{
+    margin-top: 20%;
+  }
 }
 .product-modal.fade .modal-dialog {
   transform: translate(0, 0);
@@ -2013,12 +2022,13 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   opacity: 1 !important;
   width: 85px;
 }
-.checkout-form .form-group input {
+select::-ms-expand { display: block !important; }
+.checkout-form .form-group input, .checkout-form .form-group select{
   border-radius: 0;
   display: block;
   padding: 6px 10px 5px 100px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  -moz-appearance: block;
+  -webkit-appearance: block;
   height: 50px;
 }
 .checkout-form .checkout-country-code .form-group {
@@ -2376,4 +2386,60 @@ input[type="number" i] {
 
 .font-weight-bold{
   font-weight: 600;
+}
+
+.contenedor{
+  margin: 1.5rem 0;
+}
+input[type="radio"]{
+  display: none;
+}
+.label-radio{
+  position: relative;
+  color: #777777;
+  font-size: 15px;
+  border: 2px solid #777777;
+  border-radius: 5px;
+  padding: 10px 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0px 0px 4px -4px;
+}
+.label-radio:before{
+  height: 30px;
+  width: 30px;
+  border: 2px solid #777777;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+input[type="radio"]:checked + .label-radio{
+  background-color: #777777;
+  color: #fff;
+}
+input[type="radio"]:checked + .label-radio:before{
+  height: 15px;
+  width: 15px;
+  border: 10px solid #fff;
+  background: #777777;
+}
+.shadow{
+  box-shadow: -5px 19px 47px -4px rgba(92,83,83,0.34);
+  -webkit-box-shadow: -5px 19px 47px -4px rgba(92,83,83,0.34);
+  -moz-box-shadow: -5px 19px 47px -4px rgba(92,83,83,0.34);
+}
+
+.p-3{
+  padding: 1.5rem;
+}
+.py-5{
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+.px-3{
+  padding-left:1.5rem !important;
+  padding-right:1.5rem !important;
+}
+.justify-content-end{
+  justify-content: end;
 }

@@ -24,9 +24,19 @@
                         Carrito
                     </router-link>
                 </li>
-                <li>
-                    <a href="/login">Login</a>
+                <li v-if="!isAuthenticated">
+                    <a href="/login">Iniciar sesión</a>
                 </li>
+                <template v-else>
+                    <li>
+                        <a href="/home">Ir al panel</a>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'sales'}">
+                            Ventas realizadas
+                        </router-link>
+                    </li>
+                </template>
 
                 <li class="dropdown cart-nav dropdown-slide">
                     <router-link

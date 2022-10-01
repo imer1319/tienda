@@ -2,7 +2,7 @@
   <div class="scrollbar-inner">
     <!-- Brand -->
     <div class="sidenav-header  align-items-center">
-      <a class="navbar-brand" href="javascript:void(0)">
+      <a class="navbar-brand" href="{{ route('pages.home') }}">
         <h3 class="text-warning">{{ config('app.name', 'Laravel') }}</h3>
       </a>
     </div>

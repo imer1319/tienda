@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8">
     <title>{{ config('app.name') }}</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Construction Html5 Template">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="user" content="{{ Auth::user() }}">
     <meta name="author" content="Themefisher">
     <meta name="generator" content="Themefisher Constra HTML Template v1.0">
 
@@ -33,21 +35,16 @@
 
 <body id="body">
     <div id="app">
-
-        <!-- Main Menu Section -->
         <section class="menu">
-           <nav-bar></nav-bar>
-       </section>
+            <nav-bar></nav-bar>
+        </section>
 
-       <router-view></router-view>
+        <router-view></router-view>
 
-       <footer-web></footer-web>
+        <footer-web></footer-web>
+    </div>
 
-   </div>
-    <!-- 
-    Essential Scripts
-    =====================================-->
-    
+
     <!-- Main jQuery -->
     <script src="/web/plugins/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.1 -->
@@ -68,7 +65,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
     <script type="text/javascript" src="/web/plugins/google-map/gmap.js"></script>
 
-    <!-- Main Js File -->
     <script src="/web/js/script.js"></script>
 </body>
 </html>

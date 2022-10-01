@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Client;
+use App\Models\Provider;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -37,5 +39,7 @@ class DatabaseSeeder extends Seeder
 
         Category::factory(5)->create();
         Product::factory(50)->create();
+        Client::factory(10)->create();
+        Provider::factory(10)->create();
     }
 }

@@ -10,7 +10,7 @@
 								<h4>Items {{ cartItemCount }}</h4>
 							</div>
 							<div class="block">
-								<div class="product-list">
+								<div class="product-list table-responsive">
 									<table class="table">
 										<thead>
 											<tr>
@@ -43,7 +43,7 @@
 														<a @click.prevent="diminishQuantityFromProduct(item.product)" class="btn btn-sm btn-primary">-</a>
 													</div>
 												</td>
-												<td>$ ${{ item.quantity * item.product.price }}</td>
+												<td>$ {{ item.quantity * item.product.price }}</td>
 												<td>
 													<a @click.prevent="removeProductFromCart(item.product)" class="product-remove"
 													>Remover</a>
@@ -62,17 +62,6 @@
 								<h4>$ {{ cartTotalPrice }}</h4>
 							</div>
 
-							<h5 class="text-uppercase mb-3">Shipping</h5>
-
-							<div class="mb-4 pb-2">
-								<select class="select">
-									<option value="1">Standard-Delivery- €5.00</option>
-									<option value="2">Two</option>
-									<option value="3">Three</option>
-									<option value="4">Four</option>
-								</select>
-							</div>
-
 							<h5 class="text-uppercase mb-3">Give code</h5>
 
 							<div class="mb-5">
@@ -88,8 +77,12 @@
 								<h5 class="text-uppercase">Total price</h5>
 								<h5>€ 137.00</h5>
 							</div>
-							
-							<button type="button" class="btn btn-small btn-solid-border">Register</button>
+							<router-link :to="{name: 'home'}" class="btn btn-block btn-primary">
+								Seguir comprando
+							</router-link>
+							<router-link :to="{name: 'checkout'}" class="btn btn-block btn-primary">
+								Ir a pagar
+							</router-link>
 						</div>
 					</div>
 				</div>
