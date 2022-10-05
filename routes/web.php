@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\UsersRolesController;
 use App\Http\Controllers\Admin\UsersPermissionsController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Artisan;
 
 Auth::routes(['register' => false]);
 
@@ -42,14 +43,12 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
 
 
 Route::get('/storage', function() {
-    $command = 'storage:link';
-    $result = Artisan::call($command);
+    Artisan::call('storage:link');
 
-    $command = 'migrate:refresh';
-    $result = Artisan::call($command);
+    Artisan::call('migrate:refresh');
 
-    $command = 'db:seed';
-    $result = Artisan::call($command);
+    Artisan::call('db:seed');
+    
     return Artisan::output();
 });
 Route::get('/{any?}', function(){
