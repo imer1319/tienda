@@ -23,11 +23,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        User::truncate();
-        Role::truncate();
-        Permission::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
+        DB::statement("TRUNCATE TABLE roles RESTART IDENTITY CASCADE");
+        DB::statement("TRUNCATE TABLE permissions RESTART IDENTITY CASCADE");
+
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // User::truncate();
+        // Role::truncate();
+        // Permission::truncate();
+        // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         Storage::disk('public')->deleteDirectory('images');
 
