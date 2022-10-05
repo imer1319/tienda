@@ -40,10 +40,6 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/products', [ProductController::class, 'datatables']);
 });
 
-Route::get('/{any?}', function(){
-    return view('welcome');
-})->name('pages.home')->where('any', '.*');
-
 
 Route::get('/storage', function() {
     $command = 'storage:link';
@@ -56,3 +52,6 @@ Route::get('/storage', function() {
     $result = Artisan::call($command);
     return Artisan::output();
 });
+Route::get('/{any?}', function(){
+    return view('welcome');
+})->name('pages.home')->where('any', '.*');
