@@ -55,4 +55,4 @@ Route::get('/storage', function() {
     $command = 'db:seed';
     $result = Artisan::call($command);
     return Artisan::output();
-})
+});
