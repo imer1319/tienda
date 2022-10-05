@@ -43,12 +43,18 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
 
 
 Route::get('/storage', function() {
-    Artisan::call('storage:link');
+    Artisan::call('storage:link',[
+     '--force' => true
+ ]);
 
-    Artisan::call('migrate:refresh');
+    Artisan::call('migrate:refresh', [
+     '--force' => true
+ ]);
 
-    Artisan::call('db:seed');
-    
+    Artisan::call('db:seed', [
+     '--force' => true
+ ]);
+
     return Artisan::output();
 });
 Route::get('/{any?}', function(){
