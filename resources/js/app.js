@@ -4,7 +4,6 @@ import Vue from 'vue';
 import router from './routes';
 import store from './store';
 
-
 Vue.component('products-list', require('./components/ProductsList').default);
 Vue.component('products-modal', require('./components/ProductsModal').default);
 Vue.component('products-list-item', require('./components/ProductsListItem').default);

@@ -13,3 +13,4 @@ Route::get('sales',  [SaleController::class, 'index']);
 Route::post('sales',  [SaleController::class, 'store']);
 
 Route::post('makeimage/{sale}', [SaleController::class, 'makeimage']);
+Route::post('twilio/{sale}', [SaleController::class, 'twilio']);

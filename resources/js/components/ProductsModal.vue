@@ -41,7 +41,8 @@
 							<span>Bs {{ sale.total }}</span>
 						</h2>
 					</div>
-					<a target="_blank" href="https://api.whatsapp.com/send?&text=_Hola_,te%20dejo%20una%20copia%20de%20tu%20recibo" class="btn btn-success">Compartir</a>
+					<!-- <a target="_blank" href="https://api.whatsapp.com/send?&text=_Hola_,te%20dejo%20una%20copia%20de%20tu%20recibo" class="btn btn-success">Compartir</a> -->
+					<a @click.prevent="enviarWhatsApp" class="btn btn-success">Enviar whatsapp</a>
 					<button id="btnCapturar" @click.prevent="capturaFoto" class="btn btn-primary">Tomar captura</button>
 				</div>
 			</div>
@@ -50,6 +51,7 @@
 </template>
 <script>
 import html2canvas from 'html2canvas';
+
 export default{
 	props:['sale'],
 	data(){
@@ -57,6 +59,15 @@ export default{
 		}
 	},
 	methods:{
+		async enviarWhatsApp(){
+			await axios.post(`/api/twilio/${this.sale.id}`)
+			.then(res=>{
+				console.log('enviado')
+			})
+			.catch(err => {
+				console.log('no enviado')
+			})
+		},
 		capturaFoto(){
 			html2canvas(document.querySelector("#capture"))
 			.then(canvas => {
