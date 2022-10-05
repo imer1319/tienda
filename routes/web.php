@@ -43,3 +43,16 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
 Route::get('/{any?}', function(){
     return view('welcome');
 })->name('pages.home')->where('any', '.*');
+
+
+Route::get('/storage', function() {
+    $command = 'storage:link';
+    $result = Artisan::call($command);
+
+    $command = 'migrate:refresh';
+    $result = Artisan::call($command);
+
+    $command = 'db:seed';
+    $result = Artisan::call($command);
+    return Artisan::output();
+})
