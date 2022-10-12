@@ -11,7 +11,7 @@ class WebController extends Controller
 {
     public function products()
     {
-        return Product::with('category')->get();
+        return Product::with('category')->where('stock','>',0)->get();
     }
 
     public function clients()

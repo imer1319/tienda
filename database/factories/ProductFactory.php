@@ -21,7 +21,8 @@ class ProductFactory extends Factory
             'stock' => rand(10,99) * 10,
             'price' => rand(40,100),
             'image' => $this->faker->imageUrl(640, 480, 'animals', true),
-            'category_id' => rand(1,5)
+            'category_id' => rand(1,5),
+            'provider_id' => rand(1,10)
         ];
     }
 }

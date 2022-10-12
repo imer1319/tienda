@@ -29,6 +29,11 @@ class Sale extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function debts()
+    {
+        return $this->hasMany(Debt::class);
+    }
+
     public function getPublishedDateAttribute()
     {
         return optional($this->created_at)->format('M d Y g:i A');

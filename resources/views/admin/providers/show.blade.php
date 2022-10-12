@@ -32,6 +32,31 @@
                             <th>Comentarios</th>
                             <td>{{ $provider->comment }}</td>
                         </tr>
+                        <tr>
+                            <th>Productos</th>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($provider->products as $product)
+                                        <tr>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->name }}</td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td>No hay productos</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="mt-3">

@@ -12,14 +12,14 @@
         <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="{{ route('home') }}">
+            <a class="nav-link {{ Route::is('home') ? 'active' : '' }}" href="{{ route('home') }}">
               <i class="ni ni-tv-2 text-primary"></i>
               <span class="nav-link-text">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
             @can('users_index')
-            <a class="nav-link" href="{{ route('admin.users.index') }} ">
+            <a class="nav-link  {{ Route::is('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }} ">
               <i class="ni ni-single-02 text-orange"></i>
               <span class="nav-link-text">Usuarios</span>
             </a>
@@ -27,7 +27,7 @@
           @endcan
           @can('roles_index')
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.roles.index') }} ">
+            <a class="nav-link  {{ Route::is('admin.roles.index') ? 'active' : '' }}" href="{{ route('admin.roles.index') }} ">
               <i class="ni ni-single-copy-04 text-info"></i>
               <span class="nav-link-text">Roles</span>
             </a>
@@ -35,7 +35,7 @@
           @endcan
           @can('providers_index')
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.providers.index') }} ">
+            <a class="nav-link  {{ Route::is('admin.providers.index') ? 'active' : '' }}" href="{{ route('admin.providers.index') }} ">
               <i class="ni ni-single-copy-04 text-info"></i>
               <span class="nav-link-text">Proveedores</span>
             </a>
@@ -43,7 +43,7 @@
           @endcan
           @can('clients_index')
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.clients.index') }} ">
+            <a class="nav-link  {{ Route::is('admin.clients.index') ? 'active' : '' }}" href="{{ route('admin.clients.index') }} ">
               <i class="ni ni-single-copy-04 text-info"></i>
               <span class="nav-link-text">Clientes</span>
             </a>
@@ -51,7 +51,7 @@
           @endcan
           @can('categories_index')
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.categories.index') }} ">
+            <a class="nav-link  {{ Route::is('admin.categories.index') ? 'active' : '' }}" href="{{ route('admin.categories.index') }} ">
               <i class="ni ni-ungroup text-danger"></i>
               <span class="nav-link-text">Categorias</span>
             </a>
@@ -59,7 +59,7 @@
           @endcan
           @can('products_index')
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.products.index') }} ">
+            <a class="nav-link  {{ Route::is('admin.products.index') ? 'active' : '' }}" href="{{ route('admin.products.index') }} ">
               <i class="ni ni-box-2 text-success"></i>
               <span class="nav-link-text">Productos</span>
             </a>

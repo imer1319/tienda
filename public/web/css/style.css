@@ -329,7 +329,6 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 
 .page-header {
   background: #f5f5f5;
-  margin-top: 20px;
   border-bottom: none;
   padding: 30px 0;
 }
@@ -761,6 +760,9 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 .navigation .navbar-nav > li > a:hover, .navigation .navbar-nav > li > a:active, .navigation .navbar-nav > li > a:focus {
   background: none;
   color: #000;
+}
+a.active{
+ border-bottom: 3px solid #eae8e8;
 }
 .navigation .container {
   position: relative;
@@ -2067,6 +2069,49 @@ select::-ms-expand { display: block !important; }
   font-size: 16px;
   text-transform: uppercase;
 }
+.card{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.border-right{
+  border-right: 1px solid #d3cfcf;
+}
+
+.btn-dark {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.btn-dark:hover {
+  color: #fff;
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+
+.btn-dark:focus, .btn-dark.focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+}
+
+.btn-dark.disabled, .btn-dark:disabled {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.btn-dark:not(:disabled):not(.disabled):active, .btn-dark:not(:disabled):not(.disabled).active,
+.show > .btn-dark.dropdown-toggle {
+  color: #fff;
+  background-color: #1d2124;
+  border-color: #171a1d;
+}
+
+.btn-dark:not(:disabled):not(.disabled):active:focus, .btn-dark:not(:disabled):not(.disabled).active:focus,
+.show > .btn-dark.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+}
+
 .shopping.cart .account-details .btn-pay {
   margin: 20px 0;
 }
@@ -2362,7 +2407,7 @@ select::-ms-expand { display: block !important; }
   border-radius: 7%;
 }
 .form-control-sm{
-  width: 40px !important;
+  width: 60px !important;
   margin-right: 8px !important;
   margin-left: 8px !important;
 }
@@ -2442,4 +2487,72 @@ input[type="radio"]:checked + .label-radio:before{
 }
 .justify-content-end{
   justify-content: end;
+}
+.fa{
+  font-size: 20px !important;
+}
+.input-group {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex !important;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 100%;
+}
+
+
+.input-group-prepend,
+.input-group-append {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex !important;
+}
+
+.input-group-prepend .btn,
+.input-group-append .btn {
+  position: relative;
+  z-index: 2;
+}
+
+.input-group-prepend .btn + .btn,
+.input-group-prepend .btn + .input-group-text,
+.input-group-prepend .input-group-text + .input-group-text,
+.input-group-prepend .input-group-text + .btn,
+.input-group-append .btn + .btn,
+.input-group-append .btn + .input-group-text,
+.input-group-append .input-group-text + .input-group-text,
+.input-group-append .input-group-text + .btn {
+  margin-left: -1px;
+}
+
+.input-group-prepend {
+  margin-right: -1px;
+}
+
+.input-group-append {
+  margin-left: -1px;
+}
+.form-control-lg, .input-group-lg > .form-control,
+.input-group-lg > .input-group-prepend > .input-group-text,
+.input-group-lg > .input-group-append > .input-group-text,
+.input-group-lg > .input-group-prepend > .btn,
+.input-group-lg > .input-group-append > .btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.form-control:not([size]):not([multiple]),
+.input-group-lg > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
+.input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]),
+.input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),
+.input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]) {
+  height: calc(2.875rem + 2px);
+}
+.swal2-popup {
+  font-size: 1.4rem !important;
+  font-family: Georgia, serif;
 }

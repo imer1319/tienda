@@ -23,15 +23,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
-        DB::statement("TRUNCATE TABLE roles RESTART IDENTITY CASCADE");
-        DB::statement("TRUNCATE TABLE permissions RESTART IDENTITY CASCADE");
+        // DB::statement("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
+        // DB::statement("TRUNCATE TABLE roles RESTART IDENTITY CASCADE");
+        // DB::statement("TRUNCATE TABLE permissions RESTART IDENTITY CASCADE");
 
-        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        // User::truncate();
-        // Role::truncate();
-        // Permission::truncate();
-        // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        User::truncate();
+        Role::truncate();
+        Permission::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         Storage::disk('public')->deleteDirectory('images');
 
@@ -41,9 +41,9 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
         ]);
 
+        Provider::factory(10)->create();
         Category::factory(5)->create();
         Product::factory(50)->create();
         Client::factory(10)->create();
-        Provider::factory(10)->create();
     }
 }

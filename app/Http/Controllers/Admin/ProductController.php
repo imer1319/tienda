@@ -7,6 +7,7 @@ use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Provider;
 use Yajra\Datatables\Datatables;
 
 class ProductController extends Controller
@@ -40,7 +41,8 @@ class ProductController extends Controller
     {
         return view('admin.products.create', [
             'product' => new Product(),
-            'categories' => Category::pluck('name', 'id')
+            'categories' => Category::pluck('name', 'id'),
+            'providers' => Provider::pluck('name', 'id')
         ]);
     }
 
@@ -66,7 +68,8 @@ class ProductController extends Controller
     {
         return view('admin.products.edit', [
             'product' => $product,
-            'categories' => Category::pluck('name', 'id')
+            'categories' => Category::pluck('name', 'id'),
+            'providers' => Provider::pluck('name', 'id')
         ]);
     }
 

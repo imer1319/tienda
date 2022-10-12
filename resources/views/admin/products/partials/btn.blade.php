@@ -10,7 +10,7 @@
     <form action="{{ route('admin.products.destroy', $slug) }}" method="post" style="display:inline-block">
         @csrf
         @method('DELETE')
-        <button type="submit" name="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i
+        <button type="submit" name="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Realmente desea eliminar el producto?')"><i
                 class="fa fa-trash"></i>
         </button>
     </form>

@@ -10,7 +10,7 @@
     <form action="{{ route('admin.clients.destroy', $id) }}" style="display:inline" method="post">
         @csrf
         @method('DELETE')
-        <button type="submit" name="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i
+        <button type="submit" name="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Realmente desea eliminar al cliente?')"><i
                 class="fa fa-trash"></i>
         </button>
     </form>

@@ -1,5 +1,11 @@
 export default {
     products: [],
     product: {},
-    cart: []
+    cart: [],
+    debts: [],
+    sales: [],
+    sale:{
+        debts:[],
+        products:[]
+    }
 }

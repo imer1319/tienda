@@ -22,7 +22,8 @@ class SaleResource extends JsonResource
             'published_date' => $this->published_date,
             'total' => $this->total,
             'status' => $this->status,
-            'products' => ProductResource::collection($this->products)
+            'products' => ProductResource::collection($this->products),
+            'debts' => DebtResource::collection($this->debts)
         ];
     }
 }

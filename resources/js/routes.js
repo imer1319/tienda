@@ -31,6 +31,11 @@ export default new Router({
         component: require('./views/Sales').default
     },
     {
+        path: '/deudas',
+        name: 'debts',
+        component: require('./views/Debts').default
+    },
+    {
         path: '*',
         component: require('./views/404')
     }

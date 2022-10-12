@@ -41,22 +41,6 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/products', [ProductController::class, 'datatables']);
 });
 
-
-Route::get('/storage', function() {
-    Artisan::call('storage:link',[
-     '--force' => true
- ]);
-
-    Artisan::call('migrate:refresh', [
-     '--force' => true
- ]);
-
-    Artisan::call('db:seed', [
-     '--force' => true
- ]);
-
-    return Artisan::output();
-});
 Route::get('/{any?}', function(){
     return view('welcome');
 })->name('pages.home')->where('any', '.*');

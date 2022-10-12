@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="/web/plugins/themefisher-font/style.css">
     <!-- bootstrap.min css -->
     <link rel="stylesheet" href="/web/plugins/bootstrap/css/bootstrap.min.css">
-
+    <!-- fontawesome.min css -->
+    <link rel="stylesheet" href="/admin/vendor/font-awesome/css/font-awesome.min.css" type="text/css">
     <!-- Animate css -->
     <link rel="stylesheet" href="/web/plugins/animate/animate.css">
     <!-- Slick Carousel -->

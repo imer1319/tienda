@@ -36,6 +36,11 @@
                             Ventas realizadas
                         </router-link>
                     </li>
+                    <li>
+                        <router-link :to="{name: 'debts'}">
+                            Ventas a deuda
+                        </router-link>
+                    </li>
                 </template>
 
                 <li class="dropdown cart-nav dropdown-slide">
