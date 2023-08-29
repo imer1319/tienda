@@ -153,8 +153,6 @@
 
 @section('scripts')
 <script>
-    console.log(@json($gananciasYear))
-    console.log(@json($year))
     let salesMonth = {
         labels:  @json($meses),
         datasets: [{

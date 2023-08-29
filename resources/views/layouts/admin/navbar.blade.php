@@ -19,7 +19,10 @@
             </div>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item">
-              <b>Role:</b>{{ Auth::user()->getRoleDisplayNames() }}
+              <b>Rol: </b>{{ Auth::user()->getRoleDisplayNames() }}
+            </a>
+            <a class="dropdown-item" href="{{ route('admin.users.edit', auth()->user()) }}">
+              Perfil
             </a>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               Cerrar

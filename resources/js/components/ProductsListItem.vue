@@ -3,7 +3,8 @@
 		<div class="product-item">
 			<div class="product-thumb">
 				<span class="bage">{{ product.category.name }}</span>
-				<img class="img-responsive" :src="`${product.image}`" alt="product-img" />
+				<!-- <img class="img-responsive" :src="`${product.image}`" alt="product-img" /> -->
+				<img class="img-responsive" src="/images/reloj.jpg" alt="product-img" />
 				<div class="preview-meta">
 					<ul>
 						<li>

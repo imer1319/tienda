@@ -29,7 +29,6 @@
 									<h4><b>Tipo de venta: </b>{{ sale.sale_type }}</h4>
 									<div class="btn-group d-flex justify-content-end">
 										<a @click.prevent="showSale(sale)" class="btn btn-info"><i class="fa fa-eye"></i></a>
-										<a @click.prevent="removeSale(sale, index)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 									</div>
 								</div>
 							</div>
@@ -48,9 +47,6 @@ export default{
 		this.$store.dispatch("getSales");
 	},
 	methods:{
-		removeSale(sale, index) {
-			this.$store.dispatch("removeSale", {sale, index});
-		},
 		showSale(sale){
 			this.$store.dispatch("getSale", {sale});
 			$('#product-modal').modal('show')

@@ -30,7 +30,7 @@
         "html2pdf.js": "^0.10.1",
         "https-proxy-agent": "^5.0.1",
         "net": "^1.0.2",
-        "twilio": "^3.82.1",
+        "twilio": "^4.16.0",
         "vue-sweetalert2": "^5.0.5"
     }
 }
