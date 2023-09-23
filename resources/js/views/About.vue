@@ -1,3 +1,3 @@
 <template>
-	<div>About</div>
+	<div>Acerca de la universidad</div>
 </template>

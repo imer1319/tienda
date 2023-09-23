@@ -82,7 +82,7 @@
 								<router-link :to="{name: 'home'}" class="btn btn-dark">
 									Seguir comprando
 								</router-link>
-								<a @click.prevent="checkout"class="btn btn-success">Ir a pagar</a>
+								<a @click.prevent="checkout" class="btn btn-success">Ir a pagar</a>
 							</div>
 						</div>
 					</div>

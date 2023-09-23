@@ -2590,7 +2590,7 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("nav", {
-    staticClass: "navbar navigation"
+    staticClass: "navbar navigation fixed-top"
   }, [_c("div", {
     staticClass: "container"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
@@ -3080,7 +3080,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_vm._v("About")]);
+  return _c("div", [_vm._v("Acerca de la universidad")]);
 };
 
 var staticRenderFns = [];

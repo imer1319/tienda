@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navigation">
+    <nav class="navbar navigation fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <h2 class="menu-title">Main Menu</h2>
