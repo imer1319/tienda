@@ -17,141 +17,141 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         // Permisos
-        $viewUsersPermission = Permission::create([
+        Permission::create([
             'name' => 'users_index',
             'display_name' => 'Listar usuarios'
         ]);
-        $showUsersPermission = Permission::create([
+        Permission::create([
             'name' => 'users_show',
             'display_name' => 'Ver usuario'
         ]);
-        $createUsersPermission = Permission::create([
+        Permission::create([
             'name' => 'users_create',
             'display_name' => 'Crear usuarios'
         ]);
-        $updateUsersPermission = Permission::create([
+        Permission::create([
             'name' => 'users_edit',
             'display_name' => 'Actualizar usuarios'
         ]);
-        $deleteUsersPermission = Permission::create([
+        Permission::create([
             'name' => 'users_destroy',
             'display_name' => 'Eliminar usuarios'
         ]);
-        $editProfileUsersPermission = Permission::create([
+        Permission::create([
             'name' => 'users_profile',
             'display_name' => 'Editar perfil'
         ]);
 
-        $viewRolesPermission = Permission::create([
+        Permission::create([
             'name' => 'roles_index',
             'display_name' => 'Listar roles'
         ]);
-        $createRolesPermission = Permission::create([
+        Permission::create([
             'name' => 'roles_create',
             'display_name' => 'Crear roles'
         ]);
-        $showRolesPermission = Permission::create([
+        Permission::create([
             'name' => 'roles_show',
             'display_name' => 'Ver rol'
         ]);
-        $updateRolesPermission = Permission::create([
+        Permission::create([
             'name' => 'roles_edit',
             'display_name' => 'Actualizar roles'
         ]);
-        $deleteRolesPermission = Permission::create([
+        Permission::create([
             'name' => 'roles_destroy',
             'display_name' => 'Eliminar roles'
         ]);
-        $viewPermissionsPermission = Permission::create([
+        Permission::create([
             'name' => 'permissions_index',
             'display_name' => 'Listar permisos'
         ]);
-        $updatePermissionsPermission = Permission::create([
+        Permission::create([
             'name' => 'permissions_edit',
             'display_name' => 'Actualizar permisos'
         ]);
 
-        $viewCategoriesPermission = Permission::create([
+        Permission::create([
             'name' => 'categories_index',
             'display_name' => 'Listar categorias'
         ]);
-        $createCategoriesPermission = Permission::create([
+        Permission::create([
             'name' => 'categories_create',
             'display_name' => 'Crear categorias'
         ]);
-        $updateCategoriesPermission = Permission::create([
+        Permission::create([
             'name' => 'categories_edit',
             'display_name' => 'Actualizar categorias'
         ]);
-        $deleteCategoriesPermission = Permission::create([
+        Permission::create([
             'name' => 'categories_destroy',
             'display_name' => 'Eliminar categorias'
         ]);
 
 
-        $viewProductsPermission = Permission::create([
+        Permission::create([
             'name' => 'products_index',
             'display_name' => 'Listar productos'
         ]);
-        $showProductsPermission = Permission::create([
+        Permission::create([
             'name' => 'products_show',
             'display_name' => 'Ver producto'
         ]);
-        $createProductsPermission = Permission::create([
+        Permission::create([
             'name' => 'products_create',
             'display_name' => 'Crear productos'
         ]);
-        $updateProductsPermission = Permission::create([
+        Permission::create([
             'name' => 'products_edit',
             'display_name' => 'Actualizar productos'
         ]);
-        $deleteProductsPermission = Permission::create([
+        Permission::create([
             'name' => 'products_destroy',
             'display_name' => 'Eliminar productos'
         ]);
 
 
-        $viewProvidersPermission = Permission::create([
+        Permission::create([
             'name' => 'providers_index',
             'display_name' => 'Listar proveedores'
         ]);
-        $showProvidersPermission = Permission::create([
+        Permission::create([
             'name' => 'providers_show',
             'display_name' => 'Ver proveedor'
         ]);
-        $createProvidersPermission = Permission::create([
+        Permission::create([
             'name' => 'providers_create',
             'display_name' => 'Crear proveedores'
         ]);
-        $updateProvidersPermission = Permission::create([
+        Permission::create([
             'name' => 'providers_edit',
             'display_name' => 'Actualizar proveedores'
         ]);
-        $deleteProvidersPermission = Permission::create([
+        Permission::create([
             'name' => 'providers_destroy',
             'display_name' => 'Eliminar proveedores'
         ]);
 
 
-        $viewClientsPermission = Permission::create([
-            'name' => 'clients_index',
-            'display_name' => 'Listar clientes'
+        Permission::create([
+            'name' => 'profiles_index',
+            'display_name' => 'Listar perfiles'
         ]);
-        $showClientsPermission = Permission::create([
-            'name' => 'clients_show',
-            'display_name' => 'Ver cliente'
+        Permission::create([
+            'name' => 'profiles_show',
+            'display_name' => 'Ver perfil'
         ]);
-        $createClientsPermission = Permission::create([
-            'name' => 'clients_create',
-            'display_name' => 'Crear clientes'
+        Permission::create([
+            'name' => 'profiles_create',
+            'display_name' => 'Crear perfiles'
         ]);
-        $updateClientsPermission = Permission::create([
-            'name' => 'clients_edit',
-            'display_name' => 'Actualizar clientes'
+        Permission::create([
+            'name' => 'profiles_edit',
+            'display_name' => 'Actualizar perfiles'
         ]);
-        $deleteClientsPermission = Permission::create([
-            'name' => 'clients_destroy',
-            'display_name' => 'Eliminar clientes'
+        Permission::create([
+            'name' => 'profiles_destroy',
+            'display_name' => 'Eliminar perfiles'
         ]);
 
         // Asignar todos los permisos al admin

@@ -1,5 +1,5 @@
 export const cartItemCount = (state) => {
-    let count = '';
+    let count = 0;
     state.cart.forEach(item => {
         count += item.quantity;
     });

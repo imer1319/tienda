@@ -15,12 +15,12 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->enum('sale_type',['CONTADO','DEUDA'])->default('CONTADO');
-            $table->enum('status',['PENDIENTE','PAGADO'])->default('PENDIENTE');
+            $table->foreignId('pedido_id')->constrained('pedidos');
+            $table->foreignId('conductor_id')->constrained('drivers');
+            $table->foreignId('secretaria_id')->constrained('users');
+            $table->enum('status',['EN PROCESO','PENDIENTE','COMPLETADO'])->default('EN PROCESO');
             $table->bigInteger('total');
-            $table->string('image')->nullable();
+            $table->bigInteger('cantidad_restante');
             $table->timestamps();
         });
     }

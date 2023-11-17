@@ -9,16 +9,13 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3>Listado de roles</h3>
-                    @can('roles_create')
-                    <a href="{{ route('admin.roles.create') }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Crear nuevo</a>
-                    @endcan
                 </div>
                 <table class="table" id="table-roles">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
-                            <th>Display_name</th>
+                            <th>Descripcion</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>

@@ -17,18 +17,8 @@
                                 <td>{{ $role->name }}</td>
                             </tr>
                             <tr>
-                                <th>Display name</th>
+                                <th>Descripcion</th>
                                 <td>{{ $role->display_name }}</td>
-                            </tr>
-                            <tr>
-                                <th>Permisos</th>
-                                <td class="d-flex flex-wrap">
-                                    @forelse ($role->permissions as $permission)
-                                        <span class="badge bg-info text-white m-1">{{ $permission->display_name }}</span>
-                                    @empty
-                                        <span>No tiene asignado ningun permiso</span>
-                                    @endforelse
-                                </td>
                             </tr>
                         </tbody>
                     </table>

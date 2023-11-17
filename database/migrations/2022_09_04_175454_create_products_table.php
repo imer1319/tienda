@@ -20,8 +20,9 @@ class CreateProductsTable extends Migration
             $table->bigInteger('stock');
             $table->decimal('price');
             $table->string('image');
+            $table->enum('estado',['ACTIVO','INACTIVO'])->default('ACTIVO');
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('provider_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('provider_id')->constrained('providers')->cascadeOnDelete();
             $table->timestamps();
         });
     }

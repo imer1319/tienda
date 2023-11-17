@@ -53,4 +53,19 @@ class User extends Authenticatable
     {
         return $this->roles->pluck('display_name')->implode(', ');
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'secretaria_id');
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . optional($this->profile)->apellido_paterno . ' ' . optional($this->profile)->apellido_materno;
+    }
 }

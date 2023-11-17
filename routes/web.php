@@ -5,26 +5,27 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\UsersRolesController;
 use App\Http\Controllers\Admin\UsersPermissionsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
-    Route::resource('roles', RoleController::class);
+    Route::resource('roles', RoleController::class)->except(['create','edit','destroy']);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('providers', ProviderController::class);
-    Route::resource('clients', ClientController::class);
-
+    Route::resource('profiles', ProfileController::class)->except(['create','edit','index']);
+    Route::get('clients', [ProfileController::class, 'index'])->name('clients.index');
     Route::middleware('role:Admin')
     ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
     ->name('users.roles.update');
@@ -34,7 +35,7 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     
     // Datatables
     Route::get('api/users', [UserController::class, 'datatables']);
-    Route::get('api/clients', [ClientController::class, 'datatables']);
+    Route::get('api/clients', [ProfileController::class, 'datatables']);
     Route::get('api/providers', [ProviderController::class, 'datatables']);
     Route::get('api/roles', [RoleController::class, 'datatables']);
     Route::get('api/categories', [CategoryController::class, 'datatables']);

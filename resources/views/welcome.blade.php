@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <title>{{ config('app.name') }}</title>
@@ -9,7 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Construction Html5 Template">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="user" content="{{ Auth::user() }}">
+    @auth()
+        <meta name="user" content="{{ Auth::user()->load('roles') }}">
+    @else
+        <meta name="user" content="{{ Auth::user() }}">
+    @endauth
+
     <meta name="author" content="Themefisher">
     <meta name="generator" content="Themefisher Constra HTML Template v1.0">
 
@@ -36,7 +42,7 @@
 
 <body id="body">
     <div id="app">
-        <section class="menu">
+        <section class="menu fixed-top bg-shadow">
             <nav-bar></nav-bar>
         </section>
 
@@ -62,10 +68,8 @@
     <script src="/web/plugins/slick/slick.min.js"></script>
     <script src="/web/plugins/slick/slick-animation.min.js"></script>
 
-    <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="/web/plugins/google-map/gmap.js"></script>
 
     <script src="/web/js/script.js"></script>
 </body>
+
 </html>

@@ -7,20 +7,20 @@
 
     <div class="form-group col">
         <label>Precio</label>
-        <input type="text" class="form-control" name="price" value="{{ old('price', $product->price) }}">
+        <input type="number" class="form-control" name="price" value="{{ old('price', $product->price) }}">
     </div>
 </div>
 <div class="row">
     <div class="form-group col">
         <label>Stock</label>
-        <input type="text" class="form-control" name="stock" value="{{ old('stock', $product->stock) }}">
+        <input type="number" class="form-control" name="stock" value="{{ old('stock', $product->stock) }}">
     </div>
 
     <div class="form-group col">
         <label>Categoria</label>
         <select name="category_id" class="form-control">
             @foreach ($categories as $id => $name)
-            <option value="{{ $id }}">{{ $name }}</option>
+                <option value="{{ $id }}">{{ $name }}</option>
             @endforeach
         </select>
     </div>
@@ -29,26 +29,29 @@
     <div class="form-group col">
         <label>Imagen</label>
         <div class="custom-file">
-            <input type="file" name="image" class="custom-file-input" id="customFileLang" lang="es">
-            <label class="custom-file-label" for="customFileLang">Select file</label>
+            <input type="file" name="image" class="custom-file-input" id="customFileLang" lang="es"
+                accept="image/*">
+            <label class="custom-file-label" for="customFileLang">Seleccionar archivo</label>
         </div>
     </div>
+
     <div class="form-group col">
         <label>Proveedores</label>
         <select name="provider_id" class="form-control">
             @foreach ($providers as $id => $name)
-            <option value="{{ $id }}">{{ $name }}</option>
+                <option value="{{ $id }}">{{ $name }}</option>
             @endforeach
         </select>
     </div>
 </div>
 <div class="row">
     <div class="col form-group">
-       @if($product->image)
-       <div class="text-muted"><i>Dejar en blanco para mantener la imagen</i></div>
-       <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" width="140px" height="140px" style="padding:15px ;border:3px solid #F6F7FC;border-radius:7%">
-       @endif
-   </div>
+        @if ($product->image)
+            <div class="text-muted"><i>Dejar en blanco para mantener la imagen</i></div>
+            <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" width="140px" height="140px"
+                style="padding:15px ;border:3px solid #F6F7FC;border-radius:7%">
+        @endif
+    </div>
 </div>
 
 <div class="form-group btn-group">

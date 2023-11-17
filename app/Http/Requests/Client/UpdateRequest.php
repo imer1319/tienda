@@ -25,12 +25,22 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $providerId = $this->route('provider');
+
         return [
-           'name' => 'required|min:3',
-           'document_type' => 'required',
-           'phone' => 'required',
-           'document' => 'required',
-           'coment' => 'required'
-       ];
-   }
+            'apellido_paterno' => 'nullable|string|max:255',
+            'apellido_materno' => 'nullable|string|max:255',
+            'ci' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('providers', 'ci')->ignore($providerId),
+            ],
+            'phone' => 'nullable|string|max:255',
+            'ciudad' => 'nullable|string|max:255',
+            'direccion' => 'nullable|string|max:255',
+            'fecha_nacimiento' => 'nullable|date',
+            'genero' => 'required|in:MASCULINO,FEMENINO,OTROS',
+        ];
+    }
 }

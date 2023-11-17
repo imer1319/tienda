@@ -19,8 +19,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
-                                <th>Tipo de documento</th>
-                                <th>Documento</th>
+                                <th>Ci</th>
+                                <th>Celular</th>
+                                <th>Genero</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -54,9 +55,10 @@
                 "ajax": "/api/providers",
                 "columns": [
                 {data: 'id'},
-                {data: 'name'},
-                {data: 'document_type'},
-                {data: 'document'},
+                {data: 'full_name'},
+                {data: 'ci'},
+                {data: 'phone'},
+                {data: 'genero'},
                 {data: 'btn',"orderable": false,"searchable": false},
                 ],
                 language: {

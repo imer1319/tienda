@@ -13,13 +13,17 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('apellido_paterno')->nullable();
+            $table->string('apellido_materno')->nullable();
+            $table->string('ci')->unique();
             $table->string('phone')->nullable();
-            $table->enum('document_type',['CI','NIT','OTRO'])->default('CI')->nullable();
-            $table->string('document')->nullable();
-            $table->string('comment')->nullable();
+            $table->string('ciudad')->nullable();
+            $table->string('direccion')->nullable();
+            $table->date('fecha_nacimiento')->nullable();
+            $table->enum('genero',['MASCULINO','FEMENINO','OTROS']);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

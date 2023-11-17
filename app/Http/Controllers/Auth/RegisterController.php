@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -51,8 +56,14 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'apellido_paterno' => ['required', 'string'],
+            'apellido_materno' => ['required', 'string'],
+            'genero' => ['required', 'string', Rule::in(['MASCULINO', 'FEMENINO', 'OTROS'])],
+            'fecha_nacimiento' => ['required', 'date'],
+            'ci' => ['required', 'string', 'unique:profiles'],
         ]);
     }
 
@@ -64,10 +75,38 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return DB::transaction(function () use ($data) {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'username' => $data['username'],
+                'password' => $data['password']
+            ]);
+
+            $client = new Profile([
+                'apellido_paterno' => $data['apellido_paterno'],
+                'apellido_materno' => $data['apellido_materno'],
+                'ci' => $data['ci'],
+                'fecha_nacimiento' => $data['fecha_nacimiento'],
+                'genero' => $data['genero'],
+            ]);
+
+            $user->save();
+            $user->profile()->save($client);
+
+            $clienteRole = Role::findByName('Cliente');
+            $user->assignRole($clienteRole);
+
+            return $user;
+        });
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        if ($user->hasRole('Cliente')) {
+            return redirect('/');
+        }
+
+        return redirect($this->redirectTo);
     }
 }

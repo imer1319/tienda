@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Provider extends Model
+class Driver extends Model
 {
     use HasFactory;
 
@@ -17,16 +17,14 @@ class Provider extends Model
         'phone',
         'direccion',
         'fecha_nacimiento',
+        'placa',
+        'modelo_movil',
+        'categoria_licencia',
         'genero',
     ];
 
-    public function products()
+    public function ventas()
     {
-        return $this->hasMany(Product::class);
-    }
-    
-    public function getFullNameAttribute()
-    {
-        return "{$this->name} {$this->apellido_paterno} {$this->apellido_materno}";
+        return $this->hasMany(Sale::class);
     }
 }

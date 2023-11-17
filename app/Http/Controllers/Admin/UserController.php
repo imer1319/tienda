@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
@@ -21,10 +20,13 @@ class UserController extends Controller
         $this->middleware('permission:users_edit')->only(['edit', 'update']);
         $this->middleware('permission:users_destroy')->only('destroy');
     }
-    
+
     public function datatables()
     {
-        return DataTables::of(User::select('id', 'username', 'name'))
+        return DataTables::of(User::select('id', 'username', 'name')
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'Cliente');
+            }))
             ->addColumn('role', function (User $user) {
                 $return = '';
                 foreach ($user->roles as $role) {

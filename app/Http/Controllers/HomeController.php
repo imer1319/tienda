@@ -8,6 +8,7 @@ use App\Models\Sale;
 use App\Models\User;
 use App\Models\Provider;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -19,7 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'role:Admin|Secre']);
     }
 
     /**
@@ -30,7 +31,7 @@ class HomeController extends Controller
     public function index()
     {
         $date = Carbon::now();
-        
+
         $year = [];
         $sales_month = [];
         $debts_month = [];
@@ -49,34 +50,32 @@ class HomeController extends Controller
             "Noviembre",
             "Diciembre"
         ];
-        for ($i = 4; $i > -1; $i--) 
-        {
+        for ($i = 4; $i > -1; $i--) {
             $year[] = $date->year - $i;
         }
 
-        foreach ($year as $value) 
-        {
+        foreach ($year as $value) {
             $gananciasYear[] = Sale::where(DB::raw("DATE_FORMAT(created_at, '%Y')"), $value)->sum('total');
         }
-        for ($i = 1 ; $i<= 12; $i++){
-            $sales_month[] = Sale::where('status','PAGADO')
-            ->whereYear('created_at',$date->year)
-            ->whereMonth('created_at', '=', $i)
-            ->count();
+        for ($i = 1; $i <= 12; $i++) {
+            $sales_month[] = Sale::where('status', 'PAGADO')
+                ->whereYear('created_at', $date->year)
+                ->whereMonth('created_at', '=', $i)
+                ->count();
         }
 
-        for ($i = 1 ; $i<= 12; $i++){
-            $debts_month[] = Sale::where('status','PENDIENTE')
-            ->whereYear('created_at',$date->year)
-            ->whereMonth('created_at', '=', $i)
-            ->count();
+        for ($i = 1; $i <= 12; $i++) {
+            $debts_month[] = Sale::where('status', 'PENDIENTE')
+                ->whereYear('created_at', $date->year)
+                ->whereMonth('created_at', '=', $i)
+                ->count();
         }
 
-        return view('home',[
+        return view('home', [
             'users' => User::count(),
             'providers' => Provider::count(),
-            'sales' => Sale::where('status','PAGADO')->count(),
-            'debts' => Sale::where('status','PENDIENTE')->count(),
+            'sales' => Sale::where('status', 'PAGADO')->count(),
+            'debts' => Sale::where('status', 'PENDIENTE')->count(),
             'debts_month' => $debts_month,
             'sales_month' => $sales_month,
             'meses' => $meses,

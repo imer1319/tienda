@@ -25,13 +25,14 @@ class UsersSeeder extends Seeder
             'password' => '123123'
         ]);
         $user = User::create([
-            'name' => 'User', 
-            'username' => 'Usuario',
-            'email' => 'user@user.com',
+            'name' => 'Secre', 
+            'username' => 'Secretaria',
+            'email' => 'secre@secre.com',
             'password' => '123123'
         ]);
+
         //Asignar roles a los usuarios
         $admin->assignRole(Role::findByName('Admin'));
-        $user->assignRole(Role::findByName('User'));
+        $user->assignRole(Role::findByName('Secre'));
     }
 }

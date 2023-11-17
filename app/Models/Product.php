@@ -18,13 +18,12 @@ class Product extends Model
 
     public function provider()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Provider::class);
     }
 
-    public function sales()
+    public function detalle()
     {
-        return $this->belongsToMany(Sale::class, 'product_sale')
-        ->withPivot('quantity');
+        return $this->belongsTo(DetallePedido::class);
     }
 
     public function getRouteKeyName()

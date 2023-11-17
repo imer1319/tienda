@@ -9,15 +9,19 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['client_id', 'user_id', 'sale_type', 'status', 'total'];
+    protected $fillable = [
+        'client_id',
+        'pedido_id',
+        'conductor_id',
+        'secretaria_id',
+        'debt_id',
+        'status',
+        'total',
+        'cantidad_restante'
+    ];
 
     protected $appends = ['published_date'];
 
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'product_sale')
-        ->withPivot('quantity');
-    }
 
     public function client()
     {
@@ -26,7 +30,17 @@ class Sale extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'secretaria_id');
+    }
+
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class);
+    }
+
+    public function conductor()
+    {
+        return $this->belongsTo(Driver::class);
     }
 
     public function debts()

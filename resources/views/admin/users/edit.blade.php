@@ -22,7 +22,8 @@
 
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" name="username" value="{{ old('username', $user->username) }}">
+                            <input type="text" class="form-control" name="username"
+                                value="{{ old('username', $user->username) }}">
                         </div>
 
                         <div class="form-group">
@@ -73,30 +74,6 @@
                                 <li class="list-group-item">
                                     <span class="text-muted">No tienes roles para mostrar</span>
                                 </li>
-                            @endforelse
-                        </ul>
-                    @endrole
-                </div>
-            </div>
-            <div class="card mt-md-3">
-                <div class="card-header">
-                    <h5 class="text-center">Permisos adicionales</h5>
-                </div>
-                <div class="card-body">
-                    @role('Admin')
-                        <form action="{{ route('admin.users.permissions.update', $user) }}" method="POST">
-                            @csrf @method('put')
-
-                            @include('admin.permissions.checkboxes', ['model' => $user])
-
-                            <button class="btn btn-primary btn-block">Actualizar permisos</button>
-                        </form>
-                    @else
-                        <ul class="list-group">
-                            @forelse ($user->permissions as $permission)
-                                <li class="list-group-item">{{ $permission->name }}</li>
-                            @empty
-                                <span class="text-muted">No tienes permisos para mostrar</span>
                             @endforelse
                         </ul>
                     @endrole

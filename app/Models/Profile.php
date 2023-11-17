@@ -5,28 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Provider extends Model
+class Profile extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'apellido_paterno',
         'apellido_materno',
         'ci',
         'phone',
+        'ciudad',
         'direccion',
         'fecha_nacimiento',
         'genero',
+        'user_id'
     ];
 
-    public function products()
+    public function user()
     {
-        return $this->hasMany(Product::class);
-    }
-    
-    public function getFullNameAttribute()
-    {
-        return "{$this->name} {$this->apellido_paterno} {$this->apellido_materno}";
+        return $this->belongsTo(User::class);
     }
 }

@@ -19,14 +19,18 @@ class ProviderController extends Controller
         $this->middleware('permission:providers_edit')->only(['edit', 'update']);
         $this->middleware('permission:providers_destroy')->only('destroy');
     }
-    
+
     public function datatables()
     {
-        return DataTables::of(Provider::select('id', 'name', 'document_type','document'))
-        ->addColumn('btn', 'admin.providers.partials.btn')
-        ->rawColumns(['btn'])
-        ->toJson();
+        return DataTables::of(Provider::select('id', 'name', 'apellido_paterno', 'apellido_materno', 'ci', 'phone', 'genero')->orderBy('id', 'desc'))
+            ->addColumn('full_name', function ($provider) {
+                return $provider->getFullNameAttribute();
+            })
+            ->addColumn('btn', 'admin.providers.partials.btn')
+            ->rawColumns(['btn'])
+            ->toJson();
     }
+
 
     public function index()
     {
@@ -49,7 +53,7 @@ class ProviderController extends Controller
     public function show(Provider $provider)
     {
         return view('admin.providers.show', [
-            'provider' => $provider
+            'provider' => $provider->load('products')
         ]);
     }
 

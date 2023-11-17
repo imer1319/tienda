@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProviderFactory extends Factory
+class DriverFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +19,12 @@ class ProviderFactory extends Factory
             'apellido_materno' => $this->faker->lastName,
             'phone' => $this->faker->phoneNumber,
             'ci' => $this->faker->randomNumber($nbDigits = 9, $strict = false),
-            'genero' => $this->faker->randomElement($array = array ('MASCULINO','FEMENINO')),
             'direccion' => $this->faker->address(),
-            'fecha_nacimiento' => $this->faker->date()
+            'fecha_nacimiento' => $this->faker->date(),
+            'placa' => $this->regexify('[A-Z]{3}-[0-9]{3,4}'),
+            'categoria_licencia' => $this->faker->randomElement($array = array ('A','B','C','P')),
+            'genero' => $this->faker->randomElement($array = array ('MASCULINO','FEMENINO')),
+            'modelo_movil' => $this->faker->randomElement($array = array ('Motocicleta','Automovil','Bicicleta','Triciclo')),
         ];
     }
 }

@@ -41,7 +41,7 @@
             </a>
           </li>
           @endcan
-          @can('clients_index')
+          @can('profiles_index')
           <li class="nav-item">
             <a class="nav-link  {{ Route::is('admin.clients.index') ? 'active' : '' }}" href="{{ route('admin.clients.index') }} ">
               <i class="ni ni-single-copy-04 text-info"></i>
