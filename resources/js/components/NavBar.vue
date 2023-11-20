@@ -21,12 +21,13 @@
 
                         <li>
                             <router-link :to="{ name: 'sales' }">
-                                Ventas realizadas
+                                Pedidos
                             </router-link>
                         </li>
+
                         <li>
-                            <router-link :to="{ name: 'debts' }">
-                                Ventas a deuda
+                            <router-link :to="{ name: 'sales' }">
+                                Perfil
                             </router-link>
                         </li>
                     </template>
@@ -75,7 +76,8 @@
                                         </div>
                                         <h5>
                                             <strong
-                                                >${{
+                                                >Bs
+                                                {{
                                                     item.quantity *
                                                     item.product.price
                                                 }}</strong
@@ -93,7 +95,7 @@
                                 <div class="cart-summary">
                                     <span>Total</span>
                                     <span class="total-price"
-                                        >${{ cartTotalPrice }}</span
+                                        >Bs {{ cartTotalPrice }}</span
                                     >
                                 </div>
                                 <ul class="text-center cart-buttons">

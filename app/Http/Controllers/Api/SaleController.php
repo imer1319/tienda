@@ -12,7 +12,7 @@ class SaleController extends Controller
 {
     public function index()
     {
-        return SaleResource::collection(Sale::where('status','PAGADO')
+        return SaleResource::collection(Sale::query()
             ->orderBy('created_at','desc')
             ->get()
         );

@@ -26,7 +26,7 @@ export default new Router({
         component: require('./views/Checkout').default
     },
     {
-        path: '/mis-ventas',
+        path: '/pedidos',
         name: 'sales',
         component: require('./views/Sales').default
     },

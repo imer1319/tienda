@@ -948,6 +948,7 @@ a.active{
 }
 
 .product-item {
+  width: 100%;
   margin-bottom: 30px;
 }
 .product-item .product-thumb {
@@ -2022,13 +2023,13 @@ a.active{
   font-weight: 400;
   text-transform: uppercase;
   opacity: 1 !important;
-  width: 85px;
+  width: 150px;
 }
 select::-ms-expand { display: block !important; }
 .checkout-form .form-group input, .checkout-form .form-group select{
   border-radius: 0;
   display: block;
-  padding: 6px 10px 5px 100px;
+  padding: 6px 10px 5px 110px;
   -moz-appearance: block;
   -webkit-appearance: block;
   height: 50px;
@@ -2575,4 +2576,10 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 }
 .mt-2{
   margin-top: 4rem;
+}
+
+.my-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }

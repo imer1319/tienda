@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PedidoController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProviderController;
@@ -20,19 +21,20 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
-    Route::resource('roles', RoleController::class)->except(['create','edit','destroy']);
+    Route::resource('roles', RoleController::class)->except(['create', 'edit', 'destroy']);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('providers', ProviderController::class);
-    Route::resource('profiles', ProfileController::class)->except(['create','edit','index']);
+    Route::resource('profiles', ProfileController::class)->except(['create', 'edit', 'index']);
+    Route::resource('pedidos', PedidoController::class)->except(['create', 'edit']);
     Route::get('clients', [ProfileController::class, 'index'])->name('clients.index');
     Route::middleware('role:Admin')
-    ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
-    ->name('users.roles.update');
+        ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
+        ->name('users.roles.update');
 
     Route::put('users/{user}/permissions', [UsersPermissionsController::class, 'update'])
-    ->name('users.permissions.update');
-    
+        ->name('users.permissions.update');
+
     // Datatables
     Route::get('api/users', [UserController::class, 'datatables']);
     Route::get('api/clients', [ProfileController::class, 'datatables']);
@@ -40,8 +42,9 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/roles', [RoleController::class, 'datatables']);
     Route::get('api/categories', [CategoryController::class, 'datatables']);
     Route::get('api/products', [ProductController::class, 'datatables']);
+    Route::get('api/pedidos', [PedidoController::class, 'datatables']);
 });
 
-Route::get('/{any?}', function(){
+Route::get('/{any?}', function () {
     return view('welcome');
 })->name('pages.home')->where('any', '.*');

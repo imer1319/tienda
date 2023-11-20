@@ -6,11 +6,12 @@
                     <h2>Lista de productos</h2>
                 </div>
             </div>
-            <div class="row">
+            <div class="my-grid-container">
                 <products-list-item
                     v-for="product in products"
                     :product="product"
                     :key="product.id"
+                    class="col-md-4"
                 />
             </div>
             <pagination
@@ -29,7 +30,7 @@ export default {
         Pagination,
     },
     mounted() {
-        this.fetchProducts(1); 
+        this.fetchProducts(1);
     },
     methods: {
         fetchProducts(pageNumber) {

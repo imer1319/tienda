@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Sale;
@@ -55,17 +56,17 @@ class HomeController extends Controller
         }
 
         foreach ($year as $value) {
-            $gananciasYear[] = Sale::where(DB::raw("DATE_FORMAT(created_at, '%Y')"), $value)->sum('total');
+            $gananciasYear[] = Pedido::where(DB::raw("DATE_FORMAT(created_at, '%Y')"), $value)->sum('total');
         }
         for ($i = 1; $i <= 12; $i++) {
-            $sales_month[] = Sale::where('status', 'PAGADO')
+            $sales_month[] = Pedido::where('status', 'PAGADO')
                 ->whereYear('created_at', $date->year)
                 ->whereMonth('created_at', '=', $i)
                 ->count();
         }
 
         for ($i = 1; $i <= 12; $i++) {
-            $debts_month[] = Sale::where('status', 'PENDIENTE')
+            $debts_month[] = Pedido::where('status', 'PENDIENTE')
                 ->whereYear('created_at', $date->year)
                 ->whereMonth('created_at', '=', $i)
                 ->count();
@@ -74,8 +75,8 @@ class HomeController extends Controller
         return view('home', [
             'users' => User::count(),
             'providers' => Provider::count(),
-            'sales' => Sale::where('status', 'PAGADO')->count(),
-            'debts' => Sale::where('status', 'PENDIENTE')->count(),
+            'sales' => Pedido::where('status', 'PAGADO')->count(),
+            'debts' => Pedido::where('status', 'PENDIENTE')->count(),
             'debts_month' => $debts_month,
             'sales_month' => $sales_month,
             'meses' => $meses,

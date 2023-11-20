@@ -17,9 +17,11 @@ class CreatePedidosTable extends Migration
             $table->id();
             $table->foreignId('detalle_pedido_id')->constrained('detalle_pedidos');
             $table->foreignId('cliente_id')->constrained('users');
-            $table->enum('status',['EN PROCESO','ACEPTADO'])->default('EN PROCESO');
+            $table->foreignId('driver_id')->nullable()->constrained('drivers');
+            $table->enum('status',['PENDIENTE','EN PROCESO','ACEPTADO','CANCELADO','COMPLETADO'])->default('PENDIENTE');
             $table->bigInteger('total');
             $table->enum('sale_type',['CONTADO','DEUDA'])->default('CONTADO');
+            $table->bigInteger('monto_pagado')->default(0);
             $table->timestamps();
         });
     }
