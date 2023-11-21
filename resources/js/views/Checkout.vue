@@ -74,27 +74,23 @@
                                         />
                                     </div>
                                     <div class="form-group">
-                                        <label for="user_city">CI:</label>
+                                        <label for="user_ci">CI:</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            id="user_city"
-                                            name="city"
+                                            id="user_ci"
                                             :value="currentUser.profile.ci"
                                         />
                                     </div>
                                 </div>
                                 <div class="checkout-country-code clearfix">
                                     <div class="form-group">
-                                        <label for="user_post_code"
-                                            >Celular:</label
-                                        >
+                                        <label for="user_phone">Celular:</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            id="user_post_code"
-                                            name="zipcode"
-                                            :value="currentUser.profile.phone"
+                                            id="user_phone"
+                                            v-model="client.phone"
                                         />
                                     </div>
                                     <div class="form-group">
@@ -104,58 +100,40 @@
                                             class="form-control"
                                             id="user_city"
                                             name="city"
-                                            :value="currentUser.profile.ciudad"
+                                            v-model="client.ciudad"
                                         />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="user_country">Direccion</label>
+                                    <label for="user_direccion"
+                                        >Direccion</label
+                                    >
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="user_country"
+                                        id="user_direccion"
                                         placeholder=""
-                                        :value="currentUser.profile.direccion"
+                                        v-model="client.direccion"
                                     />
                                 </div>
                             </form>
                         </div>
                         <div class="block">
                             <h4 class="widget-title">Metodo de pago</h4>
-                            <div class="contenedor d-flex">
-                                <input
-                                    type="radio"
-                                    id="contado"
-                                    name="type_sale"
-                                    value="CONTADO"
-                                    v-model="contado"
-                                />
-                                <label class="label-radio" for="contado"
-                                    >Contado</label
-                                >
-                                <input
-                                    type="radio"
-                                    id="deuda"
-                                    value="DEUDA"
-                                    name="type_sale"
-                                    v-model="contado"
-                                />
-                                <label class="label-radio" for="deuda"
-                                    >Deuda</label
-                                >
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <select
+                                        class="form-control"
+                                        v-model="sale_type"
+                                    >
+                                        <option value="CONTADO">CONTADO</option>
+                                        <option value="DEUDA">DEUDA</option>
+                                    </select>
+                                </div>
                             </div>
+                            <br />
 
                             <form @submit.prevent="storeSale">
-                                <div v-if="contado == 'DEUDA'">
-                                    <div class="form-group">
-                                        <label for="deuda">Monto a pagar</label>
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            v-model="total"
-                                        />
-                                    </div>
-                                </div>
                                 <button
                                     type="submit"
                                     class="btn btn-main mt-20"
@@ -223,59 +201,54 @@
 export default {
     mounted() {
         this.redirectIfGuest();
+        this.client.ciudad = this.currentUser.profile.ciudad;
+        this.client.phone = this.currentUser.profile.phone;
+        this.client.direccion = this.currentUser.profile.direccion;
     },
     data() {
         return {
-            clients: [],
-            contado: "CONTADO",
-            client: {},
+            sale_type: "CONTADO",
             total: 0,
-            status: "PENDIENTE",
-            products: [],
+            contado: "",
             errors: [],
+            pedido: {},
+            detalle_pedido: [],
+            client: { direccion: "", phone: "", ciudad: "" },
         };
     },
     methods: {
         storeSale() {
-            if (this.contado === "CONTADO") {
-                this.status = "PAGADO";
-            }
-            let sale = {
-                user_id: this.currentUser.id,
-                client_id: this.client,
-                sale_type: this.contado,
-                status: this.status,
-                total: this.$store.getters.cartTotalPrice,
-                products: this.products,
-            };
-            for (let i = 0; i < this.$store.state.cart.length; i++) {
-                this.products.push({
-                    product_id: this.$store.state.cart[i].product.id,
-                    quantity: this.$store.state.cart[i].quantity,
-                });
+            let monto_pagado = 0;
+            if (this.sale_type == "CONTADO") {
+                monto_pagado = this.cartTotalPrice;
+            } else {
+                monto_pagado = 0;
             }
 
-            if (this.contado === "DEUDA") {
-                this.status = "PENDIENTE";
-                sale.amount = this.total;
-            }
+            this.detalle_pedido = this.cart.map((pedido) => ({
+                product_id: pedido.product.id,
+                cantidad: pedido.quantity,
+            }));
+            let order = {
+                cliente_id: this.currentUser.id,
+                sale_type: this.sale_type,
+                total: this.cartTotalPrice,
+                pago_deuda: this.total,
+                monto_pagado: monto_pagado,
+                client: this.client,
+                detalle_pedido: this.detalle_pedido,
+            };
+
             axios
-                .post("/api/sales", sale)
+                .post("/api/orders", order)
                 .then(() => {
-                    this.total = 0;
-                    if (this.contado === "DEUDA") {
-                        console.log("entro");
-                        this.$router.push("deudas");
-                    } else {
-                        this.$router.push("mis-ventas");
-                    }
+                    this.$router.push("orders");
                     sessionStorage.setItem(
                         "cart",
                         JSON.stringify((this.$store.state.cart = []))
                     );
                 })
                 .catch((err) => {
-                    this.products = [];
                     this.errors = err.response.data.errors;
                 });
         },

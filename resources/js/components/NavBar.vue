@@ -20,13 +20,13 @@
                         </li>
 
                         <li>
-                            <router-link :to="{ name: 'sales' }">
+                            <router-link :to="{ name: 'orders' }">
                                 Pedidos
                             </router-link>
                         </li>
 
                         <li>
-                            <router-link :to="{ name: 'sales' }">
+                            <router-link :to="{ name: 'profile' }">
                                 Perfil
                             </router-link>
                         </li>

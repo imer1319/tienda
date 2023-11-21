@@ -15,7 +15,6 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('detalle_pedido_id')->constrained('detalle_pedidos');
             $table->foreignId('cliente_id')->constrained('users');
             $table->foreignId('driver_id')->nullable()->constrained('drivers');
             $table->enum('status',['PENDIENTE','EN PROCESO','ACEPTADO','CANCELADO','COMPLETADO'])->default('PENDIENTE');

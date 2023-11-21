@@ -21,11 +21,6 @@ class Product extends Model
         return $this->belongsTo(Provider::class);
     }
 
-    public function detalle()
-    {
-        return $this->belongsTo(DetallePedido::class);
-    }
-
     public function getRouteKeyName()
     {
         return 'slug';

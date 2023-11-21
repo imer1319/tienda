@@ -11,10 +11,10 @@
                 </div>
             </div>
         </section>
-        <div>
-            <products-modal></products-modal>
-        </div>
-        <section class="user-dashboard page-wrapper">
+        <Modal>
+            <PedidoItem></PedidoItem>
+        </Modal>
+        <section class="user-dashboard mb-3">
             <div class="container">
                 <div class="row">
                     <div class="dashboard-wrapper user-dashboard">
@@ -31,35 +31,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <template v-if="sales.length">
+                                    <template v-if="pedidos.length">
                                         <tr
-                                            v-for="(sale, index) in sales"
+                                            v-for="(pedido, index) in pedidos"
                                             :key="index"
                                         >
-                                            <td>#{{ sale.id }}</td>
-                                            <td>{{ sale.created_at }}</td>
-                                            <td>2</td>
-                                            <td>${{ sale.total }}</td>
+                                            <td>#{{ pedido.id }}</td>
+                                            <td>{{ pedido.created_at }}</td>
+                                            <td>{{ pedido.items }}</td>
+                                            <td>${{ pedido.total }}</td>
                                             <td>
                                                 <span
                                                     class="label label-primary"
-                                                    >{{ sale.status }}</span
+                                                    >{{ pedido.status }}</span
                                                 >
                                             </td>
                                             <td>
                                                 <a
-                                                    href="order.html"
+                                                    @click.prevent="
+                                                        showPedido(pedido)
+                                                    "
                                                     class="btn btn-default"
-                                                    >View</a
+                                                    >Ver</a
                                                 >
                                             </td>
                                         </tr>
                                     </template>
-									<template v-else>
-										<tr>
-											<td align="center" colspan="5">Aún no hay pedidos</td>
-										</tr>
-									</template>
+                                    <template v-else>
+                                        <tr>
+                                            <td align="center" colspan="5">
+                                                Aún no hay pedidos
+                                            </td>
+                                        </tr>
+                                    </template>
                                 </tbody>
                             </table>
                         </div>
@@ -70,20 +74,26 @@
     </div>
 </template>
 <script>
+import Modal from "../components/Modal.vue";
+import PedidoItem from "../components/PedidoItem.vue";
 export default {
+    components: {
+        Modal,
+        PedidoItem,
+    },
     mounted() {
         this.redirectIfGuest();
-        this.$store.dispatch("getSales");
+        this.$store.dispatch("getPedidos");
     },
     methods: {
-        showSale(sale) {
-            this.$store.dispatch("getSale", { sale });
+        showPedido(pedido) {
+            this.$store.dispatch("getPedido", { pedido });
             $("#product-modal").modal("show");
         },
     },
     computed: {
-        sales() {
-            return this.$store.state.sales;
+        pedidos() {
+            return this.$store.state.pedidos;
         },
     },
 };

@@ -11,10 +11,16 @@ class PedidoController extends Controller
     public function datatables()
     {
         $data = Pedido::with(['client', 'detalles'])
-            ->select('id', 'total', 'status', 'sale_type', 'created_at');
+            ->select('id', 'total','cliente_id', 'status', 'sale_type', 'created_at');
         return DataTables::of($data)
             ->addColumn('client', function (Pedido $pedido) {
-                return $pedido->user->name;
+                return $pedido->client->name;
+            })
+            ->addColumn('created_at', function (Pedido $pedido) {
+                return $pedido->created_at->format('M d Y H:i');
+            })
+            ->addColumn('items', function (Pedido $pedido) {
+                return count($pedido->detalles);
             })
             ->addColumn('btn', 'admin.pedidos.partials.btn')
             ->rawColumns(['btn'])
@@ -24,5 +30,12 @@ class PedidoController extends Controller
     public function index()
     {
         return view('admin.pedidos.index');
+    }
+
+    public function show(Pedido $pedido)
+    {
+        return view('admin.pedidos.show', [
+            'pedido' => $pedido
+        ]);
     }
 }

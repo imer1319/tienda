@@ -3,9 +3,9 @@ export default {
     product: {},
     cart: [],
     debts: [],
-    sales: [],
-    sale:{
-        debts:[],
-        products:[]
+    pedidos: [],
+    pedido:{
+        deudas:[],
+        detalle_pedidos:[]
     }
 }

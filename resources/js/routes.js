@@ -26,14 +26,19 @@ export default new Router({
         component: require('./views/Checkout').default
     },
     {
-        path: '/pedidos',
-        name: 'sales',
-        component: require('./views/Sales').default
+        path: '/orders',
+        name: 'orders',
+        component: require('./views/Pedidos').default
     },
     {
         path: '/deudas',
         name: 'debts',
         component: require('./views/Debts').default
+    },
+    {
+        path: '/perfil',
+        name: 'profile',
+        component: require('./views/Profile').default
     },
     {
         path: '*',

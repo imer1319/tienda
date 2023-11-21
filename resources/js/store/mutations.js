@@ -57,12 +57,12 @@ export const DIMINISH_QUANTITY_FROM_PRODUCT = (state, product) => {
     sessionStorage.setItem('cart', JSON.stringify(state.cart));
 }
 
-export const SET_SALES = (state, sales) => {
-    state.sales = sales
+export const SET_PEDIDOS = (state, pedidos) => {
+    state.pedidos = pedidos
 }
 
-export const SET_SALE = (state, sale) => {
-    state.sale = sale
+export const SET_PEDIDO = (state, pedido) => {
+    state.pedido = pedido
 }
 
 export const SET_DEBTS = (state, debts) => {

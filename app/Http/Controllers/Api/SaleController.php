@@ -7,12 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SaleResource;
 use App\Http\Requests\Sale\StoreRequest;
 use App\Http\Requests\Sale\UpdateRequest;
+use App\Models\Pedido;
 
 class SaleController extends Controller
 {
     public function index()
     {
-        return SaleResource::collection(Sale::query()
+        return SaleResource::collection(Pedido::query()
             ->orderBy('created_at','desc')
             ->get()
         );
@@ -20,7 +21,7 @@ class SaleController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $sale = Sale::create($request->validated());
+        $sale = Pedido::create($request->validated());
 
         $sale->products()->sync($request->get('products'));
 
@@ -39,7 +40,7 @@ class SaleController extends Controller
         return;
     }
 
-    public function update(UpdateRequest $request, Sale $sale)
+    public function update(UpdateRequest $request, Pedido $sale)
     {
         $sale->update($request->validated());
 
@@ -53,7 +54,7 @@ class SaleController extends Controller
         return;
     }
 
-    public function destroy(Sale $sale)
+    public function destroy(Pedido $sale)
     {
         foreach ($sale->products as $product) {
             $product->stock += $product->pivot->quantity;

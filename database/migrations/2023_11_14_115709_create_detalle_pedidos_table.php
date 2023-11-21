@@ -17,6 +17,7 @@ class CreateDetallePedidosTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->integer('cantidad');
+            $table->foreignId('pedido_id')->constrained('pedidos');
             $table->timestamps();
         });
     }

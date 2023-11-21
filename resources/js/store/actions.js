@@ -31,14 +31,14 @@ export const diminishQuantityFromProduct = ({ commit }, product) => {
     commit("DIMINISH_QUANTITY_FROM_PRODUCT", product);
 };
 
-export const getSales = ({ commit }) => {
-    axios.get("/api/sales").then((res) => {
-        commit("SET_SALES", res.data.data);
+export const getPedidos = ({ commit }) => {
+    axios.get("/api/orders").then((res) => {
+        commit("SET_PEDIDOS", res.data.data);
     });
 };
 
-export const getSale = ({ commit }, { sale }) => {
-    commit("SET_SALE", sale);
+export const getPedido = ({ commit }, { pedido }) => {
+    commit("SET_PEDIDO", pedido);
 };
 
 export const getDebts = ({ commit }) => {

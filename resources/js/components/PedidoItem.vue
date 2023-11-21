@@ -8,16 +8,16 @@
                 <span>{{ pedido.client_name }}</span>
             </h4>
             <h4 class="d-flex justify-content-between align-items-center">
-                <b>Fecha de venta: </b>
-                <span>{{ pedido.published_date }}</span>
+                <b>CI: </b>
+                <span>{{ pedido.ci }}</span>
             </h4>
             <h4 class="d-flex justify-content-between align-items-center">
-                <b>Vendedor: </b>
-                <span>{{ pedido.user_name }}</span>
+                <b>Fecha de venta: </b>
+                <span>{{ pedido.created_at }}</span>
             </h4>
             <h4 class="d-flex justify-content-between align-items-center">
                 <b>Tipo de venta: </b>
-                <span>{{ pedido.pedido_type }}</span>
+                <span>{{ pedido.sale_type }}</span>
             </h4>
             <h4 class="d-flex justify-content-between align-items-center">
                 <b>Estado: </b>
@@ -26,12 +26,12 @@
             <hr />
             <h4><b>Productos: </b></h4>
             <h4
-                v-for="(product, index) in pedido.products"
+                v-for="(detalle, index) in pedido.detalle_pedidos"
                 :key="index"
                 class="d-flex justify-content-between align-items-center"
             >
-                <b>{{ product.name }} x {{ product.quantity }}</b>
-                <span>Bs {{ product.price * product.quantity }}</span>
+                <b>{{ detalle.nombre }} x {{ detalle.cantidad }}</b>
+                <span>Bs {{ detalle.precio * detalle.cantidad }}</span>
             </h4>
             <hr />
             <h3 class="d-flex justify-content-between align-items-center">
