@@ -10,7 +10,12 @@ class WebController extends Controller
 {
     public function products()
     {
-        return Product::with('category')->where('stock','>',0)->paginate(12);
+        return Product::with('category')->where('stock', '>', 0)->paginate(12);
+    }
+
+    public function productsByCategory($category)
+    {
+        return Product::with('category')->where('category_id', $category)->where('stock', '>', 0)->paginate(12);
     }
 
     public function providers()

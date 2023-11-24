@@ -114,3 +114,7 @@ body {
     overflow-y: auto;
   }
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}

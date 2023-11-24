@@ -1,13 +1,13 @@
 <template>
     <div class="product-item">
         <div class="product-thumb">
-            <span class="bage">{{ product.category.name }}</span>
+            <a
+                @click.prevent="getProductsCategory(1,product.category.id)"
+                class="bage cursor-pointer"
+                >{{ product.category.name }}</a
+            >
             <!-- <img class="img-responsive" :src="`${product.image}`" alt="product-img" /> -->
-            <img
-                width="100%"
-                src="/images/reloj.jpg"
-                alt="product-img"
-            />
+            <img width="100%" src="/images/reloj.jpg" alt="product-img" />
             <div class="preview-meta">
                 <ul>
                     <li>
@@ -43,6 +43,9 @@ export default {
                 product: this.product,
                 quantity: 1,
             });
+        },
+        getProductsCategory(pageNumber, category) {
+            this.$store.dispatch("getProductsCategory", { pageNumber, category });
         },
     },
 };

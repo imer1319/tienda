@@ -2161,11 +2161,18 @@ __webpack_require__.r(__webpack_exports__);
       }, function (_, index) {
         return startPage + index;
       });
+    },
+    categoria: function categoria() {
+      return this.$store.state.categoria;
     }
   },
   methods: {
     changePage: function changePage(pageNumber) {
-      this.$emit('page-change', pageNumber);
+      if (this.categoria != null) {
+        this.$emit("page-change-category", pageNumber, this.categoria);
+      } else {
+        this.$emit("page-change", pageNumber);
+      }
     }
   }
 });
@@ -2318,6 +2325,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch("addProductToCart", {
         product: this.product,
         quantity: 1
+      });
+    },
+    getProductsCategory: function getProductsCategory(pageNumber, category) {
+      this.$store.dispatch("getProductsCategory", {
+        pageNumber: pageNumber,
+        category: category
       });
     }
   }
@@ -2649,11 +2662,18 @@ __webpack_require__.r(__webpack_exports__);
     Pagination: _components_Pagination_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {
-    this.fetchProducts(1);
+    this.getProducts(1);
   },
   methods: {
-    fetchProducts: function fetchProducts(pageNumber) {
+    getProducts: function getProducts(pageNumber) {
+      console.log("productos");
       this.$store.dispatch("getProducts", pageNumber);
+    },
+    getProductsCategory: function getProductsCategory(pageNumber) {
+      this.$store.dispatch("getProductsCategory", {
+        page: pageNumber,
+        category: this.categoria
+      });
     }
   },
   computed: {
@@ -2665,6 +2685,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     totalPages: function totalPages() {
       return this.$store.state.products.last_page;
+    },
+    categoria: function categoria() {
+      return this.$store.state.categoria;
     }
   }
 });
@@ -3546,8 +3569,14 @@ var render = function render() {
     staticClass: "product-item"
   }, [_c("div", {
     staticClass: "product-thumb"
-  }, [_c("span", {
-    staticClass: "bage"
+  }, [_c("a", {
+    staticClass: "bage cursor-pointer",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.getProductsCategory(1, _vm.product.category.id);
+      }
+    }
   }, [_vm._v(_vm._s(_vm.product.category.name))]), _vm._v(" "), _c("img", {
     attrs: {
       width: "100%",
@@ -4433,7 +4462,8 @@ var render = function render() {
       "total-pages": _vm.totalPages
     },
     on: {
-      "page-change": _vm.fetchProducts
+      "page-change": _vm.getProducts,
+      "page-change-category": _vm.getProductsCategory
     }
   })], 1)]);
 };
@@ -4759,6 +4789,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getPedidos: () => (/* binding */ getPedidos),
 /* harmony export */   getProduct: () => (/* binding */ getProduct),
 /* harmony export */   getProducts: () => (/* binding */ getProducts),
+/* harmony export */   getProductsCategory: () => (/* binding */ getProductsCategory),
 /* harmony export */   removeDebt: () => (/* binding */ removeDebt),
 /* harmony export */   removeProductFromCart: () => (/* binding */ removeProductFromCart),
 /* harmony export */   removeSale: () => (/* binding */ removeSale),
@@ -4773,54 +4804,66 @@ var getProducts = function getProducts(_ref) {
     console.error("Error al obtener productos:", error);
   });
 };
-var getProduct = function getProduct(_ref2, productSlug) {
+var getProductsCategory = function getProductsCategory(_ref2, _ref3) {
   var commit = _ref2.commit;
+  var _ref3$page = _ref3.page,
+      page = _ref3$page === void 0 ? 1 : _ref3$page,
+      category = _ref3.category;
+  axios.get("/api/products/".concat(category, "?page=").concat(page)).then(function (response) {
+    commit("SET_PRODUCTS", response.data);
+    commit("SET_CATEGORIA", category);
+  })["catch"](function (error) {
+    console.error("Error al obtener productos por categoria:", error);
+  });
+};
+var getProduct = function getProduct(_ref4, productSlug) {
+  var commit = _ref4.commit;
   axios.get("/api/products/".concat(productSlug)).then(function (response) {
     commit("SET_PRODUCT", response.data);
   });
 };
-var addProductToCart = function addProductToCart(_ref3, _ref4) {
-  var commit = _ref3.commit;
-  var product = _ref4.product,
-      quantity = _ref4.quantity;
+var addProductToCart = function addProductToCart(_ref5, _ref6) {
+  var commit = _ref5.commit;
+  var product = _ref6.product,
+      quantity = _ref6.quantity;
   commit("ADD_TO_CART", {
     product: product,
     quantity: quantity
   });
 };
-var removeProductFromCart = function removeProductFromCart(_ref5, product) {
-  var commit = _ref5.commit;
+var removeProductFromCart = function removeProductFromCart(_ref7, product) {
+  var commit = _ref7.commit;
   commit("REMOVE_PRODUCT_FROM_CART", product);
 };
-var addQuantityFromProduct = function addQuantityFromProduct(_ref6, product) {
-  var commit = _ref6.commit;
+var addQuantityFromProduct = function addQuantityFromProduct(_ref8, product) {
+  var commit = _ref8.commit;
   commit("ADD_QUANTITY_FROM_PRODUCT", product);
 };
-var diminishQuantityFromProduct = function diminishQuantityFromProduct(_ref7, product) {
-  var commit = _ref7.commit;
+var diminishQuantityFromProduct = function diminishQuantityFromProduct(_ref9, product) {
+  var commit = _ref9.commit;
   commit("DIMINISH_QUANTITY_FROM_PRODUCT", product);
 };
-var getPedidos = function getPedidos(_ref8) {
-  var commit = _ref8.commit;
+var getPedidos = function getPedidos(_ref10) {
+  var commit = _ref10.commit;
   axios.get("/api/orders").then(function (res) {
     commit("SET_PEDIDOS", res.data.data);
   });
 };
-var getPedido = function getPedido(_ref9, _ref10) {
-  var commit = _ref9.commit;
-  var pedido = _ref10.pedido;
+var getPedido = function getPedido(_ref11, _ref12) {
+  var commit = _ref11.commit;
+  var pedido = _ref12.pedido;
   commit("SET_PEDIDO", pedido);
 };
-var getDebts = function getDebts(_ref11) {
-  var commit = _ref11.commit;
+var getDebts = function getDebts(_ref13) {
+  var commit = _ref13.commit;
   axios.get("/api/debts").then(function (res) {
     commit("SET_DEBTS", res.data.data);
   });
 };
-var removeSale = function removeSale(_ref12, _ref13) {
-  var commit = _ref12.commit;
-  var sale = _ref13.sale,
-      index = _ref13.index;
+var removeSale = function removeSale(_ref14, _ref15) {
+  var commit = _ref14.commit;
+  var sale = _ref15.sale,
+      index = _ref15.index;
   Swal.fire({
     title: "¿Realmente quiere eliminar esta venta?",
     showDenyButton: true,
@@ -4839,10 +4882,10 @@ var removeSale = function removeSale(_ref12, _ref13) {
     }
   });
 };
-var removeDebt = function removeDebt(_ref14, _ref15) {
-  var commit = _ref14.commit;
-  var sale = _ref15.sale,
-      index = _ref15.index;
+var removeDebt = function removeDebt(_ref16, _ref17) {
+  var commit = _ref16.commit;
+  var sale = _ref17.sale,
+      index = _ref17.index;
   Swal.fire({
     title: "¿Realmente quiere eliminar esta venta?",
     showDenyButton: true,
@@ -4861,10 +4904,10 @@ var removeDebt = function removeDebt(_ref14, _ref15) {
     }
   });
 };
-var storeDebt = function storeDebt(_ref16, _ref17) {
-  var commit = _ref16.commit;
-  var sale = _ref17.sale,
-      amount = _ref17.amount;
+var storeDebt = function storeDebt(_ref18, _ref19) {
+  var commit = _ref18.commit;
+  var sale = _ref19.sale,
+      amount = _ref19.amount;
   axios.post("/api/debts/".concat(sale.id), {
     amount: amount
   }).then(function (res) {
@@ -4953,6 +4996,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   REMOVE_DEBT: () => (/* binding */ REMOVE_DEBT),
 /* harmony export */   REMOVE_PRODUCT_FROM_CART: () => (/* binding */ REMOVE_PRODUCT_FROM_CART),
 /* harmony export */   REMOVE_SALE: () => (/* binding */ REMOVE_SALE),
+/* harmony export */   SET_CATEGORIA: () => (/* binding */ SET_CATEGORIA),
 /* harmony export */   SET_DEBTS: () => (/* binding */ SET_DEBTS),
 /* harmony export */   SET_PEDIDO: () => (/* binding */ SET_PEDIDO),
 /* harmony export */   SET_PEDIDOS: () => (/* binding */ SET_PEDIDOS),
@@ -5027,6 +5071,9 @@ var SET_PEDIDOS = function SET_PEDIDOS(state, pedidos) {
 var SET_PEDIDO = function SET_PEDIDO(state, pedido) {
   state.pedido = pedido;
 };
+var SET_CATEGORIA = function SET_CATEGORIA(state, categoria) {
+  state.categoria = categoria;
+};
 var SET_DEBTS = function SET_DEBTS(state, debts) {
   state.debts = debts;
 };
@@ -5058,6 +5105,7 @@ __webpack_require__.r(__webpack_exports__);
   cart: [],
   debts: [],
   pedidos: [],
+  categoria: null,
   pedido: {
     deudas: [],
     detalle_pedidos: []
@@ -5107,7 +5155,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination[data-v-d7acf176] {\n  display: flex;\n  justify-content: center;\n  margin-top: 20px;\n}\n.page-item[data-v-d7acf176] {\n  cursor: pointer;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination[data-v-d7acf176] {\n    display: flex;\n    justify-content: center;\n    margin-top: 20px;\n}\n.page-item[data-v-d7acf176] {\n    cursor: pointer;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

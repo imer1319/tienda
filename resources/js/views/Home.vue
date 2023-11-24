@@ -17,7 +17,8 @@
             <pagination
                 :current-page="currentPage"
                 :total-pages="totalPages"
-                @page-change="fetchProducts"
+                @page-change="getProducts"
+                @page-change-category="getProductsCategory"
             />
         </div>
     </section>
@@ -30,11 +31,15 @@ export default {
         Pagination,
     },
     mounted() {
-        this.fetchProducts(1);
+        this.getProducts(1);
     },
     methods: {
-        fetchProducts(pageNumber) {
+        getProducts(pageNumber) {
+            console.log("productos");
             this.$store.dispatch("getProducts", pageNumber);
+        },
+        getProductsCategory(pageNumber) {
+            this.$store.dispatch("getProductsCategory", { page: pageNumber, category: this.categoria });
         },
     },
     computed: {
@@ -46,6 +51,9 @@ export default {
         },
         totalPages() {
             return this.$store.state.products.last_page;
+        },
+        categoria() {
+            return this.$store.state.categoria;
         },
     },
 };

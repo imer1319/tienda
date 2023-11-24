@@ -6,6 +6,7 @@ use App\Http\Controllers\WebController;
 use App\Http\Controllers\Api\DebtController;
 
 Route::get('products-all', [WebController::class,'products']);
+Route::get('products/{category}', [WebController::class,'productsByCategory']);
 Route::get('products/{product}', [WebController::class,'productShow']);
 
 Route::get('orders',  [PedidoController::class, 'index']);

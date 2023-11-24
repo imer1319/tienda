@@ -59,7 +59,7 @@ class HomeController extends Controller
             $gananciasYear[] = Pedido::where(DB::raw("DATE_FORMAT(created_at, '%Y')"), $value)->sum('total');
         }
         for ($i = 1; $i <= 12; $i++) {
-            $sales_month[] = Pedido::where('status', 'PAGADO')
+            $sales_month[] = Pedido::where('status', 'COMPLETADO')
                 ->whereYear('created_at', $date->year)
                 ->whereMonth('created_at', '=', $i)
                 ->count();

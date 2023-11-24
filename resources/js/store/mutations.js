@@ -65,6 +65,10 @@ export const SET_PEDIDO = (state, pedido) => {
     state.pedido = pedido
 }
 
+export const SET_CATEGORIA = (state, categoria) => {
+    state.categoria = categoria
+}
+
 export const SET_DEBTS = (state, debts) => {
     state.debts = debts
 }

@@ -9,6 +9,18 @@ export const getProducts = ({ commit }, page = 1) => {
         });
 };
 
+export const getProductsCategory = ({ commit }, { page = 1, category }) => {
+    axios
+        .get(`/api/products/${category}?page=${page}`)
+        .then((response) => {
+            commit("SET_PRODUCTS", response.data);
+            commit("SET_CATEGORIA", category);
+        })
+        .catch((error) => {
+            console.error("Error al obtener productos por categoria:", error);
+        });
+};
+
 export const getProduct = ({ commit }, productSlug) => {
     axios.get(`/api/products/${productSlug}`).then((response) => {
         commit("SET_PRODUCT", response.data);

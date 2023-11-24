@@ -4,8 +4,9 @@ export default {
     cart: [],
     debts: [],
     pedidos: [],
-    pedido:{
-        deudas:[],
-        detalle_pedidos:[]
-    }
-}
+    categoria: null,
+    pedido: {
+        deudas: [],
+        detalle_pedidos: [],
+    },
+};
