@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Listado de pedidos')
+@section('title', 'Detalle de la venta')
 
 @section('content')
     <div class="row mt-5 pt-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-center">Detalle del pedido</h3>
+                    <h3 class="text-center">Detalle de la venta</h3>
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -26,11 +26,15 @@
                                 <td>{{ $pedido->status }}</td>
                             </tr>
                             <tr>
+                                <th>Conductor encargado</th>
+                                <td>{{ $pedido->driver->full_name }}</td>
+                            </tr>
+                            <tr>
                                 <th>Items</th>
                                 <td>{{ count($pedido->detalles) }}</td>
                             </tr>
                             <tr>
-                                <th>Detalle de productos</th>
+                                <th>Detalle de la venta</th>
                                 <td>
                                     <table class="table table-bordered">
                                         <thead>
@@ -66,8 +70,7 @@
                         </tbody>
                     </table>
                     <div class="mt-3">
-                        <a href="{{ route('admin.pedidos.index') }}" class="btn btn-dark">Regresar</a>
-                        <a href="#" class="btn btn-primary">Generar venta</a>
+                        <a href="{{ route('admin.ventas.index') }}" class="btn btn-dark">Regresar</a>
                     </div>
                 </div>
             </div>

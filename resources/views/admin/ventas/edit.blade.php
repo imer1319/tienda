@@ -1,36 +1,30 @@
 @extends('layouts.admin')
 
-@section('title', 'Listado de pedidos')
+@section('title', 'Vender')
 
 @section('content')
-    <div class="row mt-5 pt-5">
-        <div class="col-12">
+    <div class="row pt-5 mt-5">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-center">Detalle del pedido</h3>
+                    <h5 class="text-center">Vender</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th>Nombre</th>
-                                <td>{{ $pedido->client->name }} {{ $pedido->client->profile->apellido_paterno }}
-                                    {{ $pedido->client->profile->apellido_materno }}</td>
-                            </tr>
-                            <tr>
-                                <th>Fecha</th>
-                                <td>{{ $pedido->created_at->format('M d Y H:i') }}</td>
-                            </tr>
-                            <tr>
-                                <th>Estado</th>
-                                <td>{{ $pedido->status }}</td>
-                            </tr>
-                            <tr>
-                                <th>Items</th>
-                                <td>{{ count($pedido->detalles) }}</td>
-                            </tr>
-                            <tr>
-                                <th>Detalle de productos</th>
+                    @include('admin.partials.flash-error')
+                    <form action="{{ route('admin.ventas.update', $venta) }}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label>Conductor</label>
+                                <select name="driver_id" class="form-control">
+                                    @foreach ($drivers as $driver)
+                                        <option value="{{ $driver->id }}">{{ $driver->full_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <th>Detalle de la venta</th>
                                 <td>
                                     <table class="table table-bordered">
                                         <thead>
@@ -43,7 +37,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($pedido->detalles as $detalle)
+                                            @foreach ($venta->detalles as $detalle)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $detalle->product->name }}</td>
@@ -57,18 +51,17 @@
                                             <tr>
                                                 <td colspan="3"></td>
                                                 <td>Total:</td>
-                                                <td>{{ $pedido->total }}</td>
+                                                <td>{{ $venta->total }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="mt-3">
-                        <a href="{{ route('admin.pedidos.index') }}" class="btn btn-dark">Regresar</a>
-                        <a href="{{ route('admin.ventas.vender', $pedido) }}" class="btn btn-primary">Generar venta</a>
-                    </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Vender</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

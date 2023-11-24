@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\UsersRolesController;
 use App\Http\Controllers\Admin\UsersPermissionsController;
+use App\Http\Controllers\Admin\VentaController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,8 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('providers', ProviderController::class);
     Route::resource('profiles', ProfileController::class)->except(['create', 'edit', 'index']);
     Route::resource('pedidos', PedidoController::class)->except(['create', 'edit']);
+    Route::resource('ventas', VentaController::class)->except('destroy');
+    Route::get('ventas/generar/{venta}', [VentaController::class, 'edit'])->name('ventas.vender');
     Route::get('clients', [ProfileController::class, 'index'])->name('clients.index');
     Route::middleware('role:Admin')
         ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
@@ -43,6 +46,7 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/categories', [CategoryController::class, 'datatables']);
     Route::get('api/products', [ProductController::class, 'datatables']);
     Route::get('api/pedidos', [PedidoController::class, 'datatables']);
+    Route::get('api/ventas', [VentaController::class, 'datatables']);
 });
 
 Route::get('/{any?}', function () {

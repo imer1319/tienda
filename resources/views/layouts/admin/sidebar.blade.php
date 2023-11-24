@@ -79,6 +79,13 @@
                                 <span class="nav-link-text">Pedidos</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('admin.ventas.index') ? 'active' : '' }}"
+                                href="{{ route('admin.ventas.index') }} ">
+                                <i class="ni ni-box-2 text-success"></i>
+                                <span class="nav-link-text">Ventas</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </div>

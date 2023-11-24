@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Listado de pedidos')
+@section('title', 'Listado de ventas')
 
 @section('content')
     <div class="row mt-5 pt-5">
@@ -8,9 +8,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3>Listado de pedidos</h3>
+                        <h3>Listado de ventas</h3>
                     </div>
-                    <table class="table" id="table-clients">
+                    <table class="table" id="table-ventas">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -46,10 +46,10 @@
     <script src="{{ asset('admin/vendor/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#table-clients').DataTable({
+            $('#table-ventas').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "/api/pedidos",
+                "ajax": "/api/ventas",
                 "columns": [{
                         data: 'id',
                     },

@@ -11,7 +11,8 @@ class PedidoController extends Controller
     public function datatables()
     {
         $data = Pedido::with(['client', 'detalles'])
-            ->select('id', 'total','cliente_id', 'status', 'sale_type', 'created_at');
+            ->select('id', 'total','cliente_id', 'status', 'sale_type', 'created_at')
+            ->where('status','!=','COMPLETADO');
         return DataTables::of($data)
             ->addColumn('client', function (Pedido $pedido) {
                 return $pedido->client->name;

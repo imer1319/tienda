@@ -23,6 +23,11 @@ class Pedido extends Model
         return $this->belongsTo(User::class, 'cliente_id');
     }
 
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
     public function detalles()
     {
         return $this->hasMany(DetallePedido::class);

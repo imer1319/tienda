@@ -21,10 +21,11 @@ class DriverFactory extends Factory
             'ci' => $this->faker->randomNumber($nbDigits = 9, $strict = false),
             'direccion' => $this->faker->address(),
             'fecha_nacimiento' => $this->faker->date(),
-            'placa' => $this->regexify('[A-Z]{3}-[0-9]{3,4}'),
-            'categoria_licencia' => $this->faker->randomElement($array = array ('A','B','C','P')),
-            'genero' => $this->faker->randomElement($array = array ('MASCULINO','FEMENINO')),
-            'modelo_movil' => $this->faker->randomElement($array = array ('Motocicleta','Automovil','Bicicleta','Triciclo')),
+            'placa' => strtoupper($this->faker->regexify('[A-Z]{3}-[0-9]{3,4}')),
+            'categoria_licencia' => $this->faker->randomElement(['A', 'B', 'C', 'P']),
+            'genero' => $this->faker->randomElement(['MASCULINO', 'FEMENINO']),
+            'modelo_movil' => $this->faker->randomElement(['Motocicleta', 'Automovil', 'Bicicleta', 'Triciclo']),
         ];
+        
     }
 }

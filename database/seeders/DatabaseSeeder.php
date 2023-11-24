@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Client;
+use App\Models\Driver;
 use App\Models\Provider;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -40,7 +41,7 @@ class DatabaseSeeder extends Seeder
             PermissionsSeeder::class,
             UsersSeeder::class,
         ]);
-
+        Driver::factory(10)->create();
         Provider::factory(10)->create();
         Category::factory(5)->create();
         Product::factory(100)->create();

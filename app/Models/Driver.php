@@ -25,6 +25,11 @@ class Driver extends Model
 
     public function ventas()
     {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Pedido::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->apellido_paterno . ' ' . $this->apellido_materno;
     }
 }
