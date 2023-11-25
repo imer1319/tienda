@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Provider;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -23,13 +24,16 @@ class ProductController extends Controller
 
     public function datatables()
     {
-        return DataTables::of(Product::select('id', 'name', 'slug', 'price', 'stock', 'category_id'))
-        ->addColumn('category', function (Product $product) {
-            return $product->category->name;
-        })
-        ->addColumn('btn', 'admin.products.partials.btn')
-        ->rawColumns(['btn', 'category'])
-        ->toJson();
+        $data = Product::query()
+            ->select('id', 'name', 'slug', 'price', 'stock', 'category_id')
+            ->orderBy('id', 'DESC');
+        return DataTables::of($data)
+            ->addColumn('category', function (Product $product) {
+                return $product->category->name;
+            })
+            ->addColumn('btn', 'admin.products.partials.btn')
+            ->rawColumns(['btn', 'category'])
+            ->toJson();
     }
 
     public function index()
@@ -49,12 +53,13 @@ class ProductController extends Controller
     public function store(StoreRequest $request)
     {
         $product = (new Product)->fill($request->validated());
-
-        $product->image = $request->file('image')->store('public/images');
-
+        $image = $request->file('image');
+        $imageName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('productos'), $imageName);
+        $product->image = "productos/{$imageName}";
         $product->save();
 
-        return redirect()->route('admin.products.index')->with('flash', 'Producto creado corretamente');
+        return redirect()->route('admin.products.index')->with('flash', 'Producto creado correctamente');
     }
 
     public function show(Product $product)
@@ -75,19 +80,29 @@ class ProductController extends Controller
 
     public function update(UpdateRequest $request, Product $product)
     {
-        if ($request->hasFile('image'))
-        {
-            $product->image = $request->file('image')->store('public/images');
+        if ($request->hasFile('image') && $product->image) {
+            $previousImage = basename($product->image);
+            unlink(public_path("productos/{$previousImage}"));
         }
-
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('productos'), $imageName);
+            $product->image = "productos/{$imageName}";
+        }
         $product->update($request->except('image'));
 
-        return redirect()->route('admin.products.index')->with('flash', 'Producto actualizado corretamente');
+        return redirect()->route('admin.products.index')->with('flash', 'Producto actualizado correctamente');
     }
 
     public function destroy(Product $product)
     {
+        $imagePath = public_path($product->image);
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
         $product->delete();
-        return redirect()->route('admin.products.index')->with('flash', 'Producto eliminado corretamente');
+
+        return redirect()->route('admin.products.index')->with('flash', 'Producto eliminado correctamente');
     }
 }

@@ -48,7 +48,7 @@
     <div class="col form-group">
         @if ($product->image)
             <div class="text-muted"><i>Dejar en blanco para mantener la imagen</i></div>
-            <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" width="140px" height="140px"
+            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" width="140px" height="140px"
                 style="padding:15px ;border:3px solid #F6F7FC;border-radius:7%">
         @endif
     </div>

@@ -8,7 +8,6 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import swal from 'sweetalert2';
 window.Swal = swal;
 
-Vue.component('products-modal', require('./components/ProductsModal').default);
 Vue.component('products-list-item', require('./components/ProductsListItem').default);
 Vue.component('nav-bar', require('./components/NavBar').default);
 Vue.component('footer-web', require('./components/Footer').default);

@@ -30,7 +30,8 @@ class StoreRequest extends FormRequest
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'category_id' => 'required|exists:App\Models\Category,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'provider_id' => 'required|exists:App\Models\Provider,id',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 

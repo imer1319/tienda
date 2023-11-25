@@ -36,14 +36,15 @@ class DatabaseSeeder extends Seeder
 
         Storage::disk('public')->deleteDirectory('images');
 
+        Driver::factory(10)->create();
+        Provider::factory(10)->create();
+        
         $this->call([
             RolesSeeder::class,
             PermissionsSeeder::class,
             UsersSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
         ]);
-        Driver::factory(10)->create();
-        Provider::factory(10)->create();
-        Category::factory(5)->create();
-        Product::factory(100)->create();
     }
 }

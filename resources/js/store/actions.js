@@ -21,10 +21,8 @@ export const getProductsCategory = ({ commit }, { page = 1, category }) => {
         });
 };
 
-export const getProduct = ({ commit }, productSlug) => {
-    axios.get(`/api/products/${productSlug}`).then((response) => {
-        commit("SET_PRODUCT", response.data);
-    });
+export const getProduct = ({ commit }, { product }) => {
+    commit("SET_PRODUCT", product);
 };
 
 export const addProductToCart = ({ commit }, { product, quantity }) => {

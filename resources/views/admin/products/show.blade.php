@@ -35,9 +35,7 @@
                             <tr>
                                 <th>Imagen</th>
                                 <td>
-                                    <!-- <img src="{{ Storage::url($product->image) }}" width="120" alt="{{ $product->name }}"> -->
-                                    <img src="/images/reloj.jpg" width="120px" alt="{{ $product->name }}">
-
+                                    <img src="{{ asset($product->image) }}" width="220px" alt="{{ $product->name }}">
                                 </td>
                             </tr>
                         </tbody>

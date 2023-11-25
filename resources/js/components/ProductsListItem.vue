@@ -2,21 +2,19 @@
     <div class="product-item">
         <div class="product-thumb">
             <a
-                @click.prevent="getProductsCategory(1,product.category.id)"
+                @click.prevent="getProductsCategory(1, product.category.id)"
                 class="bage cursor-pointer"
                 >{{ product.category.name }}</a
             >
-            <!-- <img class="img-responsive" :src="`${product.image}`" alt="product-img" /> -->
-            <img width="100%" src="/images/reloj.jpg" alt="product-img" />
+            <img :src="`${product.image}`" alt="product-img" />
             <div class="preview-meta">
                 <ul>
                     <li>
-                        <span data-toggle="modal" data-target="#product-modal">
+                        <a
+                            @click.prevent="showProductModal"
+                        >
                             <i class="tf-ion-ios-search-strong"></i>
-                        </span>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="tf-ion-ios-heart"></i></a>
+                        </a>
                     </li>
                     <li>
                         <a @click.prevent="addToCart"
@@ -45,7 +43,14 @@ export default {
             });
         },
         getProductsCategory(pageNumber, category) {
-            this.$store.dispatch("getProductsCategory", { pageNumber, category });
+            this.$store.dispatch("getProductsCategory", {
+                pageNumber,
+                category,
+            });
+        },
+        showProductModal() {
+            this.$store.dispatch("getProduct", { product: this.product });
+            this.$emit("show-modal-product");
         },
     },
 };

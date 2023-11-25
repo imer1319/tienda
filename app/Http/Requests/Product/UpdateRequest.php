@@ -33,6 +33,7 @@ class UpdateRequest extends FormRequest
             ],
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
+            'provider_id' => 'required|exists:App\Models\Provider,id',
             'category_id' => 'required|exists:App\Models\Category,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];

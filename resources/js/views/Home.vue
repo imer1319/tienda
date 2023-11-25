@@ -11,7 +11,7 @@
                     v-for="product in products"
                     :product="product"
                     :key="product.id"
-                    class="col-md-4"
+                    @show-modal-product="showProductModal"
                 />
             </div>
             <pagination
@@ -20,31 +20,48 @@
                 @page-change="getProducts"
                 @page-change-category="getProductsCategory"
             />
+            <Modal>
+                <ProductItem
+                    :product="product"
+                />
+            </Modal>
         </div>
     </section>
 </template>
 <script>
 import Pagination from "../components/Pagination.vue";
+import Modal from "../components/Modal.vue";
+import ProductItem from "../components/ProductItem.vue";
 
 export default {
     components: {
         Pagination,
+        Modal,
+        ProductItem,
     },
     mounted() {
         this.getProducts(1);
     },
     methods: {
         getProducts(pageNumber) {
-            console.log("productos");
             this.$store.dispatch("getProducts", pageNumber);
         },
         getProductsCategory(pageNumber) {
-            this.$store.dispatch("getProductsCategory", { page: pageNumber, category: this.categoria });
+            this.$store.dispatch("getProductsCategory", {
+                page: pageNumber,
+                category: this.categoria,
+            });
+        },
+        showProductModal() {
+            $("#product-modal").modal("show");
         },
     },
     computed: {
         products() {
             return this.$store.state.products.data;
+        },
+        product() {
+            return this.$store.state.product;
         },
         currentPage() {
             return this.$store.state.products.current_page;

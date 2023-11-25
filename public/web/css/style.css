@@ -956,8 +956,15 @@ a.active{
 }
 .product-item .product-thumb img {
   width: 100%;
-  height: auto;
+  height: 300px;
+  object-fit: cover;
 }
+.product-modal .modal-content .modal-body .modal-image img{
+  width: 60%;
+  height: 500px;
+  object-fit: cover; 
+}
+
 .product-item .product-thumb .bage {
   position: absolute;
   top: 12px;
@@ -1083,10 +1090,6 @@ a.active{
 }
 .product-modal .modal-content .modal-body {
   padding: 30px;
-}
-.product-modal .modal-content .modal-body .modal-image img {
-  width: 100%;
-  height: auto;
 }
 .product-modal .modal-content .modal-body .product-short-details h2 {
   margin-top: 0;
