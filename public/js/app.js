@@ -2237,68 +2237,9 @@ __webpack_require__.r(__webpack_exports__);
         a.target = "_blank";
         a.click();
       });
-    },
-    getMethod: function getMethod() {},
-    storeOrUpdateDebt: function storeOrUpdateDebt() {
-      var _this = this;
-
-      if (Number(this.deuda) + Number(this.amount) > this.pedido.total) {
-        this.error = "El monto no puede ser mayor a la deuda";
-        return;
-      } else if (Number(this.deuda) + Number(this.amount) === this.pedido.total) {
-        this.url = "/api/pedidos/".concat(this.pedido.id);
-        this.method = "put";
-      } else {
-        this.url = "/api/debts/".concat(this.pedido.id);
-        this.method = "post";
-      }
-
-      axios[this.method](this.url, {
-        amount: this.amount,
-        status: "PAGADO"
-      }).then(function () {
-        _this.amount = 0;
-
-        _this.closePay();
-
-        _this.errors = [];
-
-        _this.$store.dispatch("getDebts");
-
-        $("#product-modal").modal("hide");
-
-        if (_this.deuda == 0) {
-          Swal.fire("Guardado correctamente. Se movio a mis ventas", "", "success");
-        } else {
-          Swal.fire("Los cambios se guardaron correctamente.", "", "success");
-        }
-      })["catch"](function (err) {
-        _this.error = "";
-        _this.errors = err.response.data.errors;
-      });
-    },
-    payDebt: function payDebt() {
-      this.image = true;
-      this.pdf = true;
-      this.whatsapp = true;
-      this.abonar = true;
-    },
-    closePay: function closePay() {
-      this.image = false;
-      this.pdf = false;
-      this.whatsapp = false;
-      this.abonar = false;
-      this.error = "";
     }
   },
   computed: {
-    deuda: function deuda() {
-      var deuda = 0;
-      this.pedido.debts.forEach(function (item) {
-        deuda += item.amount;
-      });
-      return deuda;
-    },
     pedido: function pedido() {
       return this.$store.state.pedido;
     }
@@ -2448,12 +2389,12 @@ __webpack_require__.r(__webpack_exports__);
     storeSale: function storeSale() {
       var _this = this;
 
-      var monto_pagado = 0;
+      var pago_faltante = 0;
 
-      if (this.sale_type == "CONTADO") {
-        monto_pagado = this.cartTotalPrice;
+      if (this.sale_type != "CONTADO") {
+        pago_faltante = this.cartTotalPrice;
       } else {
-        monto_pagado = 0;
+        pago_faltante = 0;
       }
 
       this.detalle_pedido = this.cart.map(function (pedido) {
@@ -2466,14 +2407,12 @@ __webpack_require__.r(__webpack_exports__);
         cliente_id: this.currentUser.id,
         sale_type: this.sale_type,
         total: this.cartTotalPrice,
-        pago_deuda: this.total,
-        monto_pagado: monto_pagado,
+        pago_faltante: pago_faltante,
         client: this.client,
         detalle_pedido: this.detalle_pedido
       };
       axios.post("/api/orders", order).then(function () {
-        _this.$router.push("orders");
-
+        window.location.href = "/orders";
         sessionStorage.setItem("cart", JSON.stringify(_this.$store.state.cart = []));
       })["catch"](function (err) {
         _this.errors = err.response.data.errors;
@@ -3316,63 +3255,19 @@ var render = function render() {
     }, [_c("b", [_vm._v(_vm._s(detalle.nombre) + " x " + _vm._s(detalle.cantidad))]), _vm._v(" "), _c("span", [_vm._v("Bs " + _vm._s(detalle.precio * detalle.cantidad))])]);
   }), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h3", {
     staticClass: "d-flex justify-content-between align-items-center"
-  }, [_c("b", [_vm._v("Total: ")]), _vm._v(" "), _c("span", [_vm._v("Bs " + _vm._s(_vm.pedido.total))])]), _vm._v(" "), _vm.pedido.deudas.length ? [_c("table", {
+  }, [_c("b", [_vm._v("Total: ")]), _vm._v(" "), _c("span", [_vm._v("Bs " + _vm._s(_vm.pedido.total))])]), _vm._v(" "), _vm.pedido.deudas && _vm.pedido.deudas.length ? [_c("table", {
     staticClass: "table table-bordered text-center"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.pedido.debts, function (debt, index) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.pedido.deudas, function (debt, index) {
     return _c("tr", {
       key: debt.id
     }, [_c("td", {
       attrs: {
         width: "10px"
       }
-    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(debt.created_at))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(debt.amount))])]);
+    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(debt.amount))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(debt.created_at))])]);
   }), 0)]), _vm._v(" "), _c("h3", {
     staticClass: "d-flex justify-content-between align-items-center"
-  }, [_c("b", [_vm._v("Deuda: ")]), _vm._v(" "), _c("span", [_vm._v("Bs " + _vm._s(_vm.pedido.total - _vm.deuda))])]), _vm._v(" "), _vm.abonar ? _c("div", {
-    staticClass: "input-group pt-3"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.amount,
-      expression: "amount"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "number",
-      min: "1"
-    },
-    domProps: {
-      value: _vm.amount
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.amount = $event.target.value;
-      }
-    }
-  }), _vm._v(" "), _c("div", {
-    staticClass: "input-group-append"
-  }, [_c("a", {
-    staticClass: "btn btn-default",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.storeOrUpdateDebt.apply(null, arguments);
-      }
-    }
-  }, [_vm._v("Abonar")])])]) : _vm._e(), _vm._v(" "), _vm.error ? _c("div", {
-    staticClass: "text-danger"
-  }, [_vm._v("\n                " + _vm._s(_vm.error) + "\n            ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.errors, function (errorArray, idx) {
-    return _c("div", {
-      key: idx
-    }, _vm._l(errorArray, function (allErrors, idx) {
-      return _c("div", {
-        key: idx,
-        staticClass: "text-danger"
-      }, [_vm._v("\n                    " + _vm._s(allErrors) + "\n                ")]);
-    }), 0);
-  })] : _vm._e()], 2), _vm._v(" "), _c("a", {
+  }, [_c("b", [_vm._v("Deuda: ")]), _vm._v(" "), _c("span", [_vm._v("Bs " + _vm._s(_vm.pedido.pago_faltante))])])] : _vm._e()], 2), _vm._v(" "), _c("a", {
     staticClass: "btn btn-success",
     attrs: {
       target: "_blank",
@@ -3381,20 +3276,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fa fa-whatsapp"
-  }), _vm._v(" Compartir")]), _vm._v(" "), _vm.pedido.pedido_type === "DEUDA" ? _c("a", {
-    staticClass: "btn btn-default",
-    attrs: {
-      disabled: _vm.abonar
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.payDebt(_vm.pedido);
-      }
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-plus-square"
-  }), _vm._v(" Abonar")]) : _vm._e(), _vm._v(" "), _c("a", {
+  }), _vm._v(" Compartir")]), _vm._v(" "), _c("a", {
     staticClass: "btn btn-danger",
     attrs: {
       disabled: _vm.abonar
@@ -3420,17 +3302,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fa fa-file-image-o"
-  }), _vm._v(" Exportar Image")]), _vm._v(" "), _vm.abonar ? _c("a", {
-    staticClass: "btn btn-default",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.closePay.apply(null, arguments);
-      }
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-times"
-  }), _vm._v(" Cancelar")]) : _vm._e()]);
+  }), _vm._v(" Exportar Image")])]);
 };
 
 var staticRenderFns = [function () {
@@ -3446,9 +3318,9 @@ var staticRenderFns = [function () {
     staticClass: "text-center"
   }, [_vm._v("#")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
-  }, [_vm._v("Fecha")]), _vm._v(" "), _c("th", {
+  }, [_vm._v("Monto pagado")]), _vm._v(" "), _c("th", {
     staticClass: "text-center"
-  }, [_vm._v("Monto")])])]);
+  }, [_vm._v("Fecha")])])]);
 }];
 render._withStripped = true;
 

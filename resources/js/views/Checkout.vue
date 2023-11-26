@@ -218,13 +218,12 @@ export default {
     },
     methods: {
         storeSale() {
-            let monto_pagado = 0;
-            if (this.sale_type == "CONTADO") {
-                monto_pagado = this.cartTotalPrice;
+            let pago_faltante = 0;
+            if (this.sale_type != "CONTADO") {
+                pago_faltante = this.cartTotalPrice;
             } else {
-                monto_pagado = 0;
+                pago_faltante = 0;
             }
-
             this.detalle_pedido = this.cart.map((pedido) => ({
                 product_id: pedido.product.id,
                 cantidad: pedido.quantity,
@@ -233,8 +232,7 @@ export default {
                 cliente_id: this.currentUser.id,
                 sale_type: this.sale_type,
                 total: this.cartTotalPrice,
-                pago_deuda: this.total,
-                monto_pagado: monto_pagado,
+                pago_faltante: pago_faltante,
                 client: this.client,
                 detalle_pedido: this.detalle_pedido,
             };
@@ -242,7 +240,7 @@ export default {
             axios
                 .post("/api/orders", order)
                 .then(() => {
-                    this.$router.push("orders");
+                    window.location.href = "/orders";
                     sessionStorage.setItem(
                         "cart",
                         JSON.stringify((this.$store.state.cart = []))

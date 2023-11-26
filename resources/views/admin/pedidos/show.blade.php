@@ -26,6 +26,10 @@
                                 <td>{{ $pedido->status }}</td>
                             </tr>
                             <tr>
+                                <th>Tipo de venta</th>
+                                <td>{{ $pedido->sale_type }}</td>
+                            </tr>
+                            <tr>
                                 <th>Items</th>
                                 <td>{{ count($pedido->detalles) }}</td>
                             </tr>
@@ -67,7 +71,7 @@
                     </table>
                     <div class="mt-3">
                         <a href="{{ route('admin.pedidos.index') }}" class="btn btn-dark">Regresar</a>
-                        <a href="{{ route('admin.ventas.vender', $pedido) }}" class="btn btn-primary">Generar venta</a>
+                        <a href="{{ route('admin.ventas.vender', $pedido) }}" class="btn btn-primary">Aceptar pedido</a>
                     </div>
                 </div>
             </div>

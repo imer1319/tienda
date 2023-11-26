@@ -19,6 +19,7 @@ class PedidoResource extends JsonResource
             'client_name' => $this->client->name . " " . $this->client->profile->apellido_paterno . " " . $this->client->profile->apellido_materno,
             'sale_type' => $this->sale_type,
             'total' => $this->total,
+            'pago_faltante' => $this->pago_faltante,
             'ci' => $this->client->profile->ci,
             'status' => $this->status,
             'items' => count($this->detalles),

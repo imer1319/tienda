@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DeudaController;
 use App\Http\Controllers\Admin\PedidoController;
+use App\Http\Controllers\Admin\ProcesoController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProviderController;
@@ -29,8 +31,10 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('profiles', ProfileController::class)->except(['create', 'edit', 'index']);
     Route::resource('pedidos', PedidoController::class)->except(['create', 'edit']);
     Route::resource('ventas', VentaController::class)->except('destroy');
+    Route::resource('procesos', ProcesoController::class)->except('destroy');
     Route::get('ventas/generar/{venta}', [VentaController::class, 'edit'])->name('ventas.vender');
     Route::get('clients', [ProfileController::class, 'index'])->name('clients.index');
+    Route::post('ventas/deudas/{pedido}', [DeudaController::class, 'store'])->name('deudas.store');
     Route::middleware('role:Admin')
         ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
         ->name('users.roles.update');
@@ -47,6 +51,7 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/products', [ProductController::class, 'datatables']);
     Route::get('api/pedidos', [PedidoController::class, 'datatables']);
     Route::get('api/ventas', [VentaController::class, 'datatables']);
+    Route::get('api/procesos', [ProcesoController::class, 'datatables']);
 });
 
 Route::get('/{any?}', function () {

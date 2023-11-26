@@ -38,57 +38,30 @@
                 <b>Total: </b>
                 <span>Bs {{ pedido.total }}</span>
             </h3>
-            <template v-if="pedido.deudas.length">
+            <template v-if="pedido.deudas && pedido.deudas.length">
                 <table class="table table-bordered text-center">
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
+                            <th class="text-center">Monto pagado</th>
                             <th class="text-center">Fecha</th>
-                            <th class="text-center">Monto</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
-                            v-for="(debt, index) in pedido.debts"
+                            v-for="(debt, index) in pedido.deudas"
                             :key="debt.id"
                         >
                             <td width="10px">{{ index + 1 }}</td>
-                            <td>{{ debt.created_at }}</td>
                             <td>{{ debt.amount }}</td>
+                            <td>{{ debt.created_at }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <h3 class="d-flex justify-content-between align-items-center">
                     <b>Deuda: </b>
-                    <span>Bs {{ pedido.total - deuda }}</span>
+                    <span>Bs {{ pedido.pago_faltante }}</span>
                 </h3>
-                <div class="input-group pt-3" v-if="abonar">
-                    <input
-                        type="number"
-                        v-model="amount"
-                        class="form-control"
-                        min="1"
-                    />
-                    <div class="input-group-append">
-                        <a
-                            @click.prevent="storeOrUpdateDebt"
-                            class="btn btn-default"
-                            >Abonar</a
-                        >
-                    </div>
-                </div>
-                <div v-if="error" class="text-danger">
-                    {{ error }}
-                </div>
-                <div v-for="(errorArray, idx) in errors" :key="idx">
-                    <div
-                        v-for="(allErrors, idx) in errorArray"
-                        :key="idx"
-                        class="text-danger"
-                    >
-                        {{ allErrors }}
-                    </div>
-                </div>
             </template>
         </div>
         <a
@@ -97,13 +70,6 @@
             class="btn btn-success"
             :disabled="abonar"
             ><i class="fa fa-whatsapp"></i> Compartir</a
-        >
-        <a
-            @click.prevent="payDebt(pedido)"
-            class="btn btn-default"
-            v-if="pedido.pedido_type === 'DEUDA'"
-            :disabled="abonar"
-            ><i class="fa fa-plus-square"></i> Abonar</a
         >
         <a
             @click.prevent="exportToPdf"
@@ -116,9 +82,6 @@
             class="btn btn-warning"
             :disabled="abonar"
             ><i class="fa fa-file-image-o"></i> Exportar Image</a
-        >
-        <a @click.prevent="closePay" v-if="abonar" class="btn btn-default"
-            ><i class="fa fa-times"></i> Cancelar</a
         >
     </div>
 </template>
@@ -173,73 +136,8 @@ export default {
                 }
             );
         },
-        getMethod() {},
-        storeOrUpdateDebt() {
-            if (Number(this.deuda) + Number(this.amount) > this.pedido.total) {
-                this.error = "El monto no puede ser mayor a la deuda";
-                return;
-            } else if (
-                Number(this.deuda) + Number(this.amount) ===
-                this.pedido.total
-            ) {
-                this.url = `/api/pedidos/${this.pedido.id}`;
-                this.method = "put";
-            } else {
-                this.url = `/api/debts/${this.pedido.id}`;
-                this.method = "post";
-            }
-
-            axios[this.method](this.url, {
-                amount: this.amount,
-                status: "PAGADO",
-            })
-                .then(() => {
-                    this.amount = 0;
-                    this.closePay();
-                    this.errors = [];
-                    this.$store.dispatch("getDebts");
-                    $("#product-modal").modal("hide");
-                    if (this.deuda == 0) {
-                        Swal.fire(
-                            "Guardado correctamente. Se movio a mis ventas",
-                            "",
-                            "success"
-                        );
-                    } else {
-                        Swal.fire(
-                            "Los cambios se guardaron correctamente.",
-                            "",
-                            "success"
-                        );
-                    }
-                })
-                .catch((err) => {
-                    this.error = "";
-                    this.errors = err.response.data.errors;
-                });
-        },
-        payDebt() {
-            this.image = true;
-            this.pdf = true;
-            this.whatsapp = true;
-            this.abonar = true;
-        },
-        closePay() {
-            this.image = false;
-            this.pdf = false;
-            this.whatsapp = false;
-            this.abonar = false;
-            this.error = "";
-        },
     },
     computed: {
-        deuda() {
-            let deuda = 0;
-            this.pedido.debts.forEach((item) => {
-                deuda += item.amount;
-            });
-            return deuda;
-        },
         pedido() {
             return this.$store.state.pedido;
         },

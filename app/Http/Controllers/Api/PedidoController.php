@@ -32,7 +32,7 @@ class PedidoController extends Controller
                 'cliente_id' => $client_id,
                 'sale_type' => $request->input('sale_type'),
                 'total' => $request->input('total'),
-                'monto_pagado' => $request->input('monto_pagado'),
+                'pago_faltante' => $request->input('pago_faltante'),
             ]);
 
             foreach ($detalles_pedido as $detalle) {

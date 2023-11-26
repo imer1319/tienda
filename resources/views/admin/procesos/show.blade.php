@@ -10,6 +10,28 @@
                     <h3 class="text-center">Detalle de la venta</h3>
                 </div>
                 <div class="card-body">
+                    @if ($pedido->status != 'COMPLETADO')
+                        <form action="{{ route('admin.deudas.store', $pedido) }}" class="form-inline mb-3 ml-4" method="POST">
+                            @csrf
+                            <div class="form-group mr-2">
+                                <label class="mr-2"><b>Deuda pendiente</b></label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Bs</div>
+                                    </div>
+                                    <input type="number" value="{{ $pedido->pago_faltante }}"
+                                        max="{{ $pedido->pago_faltante }}" min="1" class="form-control"
+                                        name="amount">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success">
+                                    <i class="ni ni-money-coins" style="font-size: 15px"></i>
+                                    Abonar
+                                </button>
+                            </div>
+                        </form>
+                    @endif
                     <table class="table">
                         <tbody>
                             <tr>

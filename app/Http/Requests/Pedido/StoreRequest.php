@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
             'sale_type' => 'required|string|in:CONTADO,DEUDA',
             'total' => 'required|numeric',
             'pago_deuda' => 'nullable|numeric',
-            'monto_pagado' => 'required|numeric',
+            'pago_faltante' => 'required|numeric',
             'client.direccion' => 'required|string',
             'client.phone' => 'required|string',
             'client.ciudad' => 'required|string',

@@ -20,7 +20,7 @@ class CreatePedidosTable extends Migration
             $table->enum('status',['PENDIENTE','EN PROCESO','ACEPTADO','CANCELADO','COMPLETADO'])->default('PENDIENTE');
             $table->bigInteger('total');
             $table->enum('sale_type',['CONTADO','DEUDA'])->default('CONTADO');
-            $table->bigInteger('monto_pagado')->default(0);
+            $table->bigInteger('pago_faltante')->default(0);
             $table->timestamps();
         });
     }

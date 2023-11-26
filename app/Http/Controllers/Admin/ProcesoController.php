@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Pedido;
 use Yajra\DataTables\Facades\DataTables;
 
-class PedidoController extends Controller
+class ProcesoController extends Controller
 {
     public function datatables()
     {
         $data = Pedido::with(['client', 'detalles'])
             ->select('id', 'total', 'cliente_id', 'status', 'sale_type', 'created_at')
-            ->where('status', 'PENDIENTE');
+            ->where('status', 'EN PROCESO');
         return DataTables::of($data)
             ->addColumn('client', function (Pedido $pedido) {
                 return $pedido->client->name;
@@ -23,20 +23,20 @@ class PedidoController extends Controller
             ->addColumn('items', function (Pedido $pedido) {
                 return count($pedido->detalles);
             })
-            ->addColumn('btn', 'admin.pedidos.partials.btn')
+            ->addColumn('btn', 'admin.procesos.partials.btn')
             ->rawColumns(['btn'])
             ->toJson();
     }
 
     public function index()
     {
-        return view('admin.pedidos.index');
+        return view('admin.procesos.index');
     }
 
-    public function show(Pedido $pedido)
+    public function show(Pedido $proceso)
     {
-        return view('admin.pedidos.show', [
-            'pedido' => $pedido
+        return view('admin.procesos.show', [
+            'pedido' => $proceso
         ]);
     }
 }

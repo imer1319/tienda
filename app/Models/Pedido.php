@@ -15,7 +15,7 @@ class Pedido extends Model
         'status',
         'total',
         'sale_type',
-        'monto_pagado',
+        'pago_faltante',
     ];
 
     public function client()

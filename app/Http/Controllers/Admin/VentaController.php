@@ -57,11 +57,13 @@ class VentaController extends Controller
 
         try {
             $venta = Pedido::findOrFail($pedido);
-
+            $driverId = $request->input('driver_id');
+            $status = $venta->sale_type == 'DEUDA' ? 'EN PROCESO' : 'COMPLETADO';
             $venta->update([
-                'status' => 'COMPLETADO',
-                'driver_id' => $request->input('driver_id')
+                'status' => $status,
+                'driver_id' => $driverId,
             ]);
+
             foreach ($venta->detalles as $detalle) {
                 $producto = $detalle->product;
                 if ($producto->stock >= $detalle->cantidad) {

@@ -76,7 +76,7 @@ class HomeController extends Controller
             'users' => User::count(),
             'providers' => Provider::count(),
             'sales' => Pedido::where('status', 'PAGADO')->count(),
-            'debts' => Pedido::where('status', 'PENDIENTE')->count(),
+            'debts' => Pedido::where('sale_type', 'DEUDA')->where('status','PENDIENTE')->count(),
             'debts_month' => $debts_month,
             'sales_month' => $sales_month,
             'meses' => $meses,

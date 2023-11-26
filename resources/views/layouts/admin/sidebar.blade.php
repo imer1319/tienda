@@ -80,6 +80,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ Route::is('admin.procesos.index') ? 'active' : '' }}"
+                                href="{{ route('admin.procesos.index') }} ">
+                                <i class="ni ni-box-2 text-primary"></i>
+                                <span class="nav-link-text">En proceso</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ Route::is('admin.ventas.index') ? 'active' : '' }}"
                                 href="{{ route('admin.ventas.index') }} ">
                                 <i class="ni ni-box-2 text-success"></i>
