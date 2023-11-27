@@ -135,13 +135,14 @@
                         >
                         <ul class="dropdown-menu search-dropdown">
                             <li>
-                                <form action="post">
-                                    <input
-                                        type="search"
-                                        class="form-control"
-                                        placeholder="Buscar..."
-                                    />
-                                </form>
+                                <input
+                                    type="search"
+                                    class="form-control"
+                                    placeholder="Buscar..."
+                                    v-model="buscar"
+                                    @keyup.enter="buscarProducto"
+                                />
+                                <span>Precione <b>enter</b> para buscar</span>
                             </li>
                         </ul>
                     </li>
@@ -175,6 +176,12 @@ export default {
     methods: {
         removeProductFromCart(product) {
             this.$store.dispatch("removeProductFromCart", product);
+        },
+        buscarProducto() {
+            this.$store.dispatch("getProducts", {
+                page: 1,
+                search: this.buscar,
+            });
         },
         logout() {
             // Lógica para cerrar sesión

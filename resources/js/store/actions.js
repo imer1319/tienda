@@ -1,6 +1,6 @@
-export const getProducts = ({ commit }, page = 1) => {
+export const getProducts = ({ commit }, { page = 1, search = '' }) => {
     axios
-        .get(`/api/products-all?page=${page}`)
+        .get(`/api/products-all?page=${page}&search=${search}`)
         .then((response) => {
             commit("SET_PRODUCTS", response.data);
         })
@@ -8,6 +8,7 @@ export const getProducts = ({ commit }, page = 1) => {
             console.error("Error al obtener productos:", error);
         });
 };
+
 
 export const getProductsCategory = ({ commit }, { page = 1, category }) => {
     axios

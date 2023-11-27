@@ -114,9 +114,11 @@
                     </div>
                     <div class="mt-3">
                         <a href="{{ route('admin.ventas.index') }}" class="btn btn-dark">Regresar</a>
+                        @if ($pedido->sale_type == 'DEUDA')
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deudas">
                             Ver pago de deudas
                         </button>
+                        @endif
                     </div>
                 </div>
             </div>

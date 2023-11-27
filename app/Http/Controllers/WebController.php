@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Profile;
 use App\Models\Provider;
+use Illuminate\Http\Request;
 
 class WebController extends Controller
 {
-    public function products()
+    public function products(Request $request)
     {
-        return Product::with('category')->where('stock', '>', 0)->paginate(12);
+        $query = Product::with('category')->where('stock', '>', 0);
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        }
+
+        return $query->paginate(12);
     }
+
 
     public function productsByCategory($category)
     {

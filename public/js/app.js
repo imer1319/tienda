@@ -2122,6 +2122,12 @@ __webpack_require__.r(__webpack_exports__);
     removeProductFromCart: function removeProductFromCart(product) {
       this.$store.dispatch("removeProductFromCart", product);
     },
+    buscarProducto: function buscarProducto() {
+      this.$store.dispatch("getProducts", {
+        page: 1,
+        search: this.buscar
+      });
+    },
     logout: function logout() {
       // Lógica para cerrar sesión
       // Por ejemplo, puedes utilizar el paquete Laravel Passport
@@ -2502,11 +2508,14 @@ __webpack_require__.r(__webpack_exports__);
     ProductItem: _components_ProductItem_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    this.getProducts(1);
+    this.getProducts(1, '');
   },
   methods: {
-    getProducts: function getProducts(pageNumber) {
-      this.$store.dispatch("getProducts", pageNumber);
+    getProducts: function getProducts(pageNumber, searchQuery) {
+      this.$store.dispatch("getProducts", {
+        page: pageNumber,
+        search: searchQuery
+      });
     },
     getProductsCategory: function getProductsCategory(pageNumber) {
       this.$store.dispatch("getProductsCategory", {
@@ -3048,7 +3057,36 @@ var render = function render() {
     }
   }, [_vm._v("\n                                        Ir a pagar\n                                    ")])], 1)])] : [_c("div", {
     staticClass: "text-center text-muted"
-  }, [_vm._v("\n                                No hay productos en el carrito\n                            ")])]], 2)], 1), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm.isAuthenticated ? _c("li", [_c("a", {
+  }, [_vm._v("\n                                No hay productos en el carrito\n                            ")])]], 2)], 1), _vm._v(" "), _c("li", {
+    staticClass: "dropdown search dropdown-slide open"
+  }, [_vm._m(0), _vm._v(" "), _c("ul", {
+    staticClass: "dropdown-menu search-dropdown"
+  }, [_c("li", [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.buscar,
+      expression: "buscar"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "search",
+      placeholder: "Buscar..."
+    },
+    domProps: {
+      value: _vm.buscar
+    },
+    on: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.buscarProducto.apply(null, arguments);
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.buscar = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _vm._m(1)])])]), _vm._v(" "), _vm.isAuthenticated ? _c("li", [_c("a", {
     attrs: {
       href: "#"
     },
@@ -3062,9 +3100,7 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("li", {
-    staticClass: "dropdown search dropdown-slide open"
-  }, [_c("a", {
+  return _c("a", {
     staticClass: "dropdown-toggle",
     attrs: {
       href: "#!",
@@ -3074,19 +3110,12 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "tf-ion-ios-search-strong"
-  }), _vm._v(" Buscar")]), _vm._v(" "), _c("ul", {
-    staticClass: "dropdown-menu search-dropdown"
-  }, [_c("li", [_c("form", {
-    attrs: {
-      action: "post"
-    }
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "search",
-      placeholder: "Buscar..."
-    }
-  })])])])]);
+  }), _vm._v(" Buscar")]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("span", [_vm._v("Precione "), _c("b", [_vm._v("enter")]), _vm._v(" para buscar")]);
 }];
 render._withStripped = true;
 
@@ -4440,20 +4469,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   removeSale: () => (/* binding */ removeSale),
 /* harmony export */   storeDebt: () => (/* binding */ storeDebt)
 /* harmony export */ });
-var getProducts = function getProducts(_ref) {
+var getProducts = function getProducts(_ref, _ref2) {
   var commit = _ref.commit;
-  var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  axios.get("/api/products-all?page=".concat(page)).then(function (response) {
+  var _ref2$page = _ref2.page,
+      page = _ref2$page === void 0 ? 1 : _ref2$page,
+      _ref2$search = _ref2.search,
+      search = _ref2$search === void 0 ? '' : _ref2$search;
+  axios.get("/api/products-all?page=".concat(page, "&search=").concat(search)).then(function (response) {
     commit("SET_PRODUCTS", response.data);
   })["catch"](function (error) {
     console.error("Error al obtener productos:", error);
   });
 };
-var getProductsCategory = function getProductsCategory(_ref2, _ref3) {
-  var commit = _ref2.commit;
-  var _ref3$page = _ref3.page,
-      page = _ref3$page === void 0 ? 1 : _ref3$page,
-      category = _ref3.category;
+var getProductsCategory = function getProductsCategory(_ref3, _ref4) {
+  var commit = _ref3.commit;
+  var _ref4$page = _ref4.page,
+      page = _ref4$page === void 0 ? 1 : _ref4$page,
+      category = _ref4.category;
   axios.get("/api/products/".concat(category, "?page=").concat(page)).then(function (response) {
     commit("SET_PRODUCTS", response.data);
     commit("SET_CATEGORIA", category);
@@ -4461,53 +4493,53 @@ var getProductsCategory = function getProductsCategory(_ref2, _ref3) {
     console.error("Error al obtener productos por categoria:", error);
   });
 };
-var getProduct = function getProduct(_ref4, _ref5) {
-  var commit = _ref4.commit;
-  var product = _ref5.product;
+var getProduct = function getProduct(_ref5, _ref6) {
+  var commit = _ref5.commit;
+  var product = _ref6.product;
   commit("SET_PRODUCT", product);
 };
-var addProductToCart = function addProductToCart(_ref6, _ref7) {
-  var commit = _ref6.commit;
-  var product = _ref7.product,
-      quantity = _ref7.quantity;
+var addProductToCart = function addProductToCart(_ref7, _ref8) {
+  var commit = _ref7.commit;
+  var product = _ref8.product,
+      quantity = _ref8.quantity;
   commit("ADD_TO_CART", {
     product: product,
     quantity: quantity
   });
 };
-var removeProductFromCart = function removeProductFromCart(_ref8, product) {
-  var commit = _ref8.commit;
+var removeProductFromCart = function removeProductFromCart(_ref9, product) {
+  var commit = _ref9.commit;
   commit("REMOVE_PRODUCT_FROM_CART", product);
 };
-var addQuantityFromProduct = function addQuantityFromProduct(_ref9, product) {
-  var commit = _ref9.commit;
+var addQuantityFromProduct = function addQuantityFromProduct(_ref10, product) {
+  var commit = _ref10.commit;
   commit("ADD_QUANTITY_FROM_PRODUCT", product);
 };
-var diminishQuantityFromProduct = function diminishQuantityFromProduct(_ref10, product) {
-  var commit = _ref10.commit;
+var diminishQuantityFromProduct = function diminishQuantityFromProduct(_ref11, product) {
+  var commit = _ref11.commit;
   commit("DIMINISH_QUANTITY_FROM_PRODUCT", product);
 };
-var getPedidos = function getPedidos(_ref11) {
-  var commit = _ref11.commit;
+var getPedidos = function getPedidos(_ref12) {
+  var commit = _ref12.commit;
   axios.get("/api/orders").then(function (res) {
     commit("SET_PEDIDOS", res.data.data);
   });
 };
-var getPedido = function getPedido(_ref12, _ref13) {
-  var commit = _ref12.commit;
-  var pedido = _ref13.pedido;
+var getPedido = function getPedido(_ref13, _ref14) {
+  var commit = _ref13.commit;
+  var pedido = _ref14.pedido;
   commit("SET_PEDIDO", pedido);
 };
-var getDebts = function getDebts(_ref14) {
-  var commit = _ref14.commit;
+var getDebts = function getDebts(_ref15) {
+  var commit = _ref15.commit;
   axios.get("/api/debts").then(function (res) {
     commit("SET_DEBTS", res.data.data);
   });
 };
-var removeSale = function removeSale(_ref15, _ref16) {
-  var commit = _ref15.commit;
-  var sale = _ref16.sale,
-      index = _ref16.index;
+var removeSale = function removeSale(_ref16, _ref17) {
+  var commit = _ref16.commit;
+  var sale = _ref17.sale,
+      index = _ref17.index;
   Swal.fire({
     title: "¿Realmente quiere eliminar esta venta?",
     showDenyButton: true,
@@ -4526,10 +4558,10 @@ var removeSale = function removeSale(_ref15, _ref16) {
     }
   });
 };
-var removeDebt = function removeDebt(_ref17, _ref18) {
-  var commit = _ref17.commit;
-  var sale = _ref18.sale,
-      index = _ref18.index;
+var removeDebt = function removeDebt(_ref18, _ref19) {
+  var commit = _ref18.commit;
+  var sale = _ref19.sale,
+      index = _ref19.index;
   Swal.fire({
     title: "¿Realmente quiere eliminar esta venta?",
     showDenyButton: true,
@@ -4548,10 +4580,10 @@ var removeDebt = function removeDebt(_ref17, _ref18) {
     }
   });
 };
-var storeDebt = function storeDebt(_ref19, _ref20) {
-  var commit = _ref19.commit;
-  var sale = _ref20.sale,
-      amount = _ref20.amount;
+var storeDebt = function storeDebt(_ref20, _ref21) {
+  var commit = _ref20.commit;
+  var sale = _ref21.sale,
+      amount = _ref21.amount;
   axios.post("/api/debts/".concat(sale.id), {
     amount: amount
   }).then(function (res) {

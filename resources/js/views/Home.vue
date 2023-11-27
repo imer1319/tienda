@@ -21,9 +21,7 @@
                 @page-change-category="getProductsCategory"
             />
             <Modal>
-                <ProductItem
-                    :product="product"
-                />
+                <ProductItem :product="product" />
             </Modal>
         </div>
     </section>
@@ -40,11 +38,14 @@ export default {
         ProductItem,
     },
     mounted() {
-        this.getProducts(1);
+        this.getProducts(1, '');
     },
     methods: {
-        getProducts(pageNumber) {
-            this.$store.dispatch("getProducts", pageNumber);
+        getProducts(pageNumber, searchQuery) {
+            this.$store.dispatch("getProducts", {
+                page: pageNumber,
+                search: searchQuery,
+            });
         },
         getProductsCategory(pageNumber) {
             this.$store.dispatch("getProductsCategory", {
