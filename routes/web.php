@@ -15,7 +15,6 @@ use App\Http\Controllers\Admin\UsersRolesController;
 use App\Http\Controllers\Admin\UsersPermissionsController;
 use App\Http\Controllers\Admin\VentaController;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();

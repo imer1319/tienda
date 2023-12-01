@@ -62,7 +62,6 @@ class UserController extends Controller
         ]);
 
         $user = User::create($data);
-
         if ($request->filled('roles')) {
             $user->assignRole($request->roles);
         }
