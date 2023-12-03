@@ -63,7 +63,7 @@ class HomeController extends Controller
         }
 
         for ($i = 1; $i <= 12; $i++) {
-            $debts_month[] = Pedido::where('status', 'PENDIENTE')
+            $debts_month[] = Pedido::where('sale_type', 'DEUDA')
                 ->whereYear('created_at', $date->year)
                 ->whereMonth('created_at', '=', $i)
                 ->count();
