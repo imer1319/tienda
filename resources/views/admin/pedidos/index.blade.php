@@ -20,7 +20,7 @@
                                 <th>Tipo de pedido</th>
                                 <th>Items</th>
                                 <th>Fecha</th>
-                                <th>Acciones</th>
+                                <th></th>
                             </tr>
                         </thead>
                     </table>

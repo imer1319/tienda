@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\Sale;
 use App\Models\User;
 use App\Models\Provider;
 use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -75,8 +72,8 @@ class HomeController extends Controller
         return view('home', [
             'users' => User::count(),
             'providers' => Provider::count(),
-            'sales' => Pedido::where('status', 'PAGADO')->count(),
-            'debts' => Pedido::where('sale_type', 'DEUDA')->where('status','PENDIENTE')->count(),
+            'sales' => Pedido::where('sale_type', 'CONTADO')->count(),
+            'debts' => Pedido::where('sale_type', 'DEUDA')->count(),
             'debts_month' => $debts_month,
             'sales_month' => $sales_month,
             'meses' => $meses,
