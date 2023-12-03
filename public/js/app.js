@@ -2591,7 +2591,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.redirectIfGuest();
-    this.$store.dispatch("getPedidos");
+    this.$store.dispatch("getPedidos", this.currentUser.id);
   },
   methods: {
     showPedido: function showPedido(pedido) {
@@ -4289,7 +4289,7 @@ var render = function render() {
   }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm.pedidos.length ? _vm._l(_vm.pedidos, function (pedido, index) {
     return _c("tr", {
       key: index
-    }, [_c("td", [_vm._v("#" + _vm._s(pedido.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(pedido.created_at))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(pedido.items))]), _vm._v(" "), _c("td", [_vm._v("$" + _vm._s(pedido.total))]), _vm._v(" "), _c("td", [_c("span", {
+    }, [_c("td", [_vm._v("#" + _vm._s(index + 1))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(pedido.created_at))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(pedido.items))]), _vm._v(" "), _c("td", [_vm._v("$" + _vm._s(pedido.total))]), _vm._v(" "), _c("td", [_c("span", {
       staticClass: "label label-primary"
     }, [_vm._v(_vm._s(pedido.status))])]), _vm._v(" "), _c("td", [_c("a", {
       staticClass: "btn btn-default",
@@ -4324,7 +4324,7 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("Pedido ID")]), _vm._v(" "), _c("th", [_vm._v("Fecha")]), _vm._v(" "), _c("th", [_vm._v("Items")]), _vm._v(" "), _c("th", [_vm._v("Total precio")]), _vm._v(" "), _c("th", [_vm._v("Estado")]), _vm._v(" "), _c("th")])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("#")]), _vm._v(" "), _c("th", [_vm._v("Fecha")]), _vm._v(" "), _c("th", [_vm._v("Items")]), _vm._v(" "), _c("th", [_vm._v("Total precio")]), _vm._v(" "), _c("th", [_vm._v("Estado")]), _vm._v(" "), _c("th")])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;
@@ -4715,9 +4715,9 @@ var diminishQuantityFromProduct = function diminishQuantityFromProduct(_ref11, p
   var commit = _ref11.commit;
   commit("DIMINISH_QUANTITY_FROM_PRODUCT", product);
 };
-var getPedidos = function getPedidos(_ref12) {
+var getPedidos = function getPedidos(_ref12, user_id) {
   var commit = _ref12.commit;
-  axios.get("/api/orders").then(function (res) {
+  axios.get("/api/orders/" + user_id).then(function (res) {
     commit("SET_PEDIDOS", res.data.data);
   });
 };

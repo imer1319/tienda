@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
-    public function index()
+    public function index($user_id)
     {
         return PedidoResource::collection(
             Pedido::query()
                 ->orderBy('created_at', 'desc')
+                ->where('cliente_id', $user_id)
                 ->get()
         );
     }

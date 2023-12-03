@@ -42,8 +42,8 @@ export const diminishQuantityFromProduct = ({ commit }, product) => {
     commit("DIMINISH_QUANTITY_FROM_PRODUCT", product);
 };
 
-export const getPedidos = ({ commit }) => {
-    axios.get("/api/orders").then((res) => {
+export const getPedidos = ({ commit }, user_id) => {
+    axios.get("/api/orders/"+ user_id).then((res) => {
         commit("SET_PEDIDOS", res.data.data);
     });
 };

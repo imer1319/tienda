@@ -22,7 +22,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Pedido ID</th>
+                                        <th>#</th>
                                         <th>Fecha</th>
                                         <th>Items</th>
                                         <th>Total precio</th>
@@ -36,7 +36,7 @@
                                             v-for="(pedido, index) in pedidos"
                                             :key="index"
                                         >
-                                            <td>#{{ pedido.id }}</td>
+                                            <td>#{{ index + 1 }}</td>
                                             <td>{{ pedido.created_at }}</td>
                                             <td>{{ pedido.items }}</td>
                                             <td>${{ pedido.total }}</td>
@@ -83,7 +83,7 @@ export default {
     },
     mounted() {
         this.redirectIfGuest();
-        this.$store.dispatch("getPedidos");
+        this.$store.dispatch("getPedidos", this.currentUser.id);
     },
     methods: {
         showPedido(pedido) {

@@ -10,7 +10,7 @@ Route::get('products-all', [WebController::class,'products']);
 Route::get('products/{category}', [WebController::class,'productsByCategory']);
 Route::get('products/{product}', [WebController::class,'productShow']);
 
-Route::get('orders',  [PedidoController::class, 'index']);
+Route::get('orders/{user_id}',  [PedidoController::class, 'index']);
 Route::post('orders',  [PedidoController::class, 'store']);
 Route::put('orders/{order}',  [PedidoController::class, 'update']);
 Route::delete('orders/{order}',  [PedidoController::class, 'destroy']);

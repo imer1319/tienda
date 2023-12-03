@@ -54,7 +54,6 @@ class VentaController extends Controller
     public function update(Request $request, $pedido)
     {
         DB::beginTransaction();
-
         try {
             $venta = Pedido::findOrFail($pedido);
             $driverId = $request->input('driver_id');
@@ -74,10 +73,9 @@ class VentaController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.ventas.index')->with('flash', 'Pedido guardado correctamente');
+            return redirect()->route('admin.pedidos.index')->with('flash', 'Pedido guardado correctamente');
         } catch (\Exception $e) {
             DB::rollBack();
-
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
