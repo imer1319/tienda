@@ -17,10 +17,13 @@
     </div>
 
     <div class="form-group col">
-        <label>Categoria</label>
+        <label>Categoría</label>
         <select name="category_id" class="form-control">
             @foreach ($categories as $id => $name)
-                <option value="{{ $id }}">{{ $name }}</option>
+                <option value="{{ $id }}"
+                    {{ old('category_id', $product->category_id) == $id ? 'selected' : '' }}>
+                    {{ $name }}
+                </option>
             @endforeach
         </select>
     </div>
@@ -37,9 +40,12 @@
 
     <div class="form-group col">
         <label>Proveedores</label>
-        <select name="provider_id" class="form-control">
+        <select name="provider_id" class="form-control" {{ isset($product->id) ? 'disabled' : '' }}>
             @foreach ($providers as $id => $name)
-                <option value="{{ $id }}">{{ $name }}</option>
+                <option value="{{ $id }}"
+                    {{ old('provider_id', $product->provider_id) == $id ? 'selected' : '' }}>
+                    {{ $name }}
+                </option>
             @endforeach
         </select>
     </div>

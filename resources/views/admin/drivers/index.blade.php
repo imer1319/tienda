@@ -1,27 +1,28 @@
 @extends('layouts.admin')
 
-@section('title', 'Listado de usuarios')
+@section('title', 'Listado de choferes')
 
 @section('content')
-    <div class="row pt-5 mt-5">
+    <div class="row mt-5 pt-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3>Listado de usuarios</h3>
-                        @can('users_create')
-                            <a href="{{ route('admin.users.create') }}" class="btn btn-success btn-sm">
-                                <i class="fa fa-plus"></i> Crear nuevo
-                            </a>
+                        <h3>Listado de Choferes</h3>
+                        @can('drivers_create')
+                            <a href="{{ route('admin.drivers.create') }}" class="btn btn-success btn-sm"><i
+                                    class="fa fa-plus"></i> Crear nuevo</a>
                         @endcan
                     </div>
-                    <table class="table" id="table-users">
+                    <table class="table" id="table-drivers">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
-                                <th>Username</th>
-                                <th>Roles</th>
+                                <th>CI</th>
+                                <th>Telefono</th>
+                                <th>Placa</th>
+                                <th>Movil</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -40,7 +41,6 @@
 @endsection
 
 @section('scripts')
-    <!-- Datatables -->
     <script src="{{ asset('admin/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
@@ -49,10 +49,10 @@
     <script src="{{ asset('admin/vendor/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#table-users').DataTable({
+            $('#table-drivers').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "/api/users",
+                "ajax": "/api/drivers",
                 "columns": [{
                         data: null,
                         render: function(data, type, row, meta) {
@@ -65,10 +65,16 @@
                         data: 'name'
                     },
                     {
-                        data: 'username'
+                        data: 'ci'
                     },
                     {
-                        data: 'role'
+                        data: 'phone'
+                    },
+                    {
+                        data: 'placa'
+                    },
+                    {
+                        data: 'modelo_movil'
                     },
                     {
                         data: 'btn',

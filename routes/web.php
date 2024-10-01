@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DeudaController;
+use App\Http\Controllers\Admin\DriverController;
 use App\Http\Controllers\Admin\PedidoController;
 use App\Http\Controllers\Admin\ProcesoController;
 use App\Http\Controllers\Admin\ProductController;
@@ -27,6 +28,7 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('providers', ProviderController::class);
+    Route::resource('drivers', DriverController::class);
     Route::resource('profiles', ProfileController::class)->except(['create', 'edit', 'index']);
     Route::resource('pedidos', PedidoController::class)->except(['create', 'edit']);
     Route::resource('ventas', VentaController::class)->except('destroy');
@@ -51,6 +53,7 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/pedidos', [PedidoController::class, 'datatables']);
     Route::get('api/ventas', [VentaController::class, 'datatables']);
     Route::get('api/procesos', [ProcesoController::class, 'datatables']);
+    Route::get('api/drivers', [DriverController::class, 'datatables']);
 });
 
 Route::get('/{any?}', function () {

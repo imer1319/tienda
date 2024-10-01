@@ -73,7 +73,10 @@ class VentaController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.pedidos.index')->with('flash', 'Pedido guardado correctamente');
+            if ($status == 'EN PROCESO') {
+                return redirect()->route('admin.procesos.index')->with('flash', 'Pedido guardado correctamente');
+            }
+            return redirect()->route('admin.ventas.index')->with('flash', 'Pedido guardado correctamente');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());

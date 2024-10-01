@@ -42,6 +42,7 @@ class PermissionsSeeder extends Seeder
             'display_name' => 'Editar perfil'
         ]);
 
+        // roles
         Permission::create([
             'name' => 'roles_index',
             'display_name' => 'Listar roles'
@@ -71,6 +72,7 @@ class PermissionsSeeder extends Seeder
             'display_name' => 'Actualizar permisos'
         ]);
 
+        // categorias
         Permission::create([
             'name' => 'categories_index',
             'display_name' => 'Listar categorias'
@@ -88,7 +90,7 @@ class PermissionsSeeder extends Seeder
             'display_name' => 'Eliminar categorias'
         ]);
 
-
+        // productos
         Permission::create([
             'name' => 'products_index',
             'display_name' => 'Listar productos'
@@ -110,7 +112,7 @@ class PermissionsSeeder extends Seeder
             'display_name' => 'Eliminar productos'
         ]);
 
-
+        // Proveedores
         Permission::create([
             'name' => 'providers_index',
             'display_name' => 'Listar proveedores'
@@ -132,7 +134,7 @@ class PermissionsSeeder extends Seeder
             'display_name' => 'Eliminar proveedores'
         ]);
 
-
+        //perfiles
         Permission::create([
             'name' => 'profiles_index',
             'display_name' => 'Listar perfiles'
@@ -152,6 +154,28 @@ class PermissionsSeeder extends Seeder
         Permission::create([
             'name' => 'profiles_destroy',
             'display_name' => 'Eliminar perfiles'
+        ]);
+
+        //choferes
+        Permission::create([
+            'name' => 'drivers_index',
+            'display_name' => 'Listar choferes'
+        ]);
+        Permission::create([
+            'name' => 'drivers_show',
+            'display_name' => 'Ver chofer'
+        ]);
+        Permission::create([
+            'name' => 'drivers_create',
+            'display_name' => 'Crear chofer'
+        ]);
+        Permission::create([
+            'name' => 'drivers_edit',
+            'display_name' => 'Actualizar chofer'
+        ]);
+        Permission::create([
+            'name' => 'drivers_destroy',
+            'display_name' => 'Eliminar chofer'
         ]);
 
         // Asignar todos los permisos al admin

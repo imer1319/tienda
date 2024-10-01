@@ -18,6 +18,24 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.pedidos.*') ? 'active' : '' }}" href="{{ route('admin.pedidos.index') }}">
+                            <i class="ni ni-cart text-orange"></i>
+                            <span class="nav-link-text">Pedidos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.procesos.*') ? 'active' : '' }}" href="{{ route('admin.procesos.index') }}">
+                            <i class="ni ni-delivery-fast text-primary"></i>
+                            <span class="nav-link-text">Procesos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.ventas.*') ? 'active' : '' }}" href="{{ route('admin.ventas.index') }}">
+                            <i class="ni ni-credit-card text-default"></i>
+                            <span class="nav-link-text">Ventas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         @can('users_index')
                             <a class="nav-link  {{ Route::is('admin.users.index') ? 'active' : '' }}"
                                 href="{{ route('admin.users.index') }} ">
@@ -94,6 +112,12 @@
                             </a>
                         </li>
                     @endif
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.drivers.*') ? 'active' : '' }}" href="{{ route('admin.drivers.index') }}">
+                            <i class="ni ni-delivery-fast text-primary"></i>
+                            <span class="nav-link-text">Choferes</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

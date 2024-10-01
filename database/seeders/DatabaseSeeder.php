@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\Driver;
+use App\Models\Profile;
 use App\Models\Provider;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -32,6 +33,11 @@ class DatabaseSeeder extends Seeder
         User::truncate();
         Role::truncate();
         Permission::truncate();
+        Category::truncate();
+        Product::truncate();
+        Profile::truncate();
+        Driver::truncate();
+        Provider::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         Storage::disk('public')->deleteDirectory('images');
