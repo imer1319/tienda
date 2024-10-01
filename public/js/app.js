@@ -2721,55 +2721,11 @@ var staticRenderFns = [function () {
     staticClass: "col-md-12"
   }, [_c("ul", {
     staticClass: "social-media"
-  }, [_c("li", [_c("a", {
-    attrs: {
-      href: "https://www.facebook.com/themefisher"
-    }
-  }, [_c("i", {
-    staticClass: "tf-ion-social-facebook"
-  })])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "https://www.instagram.com/themefisher"
-    }
-  }, [_c("i", {
-    staticClass: "tf-ion-social-instagram"
-  })])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "https://www.twitter.com/themefisher"
-    }
-  }, [_c("i", {
-    staticClass: "tf-ion-social-twitter"
-  })])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "https://www.pinterest.com/themefisher/"
-    }
-  }, [_c("i", {
-    staticClass: "tf-ion-social-pinterest"
-  })])])]), _vm._v(" "), _c("ul", {
+  }), _vm._v(" "), _c("ul", {
     staticClass: "footer-menu text-uppercase"
-  }, [_c("li", [_c("a", {
-    attrs: {
-      href: "contact.html"
-    }
-  }, [_vm._v("CONTACT")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "shop.html"
-    }
-  }, [_vm._v("SHOP")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "pricing.html"
-    }
-  }, [_vm._v("Pricing")])]), _vm._v(" "), _c("li", [_c("a", {
-    attrs: {
-      href: "contact.html"
-    }
-  }, [_vm._v("PRIVACY POLICY")])])]), _vm._v(" "), _c("p", {
+  }), _vm._v(" "), _c("p", {
     staticClass: "copyright-text"
-  }, [_vm._v("Copyright ©2021, Designed & Developed by "), _c("a", {
-    attrs: {
-      href: "https://themefisher.com/"
-    }
-  }, [_vm._v("Themefisher")])])])])])]);
+  }, [_vm._v("UAJMS - Tesis de grado")])])])])]);
 }];
 render._withStripped = true;
 

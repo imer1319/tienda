@@ -11,7 +11,7 @@
     <meta name="description" content="Construction Html5 Template">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     @auth()
-        <meta name="user" content="{{ Auth::user()->load('roles','profile') }}">
+        <meta name="user" content="{{ Auth::user()->load('roles', 'profile') }}">
     @else
         <meta name="user" content="{{ Auth::user() }}">
     @endauth
@@ -37,19 +37,36 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="/web/css/style.css">
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <style>
+        #app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
+        .router-view {
+            flex-grow: 1;
+        }
+
+        .footer {
+            margin-top: auto;
+            width: 100%;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
 
 <body id="body">
-    <div id="app">
+    <div id="app" class="d-flex flex-column min-vh-100">
         <section class="menu fixed-top bg-shadow">
             <nav-bar></nav-bar>
         </section>
 
-        <router-view></router-view>
+        <router-view class="flex-grow-1"></router-view>
 
-        <footer-web></footer-web>
+        <footer-web class="mt-auto"></footer-web>
     </div>
+
 
 
     <!-- Main jQuery -->
