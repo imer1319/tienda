@@ -3811,6 +3811,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function render() {
+  var _vm$currentUser$profi, _vm$currentUser$profi2, _vm$currentUser$profi3;
+
   var _vm = this,
       _c = _vm._self._c;
 
@@ -3872,7 +3874,7 @@ var render = function render() {
       name: "city"
     },
     domProps: {
-      value: _vm.currentUser.profile.apellido_paterno
+      value: (_vm$currentUser$profi = _vm.currentUser.profile) === null || _vm$currentUser$profi === void 0 ? void 0 : _vm$currentUser$profi.apellido_paterno
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "checkout-country-code clearfix"
@@ -3890,7 +3892,7 @@ var render = function render() {
       name: "zipcode"
     },
     domProps: {
-      value: _vm.currentUser.profile.apellido_materno
+      value: (_vm$currentUser$profi2 = _vm.currentUser.profile) === null || _vm$currentUser$profi2 === void 0 ? void 0 : _vm$currentUser$profi2.apellido_materno
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
@@ -3905,7 +3907,7 @@ var render = function render() {
       id: "user_ci"
     },
     domProps: {
-      value: _vm.currentUser.profile.ci
+      value: (_vm$currentUser$profi3 = _vm.currentUser.profile) === null || _vm$currentUser$profi3 === void 0 ? void 0 : _vm$currentUser$profi3.ci
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "checkout-country-code clearfix"
@@ -4354,6 +4356,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function render() {
+  var _vm$currentUser$profi, _vm$currentUser$profi2;
+
   var _vm = this,
       _c = _vm._self._c;
 
@@ -4378,7 +4382,7 @@ var render = function render() {
     staticClass: "media-body"
   }, [_c("ul", {
     staticClass: "user-profile-list"
-  }, [_vm._m(0), _vm._v(" "), _c("li", [_c("span", [_vm._v("Nombre completo:")]), _vm._v(_vm._s(_vm.currentUser.name) + "\n                                " + _vm._s(_vm.currentUser.profile.apellido_paterno) + "\n                                " + _vm._s(_vm.currentUser.profile.apellido_materno) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Ciudad:")]), _vm._v(_vm._s(_vm.currentUser.profile.ciudad) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Email:")]), _vm._v(_vm._s(_vm.currentUser.email) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Celular:")]), _vm._v(_vm._s(_vm.currentUser.profile.phone) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Fecha de nacimiemto:")]), _vm._v(_vm._s(_vm.currentUser.profile.fecha_nacimiento) + "\n                            ")]), _vm._v(" "), _c("li", [_c("a", {
+  }, [_vm._m(0), _vm._v(" "), _c("li", [_c("span", [_vm._v("Nombre completo:")]), _vm._v(_vm._s(_vm.currentUser.name) + "\n                                " + _vm._s((_vm$currentUser$profi = _vm.currentUser.profile) === null || _vm$currentUser$profi === void 0 ? void 0 : _vm$currentUser$profi.apellido_paterno) + "\n                                " + _vm._s((_vm$currentUser$profi2 = _vm.currentUser.profile) === null || _vm$currentUser$profi2 === void 0 ? void 0 : _vm$currentUser$profi2.apellido_materno) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Ciudad:")]), _vm._v(_vm._s(_vm.currentUser.profile.ciudad) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Email:")]), _vm._v(_vm._s(_vm.currentUser.email) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Celular:")]), _vm._v(_vm._s(_vm.currentUser.profile.phone) + "\n                            ")]), _vm._v(" "), _c("li", [_c("span", [_vm._v("Fecha de nacimiemto:")]), _vm._v(_vm._s(_vm.currentUser.profile.fecha_nacimiento) + "\n                            ")]), _vm._v(" "), _c("li", [_c("a", {
     staticClass: "btn btn-warning",
     on: {
       click: function click($event) {

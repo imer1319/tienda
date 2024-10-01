@@ -18,8 +18,8 @@
                                 <li>
                                     <span>Nombre completo:</span
                                     >{{ currentUser.name }}
-                                    {{ currentUser.profile.apellido_paterno }}
-                                    {{ currentUser.profile.apellido_materno }}
+                                    {{ currentUser.profile?.apellido_paterno }}
+                                    {{ currentUser.profile?.apellido_materno }}
                                 </li>
                                 <li>
                                     <span>Ciudad:</span

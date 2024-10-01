@@ -51,8 +51,7 @@
                                             id="user_city"
                                             name="city"
                                             :value="
-                                                currentUser.profile
-                                                    .apellido_paterno
+                                                currentUser.profile?.apellido_paterno
                                             "
                                         />
                                     </div>
@@ -68,8 +67,7 @@
                                             id="user_post_code"
                                             name="zipcode"
                                             :value="
-                                                currentUser.profile
-                                                    .apellido_materno
+                                                currentUser.profile?.apellido_materno
                                             "
                                         />
                                     </div>
@@ -79,7 +77,7 @@
                                             type="text"
                                             class="form-control"
                                             id="user_ci"
-                                            :value="currentUser.profile.ci"
+                                            :value="currentUser.profile?.ci"
                                         />
                                     </div>
                                 </div>
