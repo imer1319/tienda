@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Driver;
 use App\Models\Pedido;
+use App\Traits\NumeroALetra;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VentaController extends Controller
 {
+    use NumeroALetra;
+
     public function datatables()
     {
         $data = Pedido::with(['client', 'detalles'])
@@ -81,5 +85,13 @@ class VentaController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    public function downloadPdf(Pedido $venta)
+    {
+        $numero_letra = $this->convertirNumeroALetras($venta->total);
+        $pdf = Pdf::loadView('admin.reportes.venta', compact('venta', 'numero_letra'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
     }
 }

@@ -21,39 +21,40 @@ class ProfileController extends Controller
 
     public function datatables()
     {
-        return DataTables::of(DB::table('users')
-            ->join('profiles', 'users.id', '=', 'profiles.user_id')
-            ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-            ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-            ->select('users.id', 'users.name', 'profiles.ci', 'profiles.phone', 'profiles.genero', 'profiles.apellido_paterno', 'profiles.apellido_materno')
-            ->where('roles.name', 'Cliente')
-            ->orderBy('users.id', 'desc'))
+        $users = User::with(['profile', 'roles'])
+            ->whereHas('roles', function ($query) {
+                $query->where('name', 'Cliente');
+            })
+            ->orderBy('id', 'desc');
+
+        return DataTables::of($users)
             ->addColumn('full_name', function ($user) {
-                return $user->name . ' ' . $user->apellido_paterno . ' ' . $user->apellido_materno;
+                return $user->name . ' ' . $user->profile->apellido_paterno . ' ' . $user->profile->apellido_materno;
             })
             ->addColumn('ci', function ($user) {
-                return $user->ci;
+                return $user->profile->ci;
             })
             ->addColumn('phone', function ($user) {
-                return $user->phone;
+                return $user->profile->phone;
             })
             ->addColumn('genero', function ($user) {
-                return $user->genero;
+                return $user->profile->genero;
             })
             ->addColumn('btn', 'admin.clients.partials.btn')
             ->rawColumns(['btn'])
             ->toJson();
     }
 
+
     public function index()
     {
         return view('admin.clients.index');
     }
 
-    public function show(Profile $profile)
+    public function show(User $client)
     {
-        return view('admin.profiles.show', [
-            'profile' => $profile
+        return view('admin.clients.show', [
+            'client' => $client
         ]);
     }
 

@@ -35,6 +35,7 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('procesos', ProcesoController::class)->except('destroy');
     Route::get('ventas/generar/{venta}', [VentaController::class, 'edit'])->name('ventas.vender');
     Route::get('clients', [ProfileController::class, 'index'])->name('clients.index');
+    Route::get('clients/{client}', [ProfileController::class, 'show'])->name('clients.show');
     Route::post('ventas/deudas/{pedido}', [DeudaController::class, 'store'])->name('deudas.store');
     Route::middleware('role:Admin')
         ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
@@ -54,6 +55,10 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/ventas', [VentaController::class, 'datatables']);
     Route::get('api/procesos', [ProcesoController::class, 'datatables']);
     Route::get('api/drivers', [DriverController::class, 'datatables']);
+
+    // PDF
+    Route::get('/ventas/{venta}/pdf/export', [VentaController::class, 'downloadPdf'])->name('ventas.download.pdf');
+
 });
 
 Route::get('/{any?}', function () {

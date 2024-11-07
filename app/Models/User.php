@@ -59,9 +59,9 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function sales()
+    public function ventas()
     {
-        return $this->hasMany(Sale::class, 'secretaria_id');
+        return $this->hasMany(Pedido::class, 'cliente_id');
     }
 
     public function getFullNameAttribute()
