@@ -2287,7 +2287,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["product"]
+  props: ["product"],
+  methods: {
+    addToCart: function addToCart() {
+      this.$store.dispatch("addProductToCart", {
+        product: this.product,
+        quantity: 1
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -3438,19 +3446,15 @@ var render = function render() {
     staticClass: "product-title"
   }, [_vm._v(_vm._s(_vm.product.name))]), _vm._v(" "), _c("p", {
     staticClass: "product-price"
-  }, [_vm._v("Bs " + _vm._s(_vm.product.price))]), _vm._v(" "), _c("p", {
-    staticClass: "product-short-description"
-  }, [_vm._v("\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n                Rem iusto nihil cum. Illo laborum numquam rem aut officia\n                dicta cumque.\n            ")]), _vm._v(" "), _c("a", {
+  }, [_vm._v("Bs " + _vm._s(_vm.product.price))]), _vm._v(" "), _c("a", {
     staticClass: "btn btn-main",
-    attrs: {
-      href: "cart.html"
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.addToCart.apply(null, arguments);
+      }
     }
-  }, [_vm._v("Add To Cart")]), _vm._v(" "), _c("a", {
-    staticClass: "btn btn-transparent",
-    attrs: {
-      href: "product-single.html"
-    }
-  }, [_vm._v("View Product Details")])])])]);
+  }, [_vm._v("Añadir al carro")])])])]);
 };
 
 var staticRenderFns = [];

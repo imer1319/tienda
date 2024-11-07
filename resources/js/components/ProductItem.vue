@@ -9,15 +9,7 @@
             <div class="product-short-details">
                 <h2 class="product-title">{{ product.name }}</h2>
                 <p class="product-price">Bs {{ product.price }}</p>
-                <p class="product-short-description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Rem iusto nihil cum. Illo laborum numquam rem aut officia
-                    dicta cumque.
-                </p>
-                <a href="cart.html" class="btn btn-main">Add To Cart</a>
-                <a href="product-single.html" class="btn btn-transparent"
-                    >View Product Details</a
-                >
+                <a @click.prevent="addToCart"class="btn btn-main">Añadir al carro</a>
             </div>
         </div>
     </div>
@@ -25,5 +17,13 @@
 <script>
 export default {
     props: ["product"],
+    methods: {
+        addToCart() {
+            this.$store.dispatch("addProductToCart", {
+                product: this.product,
+                quantity: 1,
+            });
+        },
+    },
 };
 </script>
