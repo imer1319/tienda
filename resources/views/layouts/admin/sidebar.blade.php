@@ -18,19 +18,36 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.pedidos.*') ? 'active' : '' }}" href="{{ route('admin.pedidos.index') }}">
-                            <i class="ni ni-cart text-orange"></i>
-                            <span class="nav-link-text">Pedidos</span>
+                        <a class="nav-link d-flex justify-content-between {{ Route::is('admin.pedidos.*') ? 'active' : '' }}"
+                            href="{{ route('admin.pedidos.index') }}">
+                            <span>
+                                <i class="ni ni-cart text-orange"></i>
+                                <span class="nav-link-text ml-3">Pedidos</span>
+                            </span>
+                            @if (\App\Models\Pedido::where('status', 'PENDIENTE')->count())
+                                <span class="badge badge-success">
+                                    {{ \App\Models\Pedido::where('status', 'PENDIENTE')->count() }}
+                                </span>
+                            @endif
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.procesos.*') ? 'active' : '' }}" href="{{ route('admin.procesos.index') }}">
-                            <i class="ni ni-delivery-fast text-primary"></i>
-                            <span class="nav-link-text">Procesos</span>
+                        <a class="nav-link d-flex justify-content-between {{ Route::is('admin.procesos.*') ? 'active' : '' }}"
+                            href="{{ route('admin.procesos.index') }}">
+                            <span>
+                                <i class="ni ni-delivery-fast text-primary"></i>
+                                <span class="nav-link-text">Procesos</span>
+                            </span>
+                            @if (\App\Models\Pedido::where('status', 'EN PROCESO')->count())
+                                <span class="badge badge-success">
+                                    {{ \App\Models\Pedido::where('status', 'EN PROCESO')->count() }}
+                                </span>
+                            @endif
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.ventas.*') ? 'active' : '' }}" href="{{ route('admin.ventas.index') }}">
+                        <a class="nav-link {{ Route::is('admin.ventas.*') ? 'active' : '' }}"
+                            href="{{ route('admin.ventas.index') }}">
                             <i class="ni ni-credit-card text-default"></i>
                             <span class="nav-link-text">Ventas</span>
                         </a>
@@ -113,7 +130,8 @@
                         </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.drivers.*') ? 'active' : '' }}" href="{{ route('admin.drivers.index') }}">
+                        <a class="nav-link {{ Route::is('admin.drivers.*') ? 'active' : '' }}"
+                            href="{{ route('admin.drivers.index') }}">
                             <i class="ni ni-delivery-fast text-primary"></i>
                             <span class="nav-link-text">Choferes</span>
                         </a>

@@ -3353,15 +3353,6 @@ var render = function render() {
   }), 0)]), _vm._v(" "), _c("h3", {
     staticClass: "d-flex justify-content-between align-items-center"
   }, [_c("b", [_vm._v("Deuda: ")]), _vm._v(" "), _c("span", [_vm._v("Bs " + _vm._s(_vm.pedido.pago_faltante))])])] : _vm._e()], 2), _vm._v(" "), _c("a", {
-    staticClass: "btn btn-success",
-    attrs: {
-      target: "_blank",
-      href: "https://api.whatsapp.com/send?&text=Hola,%0A*te%20dejo%20una%20copia*%20de%20tu%20recibo",
-      disabled: _vm.abonar
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-whatsapp"
-  }), _vm._v(" Compartir")]), _vm._v(" "), _c("a", {
     staticClass: "btn btn-danger",
     attrs: {
       disabled: _vm.abonar

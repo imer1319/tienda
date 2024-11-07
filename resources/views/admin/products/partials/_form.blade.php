@@ -40,7 +40,7 @@
 
     <div class="form-group col">
         <label>Proveedores</label>
-        <select name="provider_id" class="form-control" {{ isset($product->id) ? 'disabled' : '' }}>
+        <select name="provider_id" class="form-control" {{ isset($product->id) ? 'readonly' : '' }}>
             @foreach ($providers as $id => $name)
                 <option value="{{ $id }}"
                     {{ old('provider_id', $product->provider_id) == $id ? 'selected' : '' }}>

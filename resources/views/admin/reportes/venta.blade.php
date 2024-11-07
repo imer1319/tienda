@@ -72,7 +72,7 @@
         }
 
         .bg-blue-400 {
-            background-color: #FB6340;
+            background-color: #5e72e4;
         }
 
         /* Row and cell settings */
@@ -117,7 +117,7 @@
         }
 
         .text-blue-600 {
-            color: #FB6340;
+            color: #5e72e4;
         }
 
         .hover\:underline:hover {
@@ -195,7 +195,7 @@
             <thead class="text-xs text-white uppercase bg-blue-400">
                 <tr>
                     <td colspan="5" align="center">
-                        <p style="margin:0.5rem;">FACTURAS DE CLIENTE</p>
+                        <p style="margin:0.5rem;">DETALLE DE LA VENTA</p>
                     </td>
                 </tr>
                 <tr>

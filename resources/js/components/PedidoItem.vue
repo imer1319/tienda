@@ -65,13 +65,6 @@
             </template>
         </div>
         <a
-            target="_blank"
-            href="https://api.whatsapp.com/send?&text=Hola,%0A*te%20dejo%20una%20copia*%20de%20tu%20recibo"
-            class="btn btn-success"
-            :disabled="abonar"
-            ><i class="fa fa-whatsapp"></i> Compartir</a
-        >
-        <a
             @click.prevent="exportToPdf"
             class="btn btn-danger"
             :disabled="abonar"
