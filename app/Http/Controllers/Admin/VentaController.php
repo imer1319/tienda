@@ -2,42 +2,61 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\VentaExport;
 use App\Http\Controllers\Controller;
 use App\Models\Driver;
 use App\Models\Pedido;
+use App\Models\User;
 use App\Traits\NumeroALetra;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VentaController extends Controller
 {
     use NumeroALetra;
 
-    public function datatables()
-    {
-        $data = Pedido::with(['client', 'detalles'])
-            ->select('id', 'total', 'cliente_id', 'status', 'sale_type', 'created_at')
-            ->where('status', 'COMPLETADO');
-        return DataTables::of($data)
-            ->addColumn('client', function (Pedido $pedido) {
-                return $pedido->client->name;
-            })
-            ->addColumn('created_at', function (Pedido $pedido) {
-                return $pedido->created_at->format('M d Y H:i');
-            })
-            ->addColumn('items', function (Pedido $pedido) {
-                return count($pedido->detalles);
-            })
-            ->addColumn('btn', 'admin.ventas.partials.btn')
-            ->rawColumns(['btn'])
-            ->toJson();
-    }
-
     public function index()
     {
-        return view('admin.ventas.index');
+        $ventas = Pedido::query()
+            ->with(['client', 'detalles', 'driver'])
+            ->where('status', 'COMPLETADO')
+            ->latest()
+            ->paginate();
+
+        return view('admin.ventas.index', [
+            'ventas' => $ventas,
+            'choferes' => Driver::all(),
+            'clientes' => User::with(['profile', 'roles'])
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', 'Cliente');
+                })->get()
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $ventas = Pedido::query()
+            ->byChoferId($request->input('chofer_id'))
+            ->byClienteId($request->input('cliente_id'))
+            ->byTipoPedido($request->input('tipo_pedido'))
+            ->byDesde($request->input('desde'))
+            ->byHasta($request->input('hasta'))
+            ->where('status', 'COMPLETADO')
+            ->with(['client', 'detalles', 'driver'])
+            ->latest()
+            ->paginate();
+
+        return view('admin.ventas.index', [
+            'ventas' => $ventas,
+            'choferes' => Driver::all(),
+            'clientes' => User::with(['profile', 'roles'])
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', 'Cliente');
+                })->get()
+        ]);
     }
 
     public function show($pedido)
@@ -92,6 +111,36 @@ class VentaController extends Controller
         $numero_letra = $this->convertirNumeroALetras($venta->total);
         $pdf = Pdf::loadView('admin.reportes.venta', compact('venta', 'numero_letra'));
         $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
+
+
+    public function downloadExcel(Request $request)
+    {
+        return Excel::download(new VentaExport($request->all()), 'ventas.xlsx');
+    }
+
+    public function print(Request $request)
+    {
+        $ventas = Pedido::query()
+            ->byChoferId($request->input('chofer_id'))
+            ->byClienteId($request->input('cliente_id'))
+            ->byTipoPedido($request->input('tipo_pedido'))
+            ->byDesde($request->input('desde'))
+            ->byHasta($request->input('hasta'))
+            ->where('status', 'COMPLETADO')
+            ->with(['client', 'detalles', 'driver'])
+            ->latest()
+            ->get();
+        $totales = [
+            'total' => $ventas->sum('total')
+        ];
+        $pdf = Pdf::loadView('admin.reportes.ventas', compact('ventas', 'totales'));
+
+        $pdf->setPaper('A4', 'landscape');
+
+        $pdf->set_option('isHtml5ParserEnabled', true);
+
         return $pdf->stream();
     }
 }

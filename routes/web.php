@@ -57,8 +57,16 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::get('api/drivers', [DriverController::class, 'datatables']);
 
     // PDF
-    Route::get('/ventas/{venta}/pdf/export', [VentaController::class, 'downloadPdf'])->name('ventas.download.pdf');
+    Route::get('/venta/{venta}/pdf/export', [VentaController::class, 'downloadPdf'])->name('ventas.download.pdf');
 
+    // SEARCH
+    Route::get('venta/search', [VentaController::class, 'search'])->name('ventas.search');
+
+    // EXCEL
+    Route::get('/venta/excel/export', [VentaController::class, 'downloadExcel'])->name('ventas.download.excel');
+
+    // IMPRIMIR
+    Route::get('venta/print', [VentaController::class, 'print'])->name('ventas.download.print');
 });
 
 Route::get('/{any?}', function () {

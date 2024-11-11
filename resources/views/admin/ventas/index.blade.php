@@ -10,99 +10,31 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h3>Listado de ventas</h3>
                     </div>
-                    <table class="table" id="table-ventas">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Cliente</th>
-                                <th>Total</th>
-                                <th>Estado</th>
-                                <th>Tipo de pedido</th>
-                                <th>Items</th>
-                                <th>Fecha</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
+                    @include('admin.ventas.search')
+                    @include('admin.ventas.table')
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-@section('styles')
-    <!-- Datatables -->
-    <link href="{{ asset('admin/vendor/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/vendor/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-@endsection
-
 @section('scripts')
-    <script src="{{ asset('admin/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('admin/vendor/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#table-ventas').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "/api/ventas",
-                "columns": [{
-                        data: null,
-                        render: function(data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        },
-                        searchable: false,
-                        orderable: false
-                    },
-                    {
-                        data: 'client'
-                    },
-                    {
-                        data: 'total'
-                    },
-                    {
-                        data: 'status'
-                    },
-                    {
-                        data: 'sale_type'
-                    },
-                    {
-                        data: 'items'
-                    },
-                    {
-                        data: 'created_at'
-                    },
-                    {
-                        data: 'btn',
-                        "orderable": false,
-                        "searchable": false
-                    },
-                ],
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Entradas",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Ultimo",
-                        "next": ">>",
-                        "previous": "<<"
-                    }
-                },
-            });
-        });
+    <script type="text/javascript">
+        function search() {
+            var url = "{{ route('admin.ventas.search') }}";
+            $("#form").attr('action', url);
+            $(".btn").hide();
+            $(".btn-importar").hide();
+            $(".spinner-btn").show();
+            $("#form").submit();
+        }
+
+        function limpiar() {
+            $(".btn").hide();
+            $(".btn-importar").hide();
+            $(".spinner-btn").show();
+            window.location.href = "{{ route('admin.ventas.index') }}";
+        }
     </script>
 @endsection
+

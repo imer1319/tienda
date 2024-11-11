@@ -18,8 +18,10 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->bigInteger('stock');
+            $table->bigInteger('stock_minimo');
             $table->decimal('price');
             $table->string('image');
+            $table->date('fecha_vencimiento');
             $table->enum('estado',['ACTIVO','INACTIVO'])->default('ACTIVO');
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('provider_id')->constrained('providers')->cascadeOnDelete();
