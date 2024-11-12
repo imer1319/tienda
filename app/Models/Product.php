@@ -36,4 +36,35 @@ class Product extends Model
     {
         return 'slug';
     }
+
+    public function scopeByName($query, $name)
+    {
+        if ($name != null) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        }
+    }
+
+    public function scopeByCategoryId($query, $category_id = null)
+    {
+        if ($category_id) {
+            return $query->where('category_id', $category_id);
+        }
+        return $query;
+    }
+
+    public function scopeByDesde($query, $desde = null)
+    {
+        if ($desde) {
+            return $query->where('created_at', '>=', $desde);
+        }
+        return $query;
+    }
+
+    public function scopeByHasta($query, $hasta = null)
+    {
+        if ($hasta) {
+            return $query->where('created_at', '<=', $hasta);
+        }
+        return $query;
+    }
 }

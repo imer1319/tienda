@@ -8,6 +8,7 @@ use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Provider;
+use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\File;
 
@@ -38,8 +39,26 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('admin.products.index');
+        return view('admin.products.index', [
+            'products' => Product::with('category')->paginate(),
+            'categorias' => Category::all()
+        ]);
     }
+
+    public function search(Request $request)
+    {
+        $products = Product::query()
+            ->byCategoryId($request->input('category_id'))
+            ->byName($request->input('name'))
+            ->latest()
+            ->paginate();
+
+        return view('admin.products.index', [
+            'products' => $products,
+            'categorias' => Category::all()
+        ]);
+    }
+
 
     public function create()
     {

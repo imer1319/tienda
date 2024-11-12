@@ -58,15 +58,19 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
 
     // PDF
     Route::get('/venta/{venta}/pdf/export', [VentaController::class, 'downloadPdf'])->name('ventas.download.pdf');
+    Route::get('/producto/{product}/pdf/export', [ProductController::class, 'downloadPdf'])->name('products.download.pdf');
 
     // SEARCH
     Route::get('venta/search', [VentaController::class, 'search'])->name('ventas.search');
+    Route::get('producto/search', [ProductController::class, 'search'])->name('products.search');
 
     // EXCEL
     Route::get('/venta/excel/export', [VentaController::class, 'downloadExcel'])->name('ventas.download.excel');
+    Route::get('/producto/excel/export', [ProductController::class, 'downloadExcel'])->name('products.download.excel');
 
     // IMPRIMIR
     Route::get('venta/print', [VentaController::class, 'print'])->name('ventas.download.print');
+    Route::get('producto/print', [ProductController::class, 'print'])->name('products.download.print');
 });
 
 Route::get('/{any?}', function () {
