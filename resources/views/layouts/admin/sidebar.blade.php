@@ -36,7 +36,7 @@
                             href="{{ route('admin.procesos.index') }}">
                             <span>
                                 <i class="ni ni-delivery-fast text-primary"></i>
-                                <span class="nav-link-text">Procesos</span>
+                                <span class="nav-link-text ml-3">Procesos</span>
                             </span>
                             @if (\App\Models\Pedido::where('status', 'EN PROCESO')->count())
                                 <span class="badge badge-success">

@@ -1,5 +1,9 @@
+@can('categories_show')
+    <a href="{{ route('admin.categories.show', $slug) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+@endcan
+
 @can('categories_edit')
-    <a href="{{ route('admin.categories.edit', $slug) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+<a href="{{ route('admin.categories.edit', $slug) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 @endcan
 
 @can('categories_destroy')

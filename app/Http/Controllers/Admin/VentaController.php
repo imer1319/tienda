@@ -9,7 +9,6 @@ use App\Models\Pedido;
 use App\Models\User;
 use App\Traits\NumeroALetra;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;

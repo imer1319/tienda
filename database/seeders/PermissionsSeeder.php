@@ -86,6 +86,10 @@ class PermissionsSeeder extends Seeder
             'display_name' => 'Actualizar categorias'
         ]);
         Permission::create([
+            'name' => 'categories_show',
+            'display_name' => 'Ver categorias'
+        ]);
+        Permission::create([
             'name' => 'categories_destroy',
             'display_name' => 'Eliminar categorias'
         ]);

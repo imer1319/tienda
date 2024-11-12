@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
@@ -11,6 +12,8 @@ use App\Models\Provider;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -40,7 +43,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('admin.products.index', [
-            'products' => Product::with('category')->paginate(),
+            'products' => Product::with('category')->latest()->paginate(),
             'categorias' => Category::all()
         ]);
     }
@@ -50,6 +53,7 @@ class ProductController extends Controller
         $products = Product::query()
             ->byCategoryId($request->input('category_id'))
             ->byName($request->input('name'))
+            ->with('category')
             ->latest()
             ->paginate();
 
@@ -123,5 +127,27 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('flash', 'Producto eliminado correctamente');
+    }
+
+    public function downloadExcel(Request $request)
+    {
+        return Excel::download(new ProductExport($request->all()), 'productos.xlsx');
+    }
+
+    public function print(Request $request)
+    {
+        $productos = Product::query()
+            ->byCategoryId($request->input('category_id'))
+            ->byName($request->input('name'))
+            ->with('category')
+            ->latest()
+            ->get();
+        $pdf = Pdf::loadView('admin.reportes.productos', compact('productos'));
+
+        $pdf->setPaper('A4', 'landscape');
+
+        $pdf->set_option('isHtml5ParserEnabled', true);
+
+        return $pdf->stream();
     }
 }

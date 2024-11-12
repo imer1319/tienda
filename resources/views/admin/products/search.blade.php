@@ -26,13 +26,13 @@
                 </span>
             @endcan
             <span class="tts:right tts-slideIn tts-custom" aria-label="Exportar a excel">
-                <a href="{{ route('admin.ventas.download.excel', request()->all()) }}"
+                <a href="{{ route('admin.products.download.excel', request()->all()) }}"
                     class="btn btn-primary rounded-pill float-end">
                     <i class="fas fa-file-excel"></i>
                 </a>
             </span>
             <span class="tts:right tts-slideIn tts-custom" aria-label="Imprimir">
-                <a href="{{ route('admin.ventas.download.print', request()->all()) }}" target="_blank"
+                <a href="{{ route('admin.products.download.print', request()->all()) }}" target="_blank"
                     class="btn btn-primary rounded-pill float-end">
                     <i class="fas fa-print"></i>
                 </a>
