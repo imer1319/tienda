@@ -158,8 +158,8 @@
             <thead class="text-xs text-white uppercase bg-blue-400">
                 <tr>
                     <th style="padding: 0.2rem">#</th>
-                    <th style="padding: 0.2rem">Categoria</th>
                     <th style="padding: 0.2rem">Nombre</th>
+                    <th style="padding: 0.2rem">Categoria</th>
                     <th style="padding: 0.2rem">Stock</th>
                     <th style="padding: 0.2rem">Precio</th>
                 </tr>
