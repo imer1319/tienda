@@ -17,25 +17,25 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <td>
-                                            {{ $client->name }} {{ $client->profile->apellido_paterno }}
-                                            {{ $client->profile->apellido_materno }}
+                                            {{ $client->name }} {{ optional($client->profile)->apellido_paterno }}
+                                            {{ optional($client->profile)->apellido_materno }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Telefono</th>
-                                        <td>{{ $client->profile->phone }}</td>
+                                        <td>{{ optional($client->profile)->phone }}</td>
                                     </tr>
                                     <tr>
                                         <th>Documento</th>
-                                        <td>{{ $client->profile->ci }}</td>
+                                        <td>{{ optional($client->profile)->ci }}</td>
                                     </tr>
                                     <tr>
                                         <th>Ciudad</th>
-                                        <td>{{ $client->profile->ciudad }}</td>
+                                        <td>{{ optional($client->profile)->ciudad }}</td>
                                     </tr>
                                     <tr>
                                         <th>direccion</th>
-                                        <td>{{ $client->profile->direccion }}</td>
+                                        <td>{{ optional($client->profile)->direccion }}</td>
                                     </tr>
                                 </tbody>
                             </table>
