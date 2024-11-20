@@ -112,6 +112,7 @@ class ClientController extends Controller
         $validated = $request->validate([
             'username' => Rule::unique('users')->ignore($client->id),
             'ci' => Rule::unique('profiles')->ignore($profile->id),
+            'email' => Rule::unique('users')->ignore($client->id),
         ]);
         return DB::transaction(function () use ($request, $client) {
             $client->update([
