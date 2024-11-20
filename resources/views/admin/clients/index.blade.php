@@ -9,6 +9,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h3>Listado de clientes</h3>
+                        <a href="{{ route('admin.clients.create') }}" class="btn btn-success btn-sm"><i
+                                class="fa fa-plus"></i> Crear nuevo</a>
                     </div>
                     <table class="table" id="table-clients">
                         <thead>

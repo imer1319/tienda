@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DeudaController;
 use App\Http\Controllers\Admin\DriverController;
 use App\Http\Controllers\Admin\PedidoController;
@@ -33,9 +34,8 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('pedidos', PedidoController::class)->except(['create', 'edit']);
     Route::resource('ventas', VentaController::class)->except('destroy');
     Route::resource('procesos', ProcesoController::class)->except('destroy');
+    Route::resource('clients', ClientController::class);
     Route::get('ventas/generar/{venta}', [VentaController::class, 'edit'])->name('ventas.vender');
-    Route::get('clients', [ProfileController::class, 'index'])->name('clients.index');
-    Route::get('clients/{client}', [ProfileController::class, 'show'])->name('clients.show');
     Route::post('ventas/deudas/{pedido}', [DeudaController::class, 'store'])->name('deudas.store');
     Route::middleware('role:Admin')
         ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
@@ -46,7 +46,7 @@ Route::name('admin.')->middleware(['auth'])->group(function () {
 
     // Datatables
     Route::get('api/users', [UserController::class, 'datatables']);
-    Route::get('api/clients', [ProfileController::class, 'datatables']);
+    Route::get('api/clients', [ClientController::class, 'datatables']);
     Route::get('api/providers', [ProviderController::class, 'datatables']);
     Route::get('api/roles', [RoleController::class, 'datatables']);
     Route::get('api/categories', [CategoryController::class, 'datatables']);

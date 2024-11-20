@@ -26,12 +26,16 @@
                                         <td>{{ $client->profile->phone }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Tipo de documento</th>
-                                        <td>{{ $client->profile->document_type }}</td>
-                                    </tr>
-                                    <tr>
                                         <th>Documento</th>
                                         <td>{{ $client->profile->ci }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ciudad</th>
+                                        <td>{{ $client->profile->ciudad }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>direccion</th>
+                                        <td>{{ $client->profile->direccion }}</td>
                                     </tr>
                                 </tbody>
                             </table>

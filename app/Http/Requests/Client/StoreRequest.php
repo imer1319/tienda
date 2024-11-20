@@ -25,9 +25,13 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'apellido_paterno' => 'nullable|string|max:255',
             'apellido_materno' => 'nullable|string|max:255',
-            'ci' => 'required|string|max:255|unique:clients,ci,' . $this->route('client'),
+            'ci' => 'required|string|max:255|unique:profiles,ci,' . $this->route('client'),
             'phone' => 'nullable|string|max:255',
             'ciudad' => 'nullable|string|max:255',
             'direccion' => 'nullable|string|max:255',

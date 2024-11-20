@@ -25,17 +25,13 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $providerId = $this->route('provider');
-
+        $userId = $this->route('user'); // Obtén el ID del usuario desde la ruta o petición
         return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'apellido_paterno' => 'nullable|string|max:255',
             'apellido_materno' => 'nullable|string|max:255',
-            'ci' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('providers', 'ci')->ignore($providerId),
-            ],
             'phone' => 'nullable|string|max:255',
             'ciudad' => 'nullable|string|max:255',
             'direccion' => 'nullable|string|max:255',
