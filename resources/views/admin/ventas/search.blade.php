@@ -15,7 +15,7 @@
                 <option value="" disabled selected>-- Seleccione un cliente --</option>
                 @foreach ($clientes as $cliente)
                     <option value="{{ $cliente->id }}" {{ request('cliente_id') == $cliente->id ? 'selected' : '' }}>
-                        {{ $cliente->name }} {{ $cliente->profile->apellido_paterno }}
+                        {{ $cliente->name }} {{ optional($cliente->profile)->apellido_paterno }}
                     </option>
                 @endforeach
             </select>
