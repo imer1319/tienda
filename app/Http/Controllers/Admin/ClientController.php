@@ -33,16 +33,16 @@ class ClientController extends Controller
             ->orderBy('id', 'desc');
         return DataTables::of($users)
             ->addColumn('full_name', function ($user) {
-                return $user->name . ' ' . $user->profile->apellido_paterno . ' ' . $user->profile->apellido_materno;
+                return $user->name . ' ' . optional($user->profile)->apellido_paterno . ' ' . optional($user->profile)->apellido_materno;
             })
             ->addColumn('ci', function ($user) {
-                return $user->profile->ci;
+                return optional($user->profile)->ci;
             })
             ->addColumn('phone', function ($user) {
-                return $user->profile->phone;
+                return optional($user->profile)->phone;
             })
             ->addColumn('genero', function ($user) {
-                return $user->profile->genero;
+                return optional($user->profile)->genero;
             })
             ->addColumn('btn', 'admin.clients.partials.btn')
             ->rawColumns(['btn'])
