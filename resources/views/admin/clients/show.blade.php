@@ -40,7 +40,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-7">
+                        {{-- <div class="col-md-7">
                             <h4 class="text-center">Detalle de la venta</h4>
                             <table class="table table-bordered">
                                 <thead>
@@ -78,7 +78,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="mt-3">
